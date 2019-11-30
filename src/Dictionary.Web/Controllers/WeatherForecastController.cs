@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Dictionary.Services;
 using Dictionary.Services.Models.Word;
 using Microsoft.AspNetCore.Mvc;
@@ -39,9 +38,9 @@ namespace Dictionary.Web.Controllers
         }
 
         [HttpGet("list")]
-        public int List(int l)
+        public List<WordList> List(int l)
         {
-            return l;
+            return new WordService().List(l);
         }
 
         [HttpPost("create")]
@@ -50,7 +49,6 @@ namespace Dictionary.Web.Controllers
             IWordService wordService = new WordService();
 
             wordService.Create(new WordCreate { Name = name });
-
         }
     }
 }

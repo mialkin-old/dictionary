@@ -9,7 +9,7 @@ namespace Dictionary.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=dictionary.db");
+            optionsBuilder.UseSqlite(@"Data Source=C:\Repositories\dictionary\src\Dictionary.Database\dictionary.db");
         }
     }
 }
