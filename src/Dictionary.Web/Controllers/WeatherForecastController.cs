@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dictionary.Services;
+using Dictionary.Services.Models.Word;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -45,7 +47,10 @@ namespace Dictionary.Web.Controllers
         [HttpPost("create")]
         public void Create(string name)
         {
-            
+            IWordService wordService = new WordService();
+
+            wordService.Create(new WordCreate { Name = name });
+
         }
     }
 }
