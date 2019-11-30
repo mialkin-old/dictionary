@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dictionary.Web", "src\Dicti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dictionary.Database", "src\Dictionary.Database\Dictionary.Database.csproj", "{682CA285-65D3-4CAE-B0BB-4AD01FA7DEAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dictionary.Services", "src\Dictionary.Services\Dictionary.Services.csproj", "{82F4031A-E385-45E7-831F-0A10A4EFA87C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{682CA285-65D3-4CAE-B0BB-4AD01FA7DEAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{682CA285-65D3-4CAE-B0BB-4AD01FA7DEAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{682CA285-65D3-4CAE-B0BB-4AD01FA7DEAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82F4031A-E385-45E7-831F-0A10A4EFA87C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82F4031A-E385-45E7-831F-0A10A4EFA87C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82F4031A-E385-45E7-831F-0A10A4EFA87C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82F4031A-E385-45E7-831F-0A10A4EFA87C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
