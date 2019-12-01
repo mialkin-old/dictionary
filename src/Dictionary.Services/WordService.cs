@@ -8,19 +8,19 @@ namespace Dictionary.Services
 {
     public class WordService : IWordService
     {
-        IWordRepository repository;
-        public WordService()
+        private readonly IWordRepository _wordRepository;
+
+        public WordService(IWordRepository wordRepository)
         {
-            repository = new WordRepository();
+            _wordRepository = wordRepository;
         }
         public void Create(WordCreate word)
         {
-            repository.Create(new Word { Name = word.Name });
+            _wordRepository.Create(new Word { Name = word.Name });
         }
-
         public List<WordList> List(int languageId)
         {
-            return repository.List(languageId).ConvertAll(x => new WordList { Id = x.WordId, Name = x.Name });
+            return _wordRepository.List(languageId).ConvertAll(x => new WordList { Id = x.WordId, Name = x.Name });
         }
     }
 }

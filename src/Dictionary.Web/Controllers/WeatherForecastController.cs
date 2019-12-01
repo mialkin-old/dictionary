@@ -18,10 +18,12 @@ namespace Dictionary.Web.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IWordService _wordService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IWordService wordService)
         {
             _logger = logger;
+            _wordService = wordService;
         }
 
         [HttpGet]
@@ -40,15 +42,13 @@ namespace Dictionary.Web.Controllers
         [HttpGet("list")]
         public List<WordList> List(int l)
         {
-            return new WordService().List(l);
+            return _wordService.List(l);
         }
 
         [HttpPost("create")]
         public void Create(string name)
         {
-            IWordService wordService = new WordService();
-
-            wordService.Create(new WordCreate { Name = name });
+            _wordService.Create(new WordCreate { Name = name });
         }
     }
 }

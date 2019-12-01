@@ -6,21 +6,22 @@ namespace Dictionary.Database
 {
     public class WordRepository : IWordRepository
     {
+        public WordRepository(DictionaryDb db)
+        {
+            Db = db;
+        }
+
+        public DictionaryDb Db { get; }
+
         public void Create(Word word)
         {
-            using (var db = new DictionaryDb())
-            {
-                db.Add(word);
-                db.SaveChanges();
-            }
+            Db.Add(word);
+            Db.SaveChanges();
         }
 
         public List<Word> List(int languageId)
         {
-            using (var db = new DictionaryDb())
-            {
-                return db.Words.ToList();
-            }
+            return Db.Words.ToList();
         }
     }
 }
