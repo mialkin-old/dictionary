@@ -6,7 +6,7 @@ using Dictionary.Services.Models.Word;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Dictionary.Web.Controllers
+namespace Dictionary.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]

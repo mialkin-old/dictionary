@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Dictionary.Web
+namespace Dictionary.WebApi
 {
     public class Startup
     {
@@ -23,7 +23,7 @@ namespace Dictionary.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllersWithViews();
             services.AddDbContext<DictionaryDb>(options => options.UseSqlite("Data Source=dictionary.db"));
             services.AddTransient<IWordRepository, WordRepository>();
             services.AddTransient<IWordService, WordService>();            

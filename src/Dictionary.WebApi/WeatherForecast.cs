@@ -1,6 +1,6 @@
 using System;
 
-namespace Dictionary.Web
+namespace Dictionary.WebApi
 {
     public class WeatherForecast
     {
