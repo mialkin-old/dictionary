@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Dictionary.Database;
+using Dictionary.Database.Repositories.Word;
 using Dictionary.Services;
+using Dictionary.Services.Services.Word;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +24,6 @@ namespace Dictionary.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.Configure<DatabaseConfiguration>(Configuration.GetSection("Database"));
             services.AddDbContext<DictionaryDb>(options => options.UseSqlite("Data Source=dictionary.db"));
             services.AddTransient<IWordRepository, WordRepository>();
             services.AddTransient<IWordService, WordService>();            

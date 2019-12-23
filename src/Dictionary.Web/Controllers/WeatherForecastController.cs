@@ -40,7 +40,7 @@ namespace Dictionary.Web.Controllers
         }
 
         [HttpGet("list")]
-        public List<WordList> List(int l)
+        public List<WordListServiceModel> List(int l)
         {
             return _wordService.List(l);
         }
@@ -48,7 +48,7 @@ namespace Dictionary.Web.Controllers
         [HttpPost("create")]
         public void Create(string name)
         {
-            _wordService.Create(new WordCreate { Name = name });
+            _wordService.Create(new WordCreateServiceModel { Name = name });
         }
     }
 }

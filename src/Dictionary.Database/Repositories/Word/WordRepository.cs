@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Dictionary.Database.Models;
 
-namespace Dictionary.Database
+namespace Dictionary.Database.Repositories.Word
 {
     public class WordRepository : IWordRepository
     {
@@ -10,16 +9,15 @@ namespace Dictionary.Database
         {
             Db = db;
         }
-
         public DictionaryDb Db { get; }
 
-        public void Create(Word word)
+        public void Create(Models.WordDbModel word)
         {
             Db.Add(word);
             Db.SaveChanges();
         }
 
-        public List<Word> List(int languageId)
+        public List<Models.WordDbModel> List(int languageId)
         {
             return Db.Words.ToList();
         }
