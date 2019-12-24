@@ -24,7 +24,9 @@ namespace Dictionary.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
             services.AddDbContext<DictionaryDb>(options => options.UseSqlite("Data Source=dictionary.db"));
+            
             services.AddTransient<IWordRepository, WordRepository>();
             services.AddTransient<IWordService, WordService>();            
         }
@@ -38,6 +40,8 @@ namespace Dictionary.WebApi
             }
 
             app.UseHttpsRedirection();
+            
+            app.UseStaticFiles();
 
             app.UseRouting();
 
@@ -45,7 +49,9 @@ namespace Dictionary.WebApi
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
