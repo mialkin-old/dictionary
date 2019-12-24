@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Dictionary.Services;
 using Dictionary.Services.Models.Word;
+using Dictionary.Services.Services.Word;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 

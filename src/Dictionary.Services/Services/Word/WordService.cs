@@ -2,6 +2,7 @@
 using Dictionary.Database.Models;
 using Dictionary.Database.Repositories.Word;
 using Dictionary.Services.Models.Word;
+using Dictionary.Shared.Filters;
 
 namespace Dictionary.Services.Services.Word
 {
@@ -17,6 +18,12 @@ namespace Dictionary.Services.Services.Word
         {
             _wordRepository.Create(new WordDbModel { Name = word.Name });
         }
+
+        public List<WordListServiceModel> List(WordFilterModel filter)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public List<WordListServiceModel> List(int languageId)
         {
             return _wordRepository
