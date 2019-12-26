@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using Dictionary.Database.Models;
 
 namespace Dictionary.Database.Repositories.Word
 {
     public interface IWordRepository
     {
-        void Create(Models.WordDbModel word);
+        void Create(WordDbModel word);
 
-        List<Models.WordDbModel> List(int languageId);
+        List<WordDbModel> List(int languageId);
     }
 }

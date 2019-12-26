@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dictionary.Services;
 using Dictionary.Services.Models.Word;
 using Dictionary.Services.Services.Word;
+using Dictionary.Shared.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -41,9 +41,9 @@ namespace Dictionary.WebApi.Controllers
         }
 
         [HttpGet("list")]
-        public List<WordListServiceModel> List(int l)
+        public List<WordListServiceModel> List(WordFilterModel model)
         {
-            return _wordService.List(l);
+            return _wordService.List(model);
         }
 
         [HttpPost("create")]

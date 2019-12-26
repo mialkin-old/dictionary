@@ -1,7 +1,7 @@
 using Dictionary.Database;
 using Dictionary.Database.Repositories.Word;
-using Dictionary.Services;
 using Dictionary.Services.Services.Word;
+using Dictionary.Services.ServiceValiators.Word;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +28,8 @@ namespace Dictionary.WebApi
             services.AddDbContext<DictionaryDb>(options => options.UseSqlite("Data Source=dictionary.db"));
             
             services.AddTransient<IWordRepository, WordRepository>();
-            services.AddTransient<IWordService, WordService>();            
+            services.AddTransient<IWordService, WordService>();
+            services.AddTransient<IWordServiceValidator, WordServiceValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

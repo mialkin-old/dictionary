@@ -1,17 +1,14 @@
-﻿using System;
-using Dictionary.Services.Models;
+﻿using Dictionary.Services.Exceptions;
 using Dictionary.Shared.Filters;
 
 namespace Dictionary.Services.ServiceValiators.Word
 {
     public class WordServiceValidator: IWordServiceValidator
     {
-        public ServiceError ValidateWordFilterModel(WordFilterModel model)
+        public void ValidateWordFilterModel(WordFilterModel model)
         {
             if(model.LanguageId == null)
-                return new ServiceError("Не указан язык выборки");
-
-            return null;
+                throw new ServiceValidatorException("Не указан язык выборки");
         }
     }
 }

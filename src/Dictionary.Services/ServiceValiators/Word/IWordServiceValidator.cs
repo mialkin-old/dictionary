@@ -5,6 +5,6 @@ namespace Dictionary.Services.ServiceValiators.Word
 {
     public interface IWordServiceValidator
     {
-        ServiceError ValidateWordFilterModel(WordFilterModel model);
+        void ValidateWordFilterModel(WordFilterModel model);
     }
 }
