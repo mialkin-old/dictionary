@@ -1,4 +1,4 @@
-﻿
+﻿@model Dictionary.WebApi.ViewModels.Home.HomeIndexViewModel
 @{
     Layout = null;
 }
@@ -12,5 +12,13 @@
 </head>
 <body>
 Список слов
+    
+
+@foreach (var word in Model.Words)
+{
+    <div>
+        <b>@word.Name</b>&nbsp;&mdash;&nbsp;@word.Translation
+    </div>
+}
 </body>
 </html>

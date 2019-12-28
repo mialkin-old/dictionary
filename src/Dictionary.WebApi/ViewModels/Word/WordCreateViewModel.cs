@@ -1,9 +1,7 @@
-﻿namespace Dictionary.Services.Models.Word
+﻿namespace Dictionary.WebApi.ViewModels.Word
 {
-    public class WordListServiceModel
+    public class WordCreateViewModel
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public string Transcription { get; set; }
@@ -13,7 +11,5 @@
         public int GenderId { get; set; }
 
         public int LanguageId { get; set; }
-
-
     }
 }

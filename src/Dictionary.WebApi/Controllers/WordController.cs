@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Dictionary.Services.Models.Word;
 using Dictionary.Services.Services.Word;
 using Dictionary.WebApi.ViewModels;
+using Dictionary.WebApi.ViewModels.Word;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dictionary.WebApi.Controllers

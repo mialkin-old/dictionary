@@ -18,9 +18,9 @@ namespace Dictionary.Database.Models
         public string Transcription { get; set; }
 
         public int LanguageId { get; set; }
+        
+        public int GenderId { get; set; }
 
-        public DateTime DateAdded { get; set; }
-
-        public int Gender { get; set; }
+        public DateTime Created { get; set; }
     }
 }

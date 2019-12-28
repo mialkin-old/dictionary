@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dictionary.Database.Models;
+using Dictionary.Shared.Filters.Word;
 
 namespace Dictionary.Database.Repositories.Word
 {
@@ -8,6 +9,6 @@ namespace Dictionary.Database.Repositories.Word
     {
         Task CreateAsync(WordDto word);
 
-        List<WordDto> List(int languageId);
+        Task<IList<WordDto>> ListAsync(WordListFilter filter);
     }
 }

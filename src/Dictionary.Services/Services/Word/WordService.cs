@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Dictionary.Database.Models;
 using Dictionary.Database.Repositories.Word;
 using Dictionary.Services.Models.Word;
-using Dictionary.Services.ServiceValiators.Word;
-using Dictionary.Shared.Filters;
+using Dictionary.Shared.Filters.Word;
 
 namespace Dictionary.Services.Services.Word
 {
     public class WordService : IWordService
     {
         private readonly IWordRepository _wordRepository;
-        private readonly IWordServiceValidator _wordServiceValidator;
 
-        public WordService(IWordRepository wordRepository, IWordServiceValidator wordServiceValidator)
+        public WordService(IWordRepository wordRepository)
         {
             _wordRepository = wordRepository;
-            _wordServiceValidator = wordServiceValidator;
         }
 
         public async Task CreateAsync(WordCreateServiceModel word)
@@ -26,26 +24,27 @@ namespace Dictionary.Services.Services.Word
                 Name = word.Name,
                 Translation = word.Translation,
                 Transcription = word.Transcription,
-                Gender = word.GenderId,
+                GenderId = word.GenderId,
                 LanguageId = word.LanguageId,
-                DateAdded = DateTime.Now
+                Created = DateTime.Now
             });
         }
 
-        public List<WordListServiceModel> List(WordFilterModel filter)
+        public async Task<IList<WordListServiceModel>> ListAsync(WordListFilter filter)
         {
-            //_wordServiceValidator.ValidateWordFilterModel(filter);
+            var result = await _wordRepository.ListAsync(filter);
 
-            var result = _wordRepository.List(filter.LanguageId);
-
-            return null;
-        }
-
-        public List<WordListServiceModel> List(int languageId)
-        {
-            return _wordRepository
-                .List(languageId)
-                .ConvertAll(x => new WordListServiceModel { Id = x.WordId, Name = x.Name });
+            return result
+                .Select(x => new WordListServiceModel
+                {
+                    Id = x.WordId,
+                    Name = x.Name,
+                    GenderId = x.GenderId,
+                    Translation = x.Translation,
+                    Transcription = x.Transcription,
+                    LanguageId = x.LanguageId
+                })
+                .ToList();
         }
     }
 }
