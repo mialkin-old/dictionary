@@ -7,7 +7,7 @@ namespace Dictionary.Services.ServiceValiators.Word
     {
         public void ValidateWordFilterModel(WordFilterModel model)
         {
-            if(model.LanguageId == null)
+            if(model.LanguageId == 0)
                 throw new ServiceValidatorException("Не указан язык выборки");
         }
     }

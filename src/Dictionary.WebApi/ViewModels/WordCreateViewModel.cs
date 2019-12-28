@@ -1,6 +1,6 @@
-﻿namespace Dictionary.Services.Models.Word
+﻿namespace Dictionary.WebApi.ViewModels
 {
-    public class WordCreateServiceModel
+    public class WordCreateViewModel
     {
         public string Name { get; set; }
 

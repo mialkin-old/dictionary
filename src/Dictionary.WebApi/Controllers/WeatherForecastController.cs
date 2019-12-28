@@ -45,11 +45,5 @@ namespace Dictionary.WebApi.Controllers
         {
             return _wordService.List(model);
         }
-
-        [HttpPost("create")]
-        public void Create(string name)
-        {
-            _wordService.Create(new WordCreateServiceModel { Name = name });
-        }
     }
 }

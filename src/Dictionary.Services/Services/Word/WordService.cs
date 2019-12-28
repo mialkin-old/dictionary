@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Dictionary.Database.Models;
 using Dictionary.Database.Repositories.Word;
 using Dictionary.Services.Models.Word;
@@ -17,14 +19,22 @@ namespace Dictionary.Services.Services.Word
             _wordRepository = wordRepository;
             _wordServiceValidator = wordServiceValidator;
         }
-        public void Create(WordCreateServiceModel word)
+
+        public async Task CreateAsync(WordCreateServiceModel word)
         {
-            _wordRepository.Create(new WordDbModel { Name = word.Name });
+            await _wordRepository.CreateAsync(new WordDto {
+                Name = word.Name,
+                Translation = word.Translation,
+                Transcription = word.Transcription,
+                Gender = word.GenderId,
+                LanguageId = word.LanguageId,
+                DateAdded = DateTime.Now
+            });
         }
 
         public List<WordListServiceModel> List(WordFilterModel filter)
         {
-            _wordServiceValidator.ValidateWordFilterModel(filter);
+            //_wordServiceValidator.ValidateWordFilterModel(filter);
 
             var result = _wordRepository.List(filter.LanguageId);
 

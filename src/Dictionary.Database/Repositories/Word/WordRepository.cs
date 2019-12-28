@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Dictionary.Database.Models;
 
 namespace Dictionary.Database.Repositories.Word
@@ -12,13 +13,13 @@ namespace Dictionary.Database.Repositories.Word
         }
         public DictionaryDb Db { get; }
 
-        public void Create(WordDbModel word)
+        public async Task CreateAsync(WordDto word)
         {
             Db.Add(word);
-            Db.SaveChanges();
+            await Db.SaveChangesAsync();
         }
 
-        public List<WordDbModel> List(int languageId)
+        public List<WordDto> List(int languageId)
         {
             return Db.Words.ToList();
         }
