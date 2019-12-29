@@ -14,6 +14,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\semantic\themes\default\assets\fonts\brand-icons.svg" />
+    <None Include="wwwroot\semantic\themes\default\assets\fonts\brand-icons.woff2" />
+    <None Include="wwwroot\semantic\themes\default\assets\fonts\icons.svg" />
+    <None Include="wwwroot\semantic\themes\default\assets\fonts\icons.woff2" />
+    <None Include="wwwroot\semantic\themes\default\assets\fonts\outline-icons.svg" />
+    <None Include="wwwroot\semantic\themes\default\assets\fonts\outline-icons.woff2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

@@ -9,16 +9,67 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Словарь</title>
+    <link rel="stylesheet" type="text/css" href="/semantic/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="/semantic/semantic.min.js"></script>
+    <script src="/script.js"></script>
 </head>
 <body>
-Список слов
-    
+    <div class="ui container">
+        <div style="height: 20px"></div>
+        <div class="ui form">
+            <div class="field">
+                <div class="ui selection dropdown">
+                    <input type="hidden" name="countries" value="2">
+                    <i class="dropdown icon"></i>
+                    <div class="text"></div>
+                    <div class="menu">
+                        <div class="item" data-value="2"><i class="fr flag"></i>French</div>
+                        <div class="item" data-value="1"><i class="us flag"></i>English</div>
+                        <div class="item" data-value="3"><i class="ru flag"></i>Russian</div>
+                        <div class="item" data-value="4"><i class="ua flag"></i>Ukrainian</div>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <input type="text" name="wordc-name" placeholder="Word">
+            </div>
+            <div class="field">
+                <input type="text" name="wordc-transcription" placeholder="Transcription">
+            </div>
+            <div class="inline fields">
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input type="checkbox" tabindex="0" class="hidden">
+                        <label>m</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input type="checkbox" tabindex="0" class="hidden">
+                        <label>f</label>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <textarea rows="5" placeholder="Translation"></textarea>
+            </div>
+        </div>
+        
+        <table class="ui very basic table">
+            <tbody>
+                @foreach (var word in Model.Words)
+                {
+                    <tr>
+                        <td class="wordl" data-label="Name"><b>@word.Name</b>&nbsp;&mdash;&nbsp;@word.Translation</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-@foreach (var word in Model.Words)
-{
-    <div>
-        <b>@word.Name</b>&nbsp;&mdash;&nbsp;@word.Translation
     </div>
-}
 </body>
 </html>
