@@ -46,5 +46,10 @@ namespace Dictionary.Services.Services.Word
                 })
                 .ToList();
         }
+
+        public Task ImportAsync(IList<WordImportServiceModel> words)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

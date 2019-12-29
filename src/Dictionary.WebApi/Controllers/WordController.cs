@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Dictionary.Services.Models.Word;
 using Dictionary.Services.Services.Word;
-using Dictionary.WebApi.ViewModels;
 using Dictionary.WebApi.ViewModels.Word;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,12 +14,6 @@ namespace Dictionary.WebApi.Controllers
         public WordController(IWordService wordService)
         {
             _wordService = wordService;
-        }
-
-        [Route("list")]
-        public IActionResult List()
-        {
-            return new JsonResult(new { Count = 5, Words = new List<string> { "one", "two", "three", "four", "five" } });
         }
 
         [HttpPost]
@@ -38,5 +30,13 @@ namespace Dictionary.WebApi.Controllers
 
             return Ok();
         }
+
+        public IActionResult Import()
+        {
+
+
+            return Ok();
+        }
+
     }
 }

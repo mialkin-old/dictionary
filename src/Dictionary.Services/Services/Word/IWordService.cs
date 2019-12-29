@@ -10,5 +10,7 @@ namespace Dictionary.Services.Services.Word
         Task<IList<WordListServiceModel>> ListAsync(WordListFilter filter);
         
         Task CreateAsync(WordCreateServiceModel word);
+
+        Task ImportAsync(IList<WordImportServiceModel> words);
     }
 }
