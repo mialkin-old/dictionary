@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Dictionary.Services.Models.Word;
 using Dictionary.Services.Services.Word;
 using Dictionary.Shared.Filters.Word;
@@ -13,10 +13,12 @@ namespace Dictionary.WebApi.Controllers
     public class HomeController : Controller
     {
         private readonly IWordService _wordService;
+        private readonly IMapper _mapper;
 
-        public HomeController(IWordService wordService)
+        public HomeController(IWordService wordService, IMapper mapper)
         {
             _wordService = wordService;
+            _mapper = mapper;
         }
         public async Task<IActionResult> Index(WordListFilter filter)
         {
@@ -24,15 +26,7 @@ namespace Dictionary.WebApi.Controllers
 
             var model = new HomeIndexViewModel
             {
-                Words = words.Select(x => new WordListViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Translation = x.Translation,
-                    Transcription = x.Transcription,
-                    GenderId = x.GenderId,
-                    LanguageId = x.LanguageId,
-                }).ToList()
+                Words = _mapper.Map<List<WordListViewModel>>(words)
             };
 
             return View(model);

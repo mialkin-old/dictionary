@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Dictionary.Database\Dictionary.Database.csproj" />
     <ProjectReference Include="..\Dictionary.Shared\Dictionary.Shared.csproj" />
   </ItemGroup>

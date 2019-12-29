@@ -1,6 +1,9 @@
+using System.Reflection;
+using AutoMapper;
 using Dictionary.Database;
 using Dictionary.Database.Repositories.Word;
 using Dictionary.Services.Services.Word;
+using Dictionary.WebApi.AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +25,15 @@ namespace Dictionary.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var config = new MapperConfiguration(cfg => {
+                cfg.AddProfile<MappingProfile>();
+            });
+
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
+
+            //services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
             services.AddControllersWithViews();
 
             services.AddDbContext<DictionaryDb>(options => options.UseSqlite("Data Source=dictionary.db"));

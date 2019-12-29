@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Dictionary.Database.Models;
 using Dictionary.Database.Repositories.Word;
 using Dictionary.Services.Models.Word;
@@ -12,39 +13,27 @@ namespace Dictionary.Services.Services.Word
     public class WordService : IWordService
     {
         private readonly IWordRepository _wordRepository;
+        private readonly IMapper _mapper;
 
-        public WordService(IWordRepository wordRepository)
+        public WordService(IWordRepository wordRepository, IMapper mapper)
         {
             _wordRepository = wordRepository;
+            _mapper = mapper;
         }
 
         public async Task CreateAsync(WordCreateServiceModel word)
         {
-            await _wordRepository.CreateAsync(new WordDto {
-                Name = word.Name,
-                Translation = word.Translation,
-                Transcription = word.Transcription,
-                GenderId = word.GenderId,
-                LanguageId = word.LanguageId,
-                Created = DateTime.Now
-            });
+            WordDto model = _mapper.Map<WordDto>(word);
+            model.Created = DateTime.Now;
+
+            await _wordRepository.CreateAsync(model);
         }
 
         public async Task<IList<WordListServiceModel>> ListAsync(WordListFilter filter)
         {
-            var result = await _wordRepository.ListAsync(filter);
+            IList<WordDto> result = await _wordRepository.ListAsync(filter);
 
-            return result
-                .Select(x => new WordListServiceModel
-                {
-                    Id = x.WordId,
-                    Name = x.Name,
-                    GenderId = x.GenderId,
-                    Translation = x.Translation,
-                    Transcription = x.Transcription,
-                    LanguageId = x.LanguageId
-                })
-                .ToList();
+            return _mapper.Map<IList<WordListServiceModel>>(result);
         }
 
         public Task ImportAsync(IList<WordImportServiceModel> words)
