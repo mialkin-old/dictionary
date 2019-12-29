@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Dictionary.Services.Models.Export;
 using Dictionary.Services.Models.Word;
 using Dictionary.Shared.Filters.Word;
 
@@ -11,6 +12,6 @@ namespace Dictionary.Services.Services.Word
         
         Task CreateAsync(WordCreateServiceModel word);
 
-        Task ImportAsync(IList<WordImportServiceModel> words);
+        Task ImportAsync(IList<WordExportServiceModel> words);
     }
 }

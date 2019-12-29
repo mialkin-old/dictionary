@@ -27,13 +27,5 @@ namespace Dictionary.WebApi.Controllers
 
             return Ok();
         }
-
-        public IActionResult Import()
-        {
-
-
-            return Ok();
-        }
-
     }
 }

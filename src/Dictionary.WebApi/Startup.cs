@@ -1,4 +1,3 @@
-using System.Reflection;
 using AutoMapper;
 using Dictionary.Database;
 using Dictionary.Database.Repositories.Word;
@@ -29,10 +28,7 @@ namespace Dictionary.WebApi
                 cfg.AddProfile<MappingProfile>();
             });
 
-            IMapper mapper = config.CreateMapper();
-            services.AddSingleton(mapper);
-
-            //services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddSingleton(config.CreateMapper());
 
             services.AddControllersWithViews();
 
