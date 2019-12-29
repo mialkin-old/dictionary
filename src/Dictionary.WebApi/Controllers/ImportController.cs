@@ -3,6 +3,8 @@ using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Dictionary.Database.Models;
+using Dictionary.Database.Repositories.Word;
 using Dictionary.Services.Models.Export;
 using Dictionary.Services.Models.Word;
 using Microsoft.AspNetCore.Http;
@@ -13,9 +15,11 @@ namespace Dictionary.WebApi.Controllers
     [Route("import")]
     public class ImportController : Controller
     {
-        public ImportController()
+        private readonly IWordRepository _wordRepository;
+
+        public ImportController(IWordRepository wordRepository)
         {
-            
+            _wordRepository = wordRepository;
         }
 
         public IActionResult Index()
@@ -32,7 +36,12 @@ namespace Dictionary.WebApi.Controllers
 
             string str = Encoding.UTF8.GetString(ms.ToArray());
 
-            var words = JsonSerializer.Deserialize<List<WordExportServiceModel>>(str);
+            var words = JsonSerializer.Deserialize<List<WordDto>>(str);
+
+            //foreach (var word in words)
+            //{
+            //    await _wordRepository.CreateAsync(word);
+            //}
 
             return Ok();
         }

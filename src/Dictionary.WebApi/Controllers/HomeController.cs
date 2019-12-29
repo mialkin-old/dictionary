@@ -22,6 +22,10 @@ namespace Dictionary.WebApi.Controllers
         }
         public async Task<IActionResult> Index(WordListFilter filter)
         {
+            filter.LanguageId = 2;
+            filter.OrderByDescending = true;
+            filter.OrderByPropertyName = "Created";
+
             IList<WordListServiceModel> words = await _wordService.ListAsync(filter);
 
             var model = new HomeIndexViewModel
