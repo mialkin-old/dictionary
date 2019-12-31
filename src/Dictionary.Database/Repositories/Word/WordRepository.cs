@@ -22,6 +22,8 @@ namespace Dictionary.Database.Repositories.Word
             await Db.SaveChangesAsync();
         }
 
+        // Подумать над вынесением в RepositoryBase. Создать return ListAsync(x => x.Words)
+
         public async Task<IList<WordDto>> ListAsync(WordListFilter filter)
         {
             var result = await Db.Words
