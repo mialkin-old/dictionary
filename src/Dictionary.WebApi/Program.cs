@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Dictionary.WebApi
+namespace Dictionary.WebUi
 {
     public class Program
     {

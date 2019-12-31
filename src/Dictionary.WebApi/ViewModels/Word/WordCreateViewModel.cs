@@ -1,4 +1,4 @@
-﻿namespace Dictionary.WebApi.ViewModels.Word
+﻿namespace Dictionary.WebUi.ViewModels.Word
 {
     public class WordCreateViewModel
     {

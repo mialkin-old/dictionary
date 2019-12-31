@@ -5,12 +5,10 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Dictionary.Database.Models;
 using Dictionary.Database.Repositories.Word;
-using Dictionary.Services.Models.Export;
-using Dictionary.Services.Models.Word;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Dictionary.WebApi.Controllers
+namespace Dictionary.WebUi.Controllers
 {
     [Route("import")]
     public class ImportController : Controller

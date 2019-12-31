@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Dictionary.Database.Models;
 using Dictionary.Services.Models.Word;
-using Dictionary.WebApi.ViewModels.Word;
+using Dictionary.WebUi.ViewModels.Word;
 
-namespace Dictionary.WebApi.AutoMapper
+namespace Dictionary.WebUi.AutoMapper
 {
     public class MappingProfile : Profile
     {

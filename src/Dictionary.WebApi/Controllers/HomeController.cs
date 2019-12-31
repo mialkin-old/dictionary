@@ -4,11 +4,11 @@ using AutoMapper;
 using Dictionary.Services.Models.Word;
 using Dictionary.Services.Services.Word;
 using Dictionary.Shared.Filters.Word;
-using Dictionary.WebApi.ViewModels.Home;
-using Dictionary.WebApi.ViewModels.Word;
+using Dictionary.WebUi.ViewModels.Home;
+using Dictionary.WebUi.ViewModels.Word;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Dictionary.WebApi.Controllers
+namespace Dictionary.WebUi.Controllers
 {
     public class HomeController : Controller
     {

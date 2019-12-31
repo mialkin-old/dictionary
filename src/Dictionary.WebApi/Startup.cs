@@ -2,7 +2,7 @@ using AutoMapper;
 using Dictionary.Database;
 using Dictionary.Database.Repositories.Word;
 using Dictionary.Services.Services.Word;
-using Dictionary.WebApi.AutoMapper;
+using Dictionary.WebUi.AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Dictionary.WebApi
+namespace Dictionary.WebUi
 {
     public class Startup
     {

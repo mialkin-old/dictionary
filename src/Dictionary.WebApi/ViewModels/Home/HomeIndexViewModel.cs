@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Dictionary.WebApi.ViewModels.Word;
+using Dictionary.WebUi.ViewModels.Word;
 
-namespace Dictionary.WebApi.ViewModels.Home
+namespace Dictionary.WebUi.ViewModels.Home
 {
     public class HomeIndexViewModel
     {

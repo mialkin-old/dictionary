@@ -1,10 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyName>Dictionary.WebApi</AssemblyName>
-    <PackageId>Dictionary.WebApi</PackageId>
-    <RootNamespace>Dictionary.WebApi</RootNamespace>
+    <AssemblyName>Dictionary.WebUi</AssemblyName>
+    <PackageId>Dictionary.WebUi</PackageId>
+    <RootNamespace>Dictionary.WebUi</RootNamespace>
+    <Authors>Dictionary.WebUi</Authors>
+    <Company></Company>
+    <Product>Dictionary.WebUi</Product>
   </PropertyGroup>
 
   <ItemGroup>
