@@ -1,0 +1,19 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: dictionary-deployment
+spec:
+  selector:
+    matchLabels:
+      app: dictionary
+  replicas: 1 # tells deployment to run 1 pod matching the template
+  template:
+    metadata:
+      labels:
+        app: dictionary
+    spec:
+      containers:
+      - name: dictionary
+        image: mialkin/dictionary:1.0
+        ports:
+        - containerPort: 80
