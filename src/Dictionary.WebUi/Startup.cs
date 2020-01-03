@@ -1,6 +1,9 @@
 using AutoMapper;
 using Dictionary.Database;
 using Dictionary.Database.Repositories.Word;
+using Dictionary.Excel.Parsers;
+using Dictionary.Excel.Parsers.Word;
+using Dictionary.Services.Services.Import;
 using Dictionary.Services.Services.Word;
 using Dictionary.WebUi.AutoMapper;
 using Microsoft.AspNetCore.Builder;
@@ -36,6 +39,8 @@ namespace Dictionary.WebUi
             
             services.AddTransient<IWordRepository, WordRepository>();
             services.AddTransient<IWordService, WordService>();
+            services.AddTransient<IExcelParser<WordImportModel>, WordsImportParser>();
+            services.AddTransient<IImportService, ImportService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

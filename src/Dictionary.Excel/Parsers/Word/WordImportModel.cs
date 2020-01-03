@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Dictionary.Services.Models.Export
+namespace Dictionary.Excel.Parsers.Word
 {
-    public class WordExportServiceModel
+    public class WordImportModel
     {
         public int WordId { get; set; }
 

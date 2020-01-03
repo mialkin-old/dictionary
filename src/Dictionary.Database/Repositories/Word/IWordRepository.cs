@@ -9,6 +9,8 @@ namespace Dictionary.Database.Repositories.Word
     {
         Task CreateAsync(WordDto word);
 
+        Task CreateAsync(IEnumerable<WordDto> word);
+
         Task<IList<WordDto>> ListAsync(WordListFilter filter);
     }
 }

@@ -18,7 +18,14 @@ namespace Dictionary.Database.Repositories.Word
         // Подумать над вынесением в RepositoryBase.
         public async Task CreateAsync(WordDto word)
         {
-            Db.Add(word);
+            Db.Words.Add(word);
+            await Db.SaveChangesAsync();
+        }
+
+        public async Task CreateAsync(IEnumerable<WordDto> words)
+        {
+            // Грузить порциями по 1000 слов. Report back progress.
+            Db.Words.AddRange(words);
             await Db.SaveChangesAsync();
         }
 
