@@ -351,3 +351,5 @@ MigrationBackup/
 
 
 *.db
+*.db-shm
+*.db-wal
