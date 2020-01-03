@@ -19,15 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\semantic\themes\default\assets\fonts\brand-icons.svg" />
-    <None Include="wwwroot\semantic\themes\default\assets\fonts\brand-icons.woff2" />
-    <None Include="wwwroot\semantic\themes\default\assets\fonts\icons.svg" />
-    <None Include="wwwroot\semantic\themes\default\assets\fonts\icons.woff2" />
-    <None Include="wwwroot\semantic\themes\default\assets\fonts\outline-icons.svg" />
-    <None Include="wwwroot\semantic\themes\default\assets\fonts\outline-icons.woff2" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0">
