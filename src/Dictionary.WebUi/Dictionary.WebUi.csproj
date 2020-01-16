@@ -31,4 +31,8 @@
     <ProjectReference Include="..\Dictionary.Services\Dictionary.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>
