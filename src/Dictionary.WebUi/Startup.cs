@@ -8,6 +8,7 @@ using Dictionary.Services.Services.Word;
 using Dictionary.WebUi.AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +36,12 @@ namespace Dictionary.WebUi
 
             services.AddControllersWithViews();
 
+            // In production, the React files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/build";
+            });
+
             services.AddDbContext<DictionaryDb>(options => options.UseSqlite("Data Source=dictionary.db"));
             
             services.AddTransient<IWordRepository, WordRepository>();
@@ -54,6 +61,8 @@ namespace Dictionary.WebUi
             app.UseHttpsRedirection();
             
             app.UseStaticFiles();
+            app.UseSpaStaticFiles();
+
 
             app.UseRouting();
 
@@ -63,7 +72,17 @@ namespace Dictionary.WebUi
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action=Index}/{id?}");
+            });
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                }
             });
         }
     }
