@@ -5,7 +5,9 @@ import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
 
-import './custom.css'
+import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
+import './common.css'
+
 
 export default class App extends Component {
   static displayName = App.name;
