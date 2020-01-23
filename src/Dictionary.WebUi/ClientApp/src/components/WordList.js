@@ -15,7 +15,7 @@ export class WordList extends Component {
     return (
       <div className="word-list">
         {words.map(word =>
-          <div key={word.id} className="word-in-list">
+          <div key={word.wordId} className="word-in-list">
             <b>{word.name}</b> /{word.transcription}/ — {word.translation}
           </div>
         )}
@@ -37,7 +37,7 @@ export class WordList extends Component {
 
   async fetchWords() {
 
-    const response = await fetch('word/list?languageId=2');
+    const response = await fetch(`word/list?languageId=${this.props.languageId}`);
     const data = await response.json();
     this.setState({ words: data, loading: false });
   }

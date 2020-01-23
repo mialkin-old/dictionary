@@ -12,15 +12,26 @@ const CheckboxGroup = Checkbox.Group;
 const plainOptions = ['Apple', 'Pear', 'Orange'];
 const defaultCheckedList = ['Apple', 'Orange'];
 
-function handleChange(value) {
-  console.log(`selected ${value}`);
-}
+
 
 
 export class Home extends Component {
   static displayName = Home.name;
 
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(value) {
+    this.setState({
+      languageId: value
+    });
+    console.log(`selected ${value}`);
+  }
+
   state = {
+    languageId: "2",
     checkedList: defaultCheckedList,
     indeterminate: true,
     checkAll: false,
@@ -45,10 +56,12 @@ export class Home extends Component {
   render() {
     return (
       <div>
-        <Select defaultValue="fr" style={{ width: 120 }} onChange={handleChange}>
-          <Option value="fr">Français</Option>
-          <Option value="en">English</Option>
-          <Option value="ru">Русский</Option>
+        <Select defaultValue={this.state.languageId}
+          style={{ width: 120 }}
+          onChange={this.handleChange}>
+          <Option value="2">Français</Option>
+          <Option value="1">English</Option>
+          <Option value="3">Русский</Option>
         </Select>
         <WordSearch />
         <Input placeholder="Транскрипция" />
@@ -70,7 +83,7 @@ export class Home extends Component {
           />
         </div>
         <TextArea placeholder="Перевод" rows={4} />
-        <WordList />
+        <WordList languageId={this.state.languageId} />
       </div >
     );
   }
