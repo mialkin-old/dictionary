@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { LanguagePicker } from './LanguagePicker';
 import { Searchbar } from './Searchbar';
-import { Input } from 'antd';
+import { Input, Button } from 'antd';
 const { TextArea } = Input;
 import { Words } from './Words';
 
@@ -9,7 +9,8 @@ export class Main extends Component {
 
     state = {
         languageId: 2,
-        searchTerm: ''
+        searchTerm: '',
+        saveButtonDisabled: true
     }
 
     constructor(props) {
@@ -32,6 +33,9 @@ export class Main extends Component {
                 <TextArea rows={5}
                     placeholder='Перевод'
                     style={{ marginTop: 10 }} />
+                <Button style={{ marginTop: 10 }}
+                    disabled={this.state.saveButtonDisabled}
+                >Сохранить</Button>
                 <Words
                     languageId={this.state.languageId}
                     searchTerm={this.state.searchTerm} />
