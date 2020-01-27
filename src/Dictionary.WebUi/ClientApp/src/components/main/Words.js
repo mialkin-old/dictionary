@@ -28,11 +28,10 @@ export class Words extends Component {
     render() {
         return (
             <div>
-                Список из {this.state.words.length} слов.
                 <div className="word-list">
                     {this.state.words.map(word =>
                         <div key={word.wordId} className="word-in-list">
-                            <b>{word.name}</b> /{word.transcription}/ — {word.translation}
+                            <span className='word'>{word.name}</span> /{word.transcription}/ — {word.translation}
                         </div>
                     )}
                 </div>

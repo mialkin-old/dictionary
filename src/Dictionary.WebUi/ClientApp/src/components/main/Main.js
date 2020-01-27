@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Searchbar } from './Searchbar';
-import { Words } from './Words';
 import { LanguagePicker } from './LanguagePicker';
+import { Searchbar } from './Searchbar';
+import { Input } from 'antd';
+const { TextArea } = Input;
+import { Words } from './Words';
 
 export class Main extends Component {
 
@@ -20,11 +22,16 @@ export class Main extends Component {
     render() {
         return (
             <div>
-                Добро пожаловать {this.state.languageId}!<br />
                 <LanguagePicker
                     languageId={this.state.languageId}
                     onLanguageChange={this.handleLanguageChange} />
-                <Searchbar onSearchbarChange={this.handleSearchbarChange} />
+                <Searchbar onSearchbarChange={this.handleSearchbarChange}
+                    onKeyDown={() => { debugger; }} />
+                <Input style={{ marginTop: 10 }}
+                    placeholder='Транскрипция' />
+                <TextArea rows={5}
+                    placeholder='Перевод'
+                    style={{ marginTop: 10 }} />
                 <Words
                     languageId={this.state.languageId}
                     searchTerm={this.state.searchTerm} />
@@ -38,8 +45,11 @@ export class Main extends Component {
     }
 
     handleSearchbarChange(searchTerm) {
+        if (searchTerm === undefined)
+            searchTerm = '';
+
         this.setState({
             searchTerm: searchTerm
-        });;
+        });
     }
 }

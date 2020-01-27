@@ -30,7 +30,6 @@ namespace Dictionary.WebUi.Controllers
             return Ok();
         }
 
-
         [Route("list")]
         public async Task<IActionResult> List(WordListFilter filter)
         {
