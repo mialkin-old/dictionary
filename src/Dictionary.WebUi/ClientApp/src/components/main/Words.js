@@ -16,8 +16,11 @@ export class Words extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.languageId !== prevProps.languageId)
-        {
+        if (this.props.languageId !== prevProps.languageId) {
+            this.fetchWords();
+        }
+
+        if (this.props.searchTerm !== prevProps.searchTerm) {
             this.fetchWords();
         }
     }
@@ -26,7 +29,6 @@ export class Words extends Component {
         return (
             <div>
                 Список из {this.state.words.length} слов.
-
                 <div className="word-list">
                     {this.state.words.map(word =>
                         <div key={word.wordId} className="word-in-list">
@@ -38,7 +40,7 @@ export class Words extends Component {
     }
 
     async fetchWords() {
-        const response = await fetch(`word/list?languageId=${this.props.languageId}`);
+        const response = await fetch(`word/list?languageId=${this.props.languageId}&SearchTerm=${this.props.searchTerm}`);
         const data = await response.json();
         this.setState({ words: data });
     }

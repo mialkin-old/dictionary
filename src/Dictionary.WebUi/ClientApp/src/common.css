@@ -1,3 +1,7 @@
+html {
+    overflow-y: scroll;
+}
+
 .word-list
 {
     font-size: 16px;

@@ -12,7 +12,6 @@ export class WordSearch extends Component {
             <div>
                 <AutoComplete
                     allowClear={true}
-                    dataSource={this.state.dataSource}
                     placeholder="Слово" />
             </div>
         );

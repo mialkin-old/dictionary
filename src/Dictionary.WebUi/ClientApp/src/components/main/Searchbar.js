@@ -8,6 +8,7 @@ export class Searchbar extends Component {
                 allowClear={true}
                 dataSource={this.props.words}
                 placeholder="Слово"
+                onChange={this.props.onSearchbarChange}
                 style={{ width: '100%', marginTop: 10 }} />);
     }
 }

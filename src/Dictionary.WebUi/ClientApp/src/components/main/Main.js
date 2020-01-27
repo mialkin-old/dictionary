@@ -6,13 +6,15 @@ import { LanguagePicker } from './LanguagePicker';
 export class Main extends Component {
 
     state = {
-        languageId: 2
+        languageId: 2,
+        searchTerm: ''
     }
 
     constructor(props) {
         super(props);
 
         this.handleLanguageChange = this.handleLanguageChange.bind(this);
+        this.handleSearchbarChange = this.handleSearchbarChange.bind(this);
     }
 
     render() {
@@ -22,8 +24,10 @@ export class Main extends Component {
                 <LanguagePicker
                     languageId={this.state.languageId}
                     onLanguageChange={this.handleLanguageChange} />
-                <Searchbar />
-                <Words languageId={this.state.languageId} />
+                <Searchbar onSearchbarChange={this.handleSearchbarChange} />
+                <Words
+                    languageId={this.state.languageId}
+                    searchTerm={this.state.searchTerm} />
             </div>);
     }
 
@@ -31,5 +35,11 @@ export class Main extends Component {
         this.setState({
             languageId: id
         });
+    }
+
+    handleSearchbarChange(searchTerm) {
+        this.setState({
+            searchTerm: searchTerm
+        });;
     }
 }
