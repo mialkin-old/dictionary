@@ -2,7 +2,7 @@ html {
     overflow-y: scroll;
 }
 
-#language-select, #word, #transcription, #translation {
+#language-select, #name, #transcription, #translation {
     width: 100%;
     margin-top: 10px;
 }
