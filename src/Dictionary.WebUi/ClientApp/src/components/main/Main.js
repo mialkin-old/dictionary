@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import { LanguagePicker } from './LanguagePicker';
-import { Searchbar } from './Searchbar';
-import { Input, Button } from 'antd';
-const { TextArea } = Input;
 import { Words } from './Words';
 
 export class Main extends Component {
 
     state = {
         languageId: 2,
-        searchTerm: '',
+        word: '',
         saveButtonDisabled: true
     }
 
@@ -18,42 +14,53 @@ export class Main extends Component {
 
         this.handleLanguageChange = this.handleLanguageChange.bind(this);
         this.handleSearchbarChange = this.handleSearchbarChange.bind(this);
+        this.handleSearchbarKeyDown = this.handleSearchbarKeyDown.bind(this);
     }
 
     render() {
         return (
             <div>
-                <LanguagePicker
-                    languageId={this.state.languageId}
-                    onLanguageChange={this.handleLanguageChange} />
-                <Searchbar onSearchbarChange={this.handleSearchbarChange}
-                    onKeyDown={() => { debugger; }} />
-                <Input style={{ marginTop: 10 }}
-                    placeholder='Транскрипция' />
-                <TextArea rows={5}
-                    placeholder='Перевод'
-                    style={{ marginTop: 10 }} />
-                <Button style={{ marginTop: 10 }}
-                    disabled={this.state.saveButtonDisabled}
-                >Сохранить</Button>
+                <select id="language-select"
+                    onChange={this.handleLanguageChange}>
+                    <option value={2}>Français</option>
+                    <option value={1}>English</option>
+                    <option value={4}>Русский</option>
+                </select>
+                <input id="word"
+                    value={this.state.word}
+                    onChange={this.handleSearchbarChange}
+                    onKeyDown={this.handleSearchbarKeyDown}
+                    placeholder="Слово"></input>
+                <input id="transcription"
+                    placeholder="Транскрипция"></input>
+                <textarea id="translation"
+                    placeholder="Перевод"
+                    rows="5"></textarea>
+                <button id="save-btn"
+                    disabled={this.state.saveButtonDisabled}>Сохранить</button>
                 <Words
                     languageId={this.state.languageId}
-                    searchTerm={this.state.searchTerm} />
+                    searchTerm={this.state.word} />
             </div>);
     }
 
-    handleLanguageChange(id) {
+    handleLanguageChange(e) {
         this.setState({
-            languageId: id
+            languageId: e.target.value
         });
     }
 
-    handleSearchbarChange(searchTerm) {
-        if (searchTerm === undefined)
-            searchTerm = '';
-
+    handleSearchbarChange(e) {
         this.setState({
-            searchTerm: searchTerm
+            word: e.target.value
         });
+    }
+
+    handleSearchbarKeyDown(e) {
+        if (e.keyCode === 27) {
+            this.setState({
+                word: ''
+            });
+        }
     }
 }
