@@ -7,7 +7,8 @@ export class Main extends Component {
         languageId: 2,
         name: '',
         transcription: '',
-        translation: ''
+        translation: '',
+        words: []
     }
 
     constructor(props) {
@@ -20,6 +21,10 @@ export class Main extends Component {
         this.handleTranslationChange = this.handleTranslationChange.bind(this);
 
         this.handleSave = this.handleSave.bind(this);
+    }
+
+    componentDidMount() {
+        this.fetchWords();
     }
 
     render() {
@@ -48,15 +53,15 @@ export class Main extends Component {
                 <button id="save-btn"
                     disabled={saveDisabled}
                     onClick={this.handleSave}>Сохранить</button>
-                <Words
-                    languageId={this.state.languageId}
-                    searchTerm={this.state.name} />
+                <Words words={this.state.words} />
             </div>);
     }
 
     handleLanguageChange(e) {
         this.setState({
             languageId: e.target.value
+        }, () => {
+            this.fetchWords();
         });
     }
 
@@ -100,5 +105,14 @@ export class Main extends Component {
                 Translation: this.state.translation
             })
         })
+    }
+
+    async fetchWords() {
+        let url = `word/list?languageId=${this.state.languageId}&searchTerm=${this.state.name}`;
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        this.setState({ words: data });
     }
 }
