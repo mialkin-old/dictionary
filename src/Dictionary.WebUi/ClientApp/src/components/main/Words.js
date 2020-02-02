@@ -6,8 +6,10 @@ export class Words extends Component {
             <div>
                 <div className="word-list">
                     {this.props.words.map(word =>
-                        <div key={word.wordId} className="word-in-list">
-                            <span className='word'>{word.name}</span> /{word.transcription}/ — {word.translation}
+                        <div key={word.wordId}
+                            className="word-in-list">
+                            <span className='word'
+                                onClick={() => { this.props.onWordSelect(word); }}>{word.name}</span> /{word.transcription}/ — {word.translation}
                         </div>
                     )}
                 </div>

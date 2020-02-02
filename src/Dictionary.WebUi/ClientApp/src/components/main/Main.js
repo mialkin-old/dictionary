@@ -5,9 +5,12 @@ export class Main extends Component {
 
     state = {
         languageId: 2,
-        name: '',
-        transcription: '',
-        translation: '',
+        word: {
+            id: null,
+            name: '',
+            transcription: '',
+            translation: '',
+        },
         words: []
     }
 
@@ -19,6 +22,8 @@ export class Main extends Component {
         this.handleNameInputKeyDown = this.handleNameInputKeyDown.bind(this);
         this.handleTranscriptionChange = this.handleTranscriptionChange.bind(this);
         this.handleTranslationChange = this.handleTranslationChange.bind(this);
+
+        this.handleSelectWord = this.handleSelectWord.bind(this);
 
         this.handleSave = this.handleSave.bind(this);
     }
@@ -53,7 +58,8 @@ export class Main extends Component {
                 <button id="save-btn"
                     disabled={saveDisabled}
                     onClick={this.handleSave}>Сохранить</button>
-                <Words words={this.state.words} />
+                <Words words={this.state.words}
+                    onWordSelect={this.handleSelectWord} />
             </div>);
     }
 
@@ -81,7 +87,10 @@ export class Main extends Component {
 
     handleTranscriptionChange(e) {
         this.setState({
-            transcription: e.target.value
+            word: {
+                ...this.state.word,
+                transcription: e.target.value
+            }
         });
     }
 
@@ -114,5 +123,9 @@ export class Main extends Component {
         const data = await response.json();
 
         this.setState({ words: data });
+    }
+
+    handleSelectWord(word) {
+        debugger;
     }
 }
