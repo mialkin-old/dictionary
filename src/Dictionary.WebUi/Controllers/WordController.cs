@@ -4,6 +4,7 @@ using AutoMapper;
 using Dictionary.Services.Models.Word;
 using Dictionary.Services.Services.Word;
 using Dictionary.Shared.Filters.Word;
+using Dictionary.WebUi.Misc;
 using Dictionary.WebUi.ViewModels.Word;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,25 @@ namespace Dictionary.WebUi.Controllers
         [HttpPost]
         [Route("create")]
         public async Task<IActionResult> Create([FromBody]WordCreateViewModel model)
+        {
+            if (await _wordService.WordExists(model.Name, model.LanguageId))
+            {
+                var result = new StandardResult<Empty>
+                {
+                    Error = $"Word (name: \"{model.Name}\", language ID: {model.LanguageId}) already exists. It was not saved."
+                };
+
+                return Ok(result);
+            }
+
+            int id = await _wordService.CreateAsync(_mapper.Map<WordCreateServiceModel>(model));
+
+            return Ok(new StandardResult<int>{Data = id});
+        }
+
+        [HttpPost]
+        [Route("update")]
+        public async Task<IActionResult> Update([FromBody]WordUpdateViewModel model)
         {
             await _wordService.CreateAsync(_mapper.Map<WordCreateServiceModel>(model));
 

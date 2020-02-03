@@ -7,9 +7,13 @@ namespace Dictionary.Database.Repositories.Word
 {
     public interface IWordRepository
     {
-        Task CreateAsync(WordDto word);
+        Task<int> CreateAsync(WordDto word);
 
         Task CreateAsync(IEnumerable<WordDto> word);
+
+        Task UpdateAsync(WordDto word);
+
+        Task<WordDto> GetByNameAsync(string name, int languageId);
 
         Task<IList<WordDto>> ListAsync(WordListFilter filter);
     }

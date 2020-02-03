@@ -12,9 +12,11 @@ namespace Dictionary.WebUi.AutoMapper
         {
             // ViewModels
             CreateMap<WordCreateViewModel, WordCreateServiceModel>();
+            CreateMap<WordUpdateViewModel, WordUpdateServiceModel>();
 
             // ServiceModels
             CreateMap<WordCreateServiceModel, WordDto>();
+            CreateMap<WordUpdateServiceModel, WordDto>();
             CreateMap<WordListServiceModel, WordListViewModel>();
             CreateMap<WordImportModel, WordDto>();
 

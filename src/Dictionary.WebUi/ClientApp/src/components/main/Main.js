@@ -8,6 +8,7 @@ export class Main extends Component {
         word: {
             id: null,
             name: '',
+            gender: null,
             transcription: '',
             translation: '',
         },
@@ -19,22 +20,36 @@ export class Main extends Component {
 
         this.handleLanguageChange = this.handleLanguageChange.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
-        this.handleNameInputKeyDown = this.handleNameInputKeyDown.bind(this);
         this.handleTranscriptionChange = this.handleTranscriptionChange.bind(this);
         this.handleTranslationChange = this.handleTranslationChange.bind(this);
 
         this.handleSelectWord = this.handleSelectWord.bind(this);
 
         this.handleSave = this.handleSave.bind(this);
+        this.create = this.create.bind(this);
+        this.update = this.update.bind(this);
+
+        this.clean = this.clean.bind(this);
+        this.escFunction = this.escFunction.bind(this);
+    }
+
+    escFunction() {
+        this.clean('');
     }
 
     componentDidMount() {
+        document.addEventListener("keydown", this.escFunction, false);
+
         this.fetchWords();
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.escFunction, false);
     }
 
     render() {
         let saveDisabled =
-            !(this.state.name.length > 0 && this.state.translation.length > 0);
+            !(this.state.word.name.length > 0 && this.state.word.translation.length > 0);
 
         return (
             <div>
@@ -45,13 +60,15 @@ export class Main extends Component {
                     <option value={4}>Русский</option>
                 </select>
                 <input id="name"
+                    value={this.state.word.name}
                     onChange={(this.handleNameChange)}
-                    onKeyDown={this.handleNameInputKeyDown}
                     placeholder="Слово"></input>
                 <input id="transcription"
+                    value={this.state.word.transcription}
                     onChange={(this.handleTranscriptionChange)}
                     placeholder="Транскрипция"></input>
                 <textarea id="translation"
+                    value={this.state.word.translation}
                     placeholder="Перевод"
                     onChange={(this.handleTranslationChange)}
                     rows="5"></textarea>
@@ -72,20 +89,11 @@ export class Main extends Component {
     }
 
     handleNameChange(e) {
-        this.setState({
-            name: e.target.value
-        });
-    }
-
-    handleNameInputKeyDown(e) {
-        if (e.keyCode === 27) {
-            this.setState({
-                name: ''
-            });
-        }
+        this.clean(e.target.value);
     }
 
     handleTranscriptionChange(e) {
+        debugger;
         this.setState({
             word: {
                 ...this.state.word,
@@ -96,12 +104,21 @@ export class Main extends Component {
 
     handleTranslationChange(e) {
         this.setState({
-            translation: e.target.value
+            word: {
+                ...this.state.word,
+                translation: e.target.value
+            }
         });
     }
 
     handleSave() {
-        fetch('word/create', {
+        this.state.word.id == null ?
+            this.create() :
+            this.update();
+    }
+
+    async create() {
+        const response = await fetch('word/create', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -109,15 +126,54 @@ export class Main extends Component {
             },
             body: JSON.stringify({
                 LanguageId: this.state.languageId,
-                Name: this.state.name,
-                Transcription: this.state.transcription,
-                Translation: this.state.translation
+                Name: this.state.word.name,
+                Transcription: this.state.word.transcription,
+                Translation: this.state.word.translation
             })
-        })
+        });
+
+        const data = await response.json();
+
+        debugger;
+    }
+
+    async update() {
+        const response = await fetch('word/update', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                WordId: this.state.word.id,
+                LanguageId: this.state.languageId,
+                Name: this.state.word.name,
+                Transcription: this.state.word.transcription,
+                Translation: this.state.word.translation
+            })
+        });
+
+        const data = await response.json();
+
+        debugger;
+    }
+
+    clean(val) {
+        this.setState({
+            word: {
+                id: null,
+                name: val,
+                gender: null,
+                transcription: '',
+                translation: ''
+            }
+        }, () => {
+            this.fetchWords();
+        });
     }
 
     async fetchWords() {
-        let url = `word/list?languageId=${this.state.languageId}&searchTerm=${this.state.name}`;
+        let url = `word/list?languageId=${this.state.languageId}&searchTerm=${this.state.word.name}`;
 
         const response = await fetch(url);
         const data = await response.json();
@@ -127,5 +183,15 @@ export class Main extends Component {
 
     handleSelectWord(word) {
         debugger;
+        this.setState({
+            word: {
+                id: word.wordId,
+                name: word.name,
+                gender: word.genderId,
+                transcription: word.transcription,
+                translation: word.translation
+            },
+            words: []
+        });
     }
 }

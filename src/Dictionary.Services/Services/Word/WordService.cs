@@ -20,14 +20,29 @@ namespace Dictionary.Services.Services.Word
             _mapper = mapper;
         }
 
-        public async Task CreateAsync(WordCreateServiceModel word)
+        public async Task<int> CreateAsync(WordCreateServiceModel model)
         {
-            WordDto model = _mapper.Map<WordDto>(word);
-            model.Created = DateTime.Now;
+            WordDto word = _mapper.Map<WordDto>(model);
+            word.Created = DateTime.Now;
 
-            await _wordRepository.CreateAsync(model);
+            int id = await _wordRepository.CreateAsync(word);
+
+            return id;
         }
 
+        public async Task UpdateAsync(WordUpdateServiceModel model)
+        {
+            WordDto word = _mapper.Map<WordDto>(model);
+
+            await _wordRepository.UpdateAsync(word);
+        }
+
+        public async Task<bool> WordExists(string name, int languageId)
+        {
+            WordDto word = await _wordRepository.GetByNameAsync(name, languageId);
+
+            return word != null;
+        }
         public async Task<IList<WordListServiceModel>> ListAsync(WordListFilter filter)
         {
             IList<WordDto> result = await _wordRepository.ListAsync(filter);

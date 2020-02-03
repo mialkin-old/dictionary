@@ -17,10 +17,12 @@ namespace Dictionary.Database.Repositories.Word
         public DictionaryDb Db { get; }
 
         // Подумать над вынесением в RepositoryBase.
-        public async Task CreateAsync(WordDto word)
+        public async Task<int> CreateAsync(WordDto word)
         {
             Db.Words.Add(word);
             await Db.SaveChangesAsync();
+
+            return word.WordId;
         }
 
         public async Task CreateAsync(IEnumerable<WordDto> words)
@@ -28,6 +30,21 @@ namespace Dictionary.Database.Repositories.Word
             // Грузить порциями по 1000 слов. Report back progress.
             Db.Words.AddRange(words);
             await Db.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(WordDto word)
+        {
+            Db.Words.Update(word);
+            await Db.SaveChangesAsync();
+        }
+
+        public async Task<WordDto> GetByNameAsync(string name, int languageId)
+        {
+            var word = await Db.Words
+                .Where(x => x.LanguageId == languageId && string.Equals(x.Name, name))
+                .FirstOrDefaultAsync();
+
+            return word;
         }
 
         // Подумать над вынесением в RepositoryBase. Создать return ListAsync(x => x.Words)
