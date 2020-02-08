@@ -8,7 +8,7 @@ export class Main extends Component {
         word: {
             id: null,
             name: '',
-            gender: null,
+            genderId: null,
             transcription: '',
             translation: '',
         },
@@ -33,8 +33,10 @@ export class Main extends Component {
         this.escFunction = this.escFunction.bind(this);
     }
 
-    escFunction() {
-        this.clean('');
+    escFunction(event) {
+        if (event.keyCode === 27) { // Escape key pressed.
+            this.clean();
+        }
     }
 
     componentDidMount() {
@@ -61,16 +63,16 @@ export class Main extends Component {
                 </select>
                 <input id="name"
                     value={this.state.word.name}
-                    onChange={(this.handleNameChange)}
+                    onChange={this.handleNameChange}
                     placeholder="Слово"></input>
                 <input id="transcription"
                     value={this.state.word.transcription}
-                    onChange={(this.handleTranscriptionChange)}
+                    onChange={this.handleTranscriptionChange}
                     placeholder="Транскрипция"></input>
                 <textarea id="translation"
                     value={this.state.word.translation}
                     placeholder="Перевод"
-                    onChange={(this.handleTranslationChange)}
+                    onChange={this.handleTranslationChange}
                     rows="5"></textarea>
                 <button id="save-btn"
                     disabled={saveDisabled}
@@ -93,7 +95,6 @@ export class Main extends Component {
     }
 
     handleTranscriptionChange(e) {
-        debugger;
         this.setState({
             word: {
                 ...this.state.word,
@@ -130,14 +131,14 @@ export class Main extends Component {
                 Transcription: this.state.word.transcription,
                 Translation: this.state.word.translation
             })
+        }).then((response) => {
+            this.clean();
         });
-
-        const data = await response.json();
-
-        debugger;
     }
 
     async update() {
+        let word = this.state.word;
+
         const response = await fetch('word/update', {
             method: 'POST',
             headers: {
@@ -145,25 +146,25 @@ export class Main extends Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                WordId: this.state.word.id,
+                WordId: word.id,
                 LanguageId: this.state.languageId,
-                Name: this.state.word.name,
-                Transcription: this.state.word.transcription,
-                Translation: this.state.word.translation
+                GenderId: word.genderId,
+                Name: word.name,
+                Transcription: word.transcription,
+                Translation: word.translation
             })
+        }).then((response) => {
+            this.clean();
         });
 
-        const data = await response.json();
-
-        debugger;
     }
 
-    clean(val) {
+    clean(name = '') {
         this.setState({
             word: {
                 id: null,
-                name: val,
-                gender: null,
+                name: name,
+                genderId: null,
                 transcription: '',
                 translation: ''
             }
@@ -182,12 +183,11 @@ export class Main extends Component {
     }
 
     handleSelectWord(word) {
-        debugger;
         this.setState({
             word: {
                 id: word.wordId,
                 name: word.name,
-                gender: word.genderId,
+                genderId: word.genderId,
                 transcription: word.transcription,
                 translation: word.translation
             },

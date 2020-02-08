@@ -38,14 +38,14 @@ namespace Dictionary.WebUi.Controllers
 
             int id = await _wordService.CreateAsync(_mapper.Map<WordCreateServiceModel>(model));
 
-            return Ok(new StandardResult<int>{Data = id});
+            return Ok(new StandardResult<int> { Data = id });
         }
 
         [HttpPost]
         [Route("update")]
         public async Task<IActionResult> Update([FromBody]WordUpdateViewModel model)
         {
-            await _wordService.CreateAsync(_mapper.Map<WordCreateServiceModel>(model));
+            await _wordService.UpdateAsync(_mapper.Map<WordUpdateServiceModel>(model));
 
             return Ok();
         }

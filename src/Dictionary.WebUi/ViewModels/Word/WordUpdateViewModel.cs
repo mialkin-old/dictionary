@@ -2,7 +2,9 @@
 {
     public class WordUpdateViewModel
     {
-        public string WordId { get; set; }
+        public int WordId { get; set; }
+
+        public string Name { get; set; }
 
         public string Transcription { get; set; }
 

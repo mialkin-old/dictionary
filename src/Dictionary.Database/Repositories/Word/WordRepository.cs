@@ -34,8 +34,17 @@ namespace Dictionary.Database.Repositories.Word
 
         public async Task UpdateAsync(WordDto word)
         {
-            Db.Words.Update(word);
-            await Db.SaveChangesAsync();
+            var entity = Db.Words.FirstOrDefault(x => x.WordId == word.WordId);
+
+            if (entity != null)
+            {
+                entity.GenderId = word.GenderId;
+                entity.Transcription = word.Transcription;
+                entity.Translation = word.Translation;
+
+                Db.Words.Update(entity);
+                await Db.SaveChangesAsync();
+            }
         }
 
         public async Task<WordDto> GetByNameAsync(string name, int languageId)
