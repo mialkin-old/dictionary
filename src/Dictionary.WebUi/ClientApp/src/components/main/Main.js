@@ -28,6 +28,8 @@ export class Main extends Component {
         this.handleSave = this.handleSave.bind(this);
         this.create = this.create.bind(this);
         this.update = this.update.bind(this);
+        this.delete = this.delete.bind(this);
+
 
         this.clean = this.clean.bind(this);
         this.escFunction = this.escFunction.bind(this);
@@ -61,14 +63,22 @@ export class Main extends Component {
                     <option value={1}>English</option>
                     <option value={4}>Русский</option>
                 </select>
-                <input id="name"
-                    value={this.state.word.name}
-                    onChange={this.handleNameChange}
-                    placeholder="Слово"></input>
-                <input id="transcription"
-                    value={this.state.word.transcription}
-                    onChange={this.handleTranscriptionChange}
-                    placeholder="Транскрипция"></input>
+                <div id="name-translation-container">
+                    <input id="name"
+                        value={this.state.word.name}
+                        onChange={this.handleNameChange}
+                        placeholder="Слово"></input>
+
+                    <input id="transcription"
+                        value={this.state.word.transcription}
+                        onChange={this.handleTranscriptionChange}
+                        placeholder="Транскрипция"></input>
+
+                    <label id="clean-label"
+                        onClick={() => this.clean('')}>Очистить</label>
+                    <label id="delete-label"
+                        onClick={this.delete}>Удалить</label>
+                </div>
                 <textarea id="translation"
                     value={this.state.word.translation}
                     placeholder="Перевод"
@@ -86,7 +96,7 @@ export class Main extends Component {
         this.setState({
             languageId: e.target.value
         }, () => {
-            this.fetchWords();
+            this.clean();
         });
     }
 
@@ -159,6 +169,26 @@ export class Main extends Component {
 
     }
 
+    async delete() {
+        let word = this.state.word;
+        if (word.id != null) {
+            if (window.confirm(`Удалить слово "${word.name}"?`)) {
+                const response = await fetch('word/delete', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        Id: word.id,
+                    })
+                }).then((response) => {
+                    this.clean();
+                });
+            }
+        }
+    }
+
     clean(name = '') {
         this.setState({
             word: {
@@ -174,7 +204,13 @@ export class Main extends Component {
     }
 
     async fetchWords() {
-        let url = `word/list?languageId=${this.state.languageId}&searchTerm=${this.state.word.name}`;
+        let url = `word/list?l=${this.state.languageId}`;
+
+        let term = this.state.word.name.trim();
+
+        if (term != '') {
+            url += '&q=' + term;
+        }
 
         const response = await fetch(url);
         const data = await response.json();

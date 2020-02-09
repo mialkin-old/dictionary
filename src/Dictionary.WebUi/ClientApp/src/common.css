@@ -2,9 +2,30 @@ html {
     overflow-y: scroll;
 }
 
-#language-select, #name, #transcription, #translation {
+#language-select, #translation {
     width: 100%;
     margin-top: 10px;
+}
+
+#name-translation-container {
+    margin-top: 10px;
+}
+
+#name-translation-container #name {
+    width: 150px;
+}
+
+#name-translation-container #transcription {
+    width: 150px;
+    margin-left: 20px;
+}
+
+#name-translation-container #clean-label {
+    margin-left: 20px;
+}
+
+#name-translation-container #delete-label {
+    margin-left: 20px;
 }
 
 #save-btn {
@@ -17,6 +38,16 @@ html {
     font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
     color: black;
     margin-top: 20px;
+}
+
+
+.word-list .transcription-container {
+    display: inline-block;
+}
+
+
+.word-list .transcription-container .transcription {
+    font-style: italic;
 }
 
 .dict-container {

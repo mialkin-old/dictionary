@@ -2,8 +2,8 @@
 {
     public class WordListFilter : ListFilter
     {
-        public int? LanguageId { get; set; }
+        public int? L { get; set; }
 
-        public string SearchTerm { get; set; }
+        public string Q { get; set; }
     }
 }

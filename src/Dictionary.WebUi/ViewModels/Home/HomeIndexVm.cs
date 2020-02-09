@@ -3,8 +3,8 @@ using Dictionary.WebUi.ViewModels.Word;
 
 namespace Dictionary.WebUi.ViewModels.Home
 {
-    public class HomeIndexViewModel
+    public class HomeIndexVm
     {
-        public List<WordListViewModel> Words { get; set; }
+        public List<WordListVm> Words { get; set; }
     }
 }

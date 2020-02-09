@@ -1,6 +1,6 @@
 ﻿namespace Dictionary.WebUi.ViewModels.Word
 {
-    public class WordListViewModel
+    public class WordListVm
     {
         public int Id { get; set; }
 

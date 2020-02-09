@@ -8,7 +8,7 @@ export class Words extends Component {
                     {this.props.words.map(word => {
                         let transcription = '';
                         if (word.transcription != '') {
-                            transcription = ` /${word.transcription}/`;
+                            transcription = <div className="transcription-container">/<span className="transcription">{word.transcription}</span>/</div>
                         }
 
                         return <div key={word.wordId}
@@ -16,7 +16,7 @@ export class Words extends Component {
                             <span
                                 className='word'
                                 onClick={() => { this.props.onWordSelect(word); }}
-                            >{word.name}</span>{transcription} — {word.translation}
+                            >{word.name}</span> {transcription} — {word.translation}
                         </div>
                     }
                     )}

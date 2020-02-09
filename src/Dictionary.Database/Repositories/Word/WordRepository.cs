@@ -34,7 +34,7 @@ namespace Dictionary.Database.Repositories.Word
 
         public async Task UpdateAsync(WordDto word)
         {
-            var entity = Db.Words.FirstOrDefault(x => x.WordId == word.WordId);
+            var entity = Db.Words.Find(word.WordId);
 
             if (entity != null)
             {
@@ -45,6 +45,13 @@ namespace Dictionary.Database.Repositories.Word
                 Db.Words.Update(entity);
                 await Db.SaveChangesAsync();
             }
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            WordDto word = await Db.Words.FindAsync(id);
+            Db.Words.Remove(word);
+            await Db.SaveChangesAsync();
         }
 
         public async Task<WordDto> GetByNameAsync(string name, int languageId)
@@ -62,14 +69,14 @@ namespace Dictionary.Database.Repositories.Word
         {
             var query = Db.Words.AsQueryable();
 
-            if (filter.LanguageId != null)
+            if (filter.L != null)
             {
-                query = query.Where(x => x.LanguageId == filter.LanguageId);
+                query = query.Where(x => x.LanguageId == filter.L);
             }
 
-            if (!string.IsNullOrWhiteSpace(filter.SearchTerm))
+            if (!string.IsNullOrWhiteSpace(filter.Q))
             {
-                query = query.Where(x => x.Name.StartsWith(filter.SearchTerm));
+                query = query.Where(x => x.Name.StartsWith(filter.Q));
             }
 
             if (!string.IsNullOrWhiteSpace(filter.OrderByPropertyName))

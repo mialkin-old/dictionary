@@ -11,13 +11,13 @@ namespace Dictionary.WebUi.AutoMapper
         public MappingProfile()
         {
             // ViewModels
-            CreateMap<WordCreateViewModel, WordCreateServiceModel>();
-            CreateMap<WordUpdateViewModel, WordUpdateServiceModel>();
+            CreateMap<WordCreateVm, WordCreateServiceModel>();
+            CreateMap<WordUpdateVm, WordUpdateServiceModel>();
 
             // ServiceModels
             CreateMap<WordCreateServiceModel, WordDto>();
             CreateMap<WordUpdateServiceModel, WordDto>();
-            CreateMap<WordListServiceModel, WordListViewModel>();
+            CreateMap<WordListServiceModel, WordListVm>();
             CreateMap<WordImportModel, WordDto>();
 
             // Dtos

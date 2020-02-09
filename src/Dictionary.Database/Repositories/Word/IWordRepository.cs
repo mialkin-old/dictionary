@@ -13,6 +13,8 @@ namespace Dictionary.Database.Repositories.Word
 
         Task UpdateAsync(WordDto word);
 
+        Task DeleteAsync(int id);
+
         Task<WordDto> GetByNameAsync(string name, int languageId);
 
         Task<IList<WordDto>> ListAsync(WordListFilter filter);

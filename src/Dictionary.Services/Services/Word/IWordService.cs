@@ -13,6 +13,8 @@ namespace Dictionary.Services.Services.Word
 
         Task UpdateAsync(WordUpdateServiceModel model);
 
+        Task DeleteAsync(int id);
+
         Task<bool> WordExists(string name, int languageId);
     }
 }

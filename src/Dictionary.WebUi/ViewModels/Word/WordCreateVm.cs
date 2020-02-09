@@ -1,6 +1,6 @@
 ﻿namespace Dictionary.WebUi.ViewModels.Word
 {
-    public class WordCreateViewModel
+    public class WordCreateVm
     {
         public string Name { get; set; }
 

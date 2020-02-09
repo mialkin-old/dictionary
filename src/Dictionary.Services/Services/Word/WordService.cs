@@ -37,6 +37,11 @@ namespace Dictionary.Services.Services.Word
             await _wordRepository.UpdateAsync(word);
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            await _wordRepository.DeleteAsync(id);
+        }
+
         public async Task<bool> WordExists(string name, int languageId)
         {
             WordDto word = await _wordRepository.GetByNameAsync(name, languageId);

@@ -24,7 +24,7 @@ namespace Dictionary.WebUi.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> Create([FromBody]WordCreateViewModel model)
+        public async Task<IActionResult> Create([FromBody]WordCreateVm model)
         {
             if (await _wordService.WordExists(model.Name, model.LanguageId))
             {
@@ -43,9 +43,18 @@ namespace Dictionary.WebUi.Controllers
 
         [HttpPost]
         [Route("update")]
-        public async Task<IActionResult> Update([FromBody]WordUpdateViewModel model)
+        public async Task<IActionResult> Update([FromBody]WordUpdateVm model)
         {
             await _wordService.UpdateAsync(_mapper.Map<WordUpdateServiceModel>(model));
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("delete")]
+        public async Task<IActionResult> Delete([FromBody] WordDeleteVm model)
+        {
+            await _wordService.DeleteAsync(model.Id);
 
             return Ok();
         }
