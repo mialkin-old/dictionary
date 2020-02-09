@@ -94,7 +94,7 @@ export class Main extends Component {
 
     handleLanguageChange(e) {
         this.setState({
-            languageId: e.target.value
+            languageId: parseInt(e.target.value, 10)
         }, () => {
             this.clean();
         });
