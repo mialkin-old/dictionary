@@ -8,7 +8,7 @@ export class Main extends Component {
         word: {
             id: null,
             name: '',
-            genderId: null,
+            genderId: 0,
             transcription: '',
             translation: '',
         },
@@ -21,6 +21,7 @@ export class Main extends Component {
         this.handleLanguageChange = this.handleLanguageChange.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleTranscriptionChange = this.handleTranscriptionChange.bind(this);
+        this.handleGenderChange = this.handleGenderChange.bind(this);
         this.handleTranslationChange = this.handleTranslationChange.bind(this);
 
         this.handleSelectWord = this.handleSelectWord.bind(this);
@@ -79,6 +80,10 @@ export class Main extends Component {
                     <label id="delete-label"
                         onClick={this.delete}>Удалить</label>
                 </div>
+                <div id="gender-container">
+                    <label>m</label><input type="checkbox" checked={this.state.word.genderId === 1} onChange={() => this.handleGenderChange(1)} />
+                    <label>f</label><input type="checkbox" checked={this.state.word.genderId === 2} onChange={() => this.handleGenderChange(2)} />
+                </div>
                 <textarea id="translation"
                     value={this.state.word.translation}
                     placeholder="Перевод"
@@ -113,6 +118,21 @@ export class Main extends Component {
         });
     }
 
+    handleGenderChange(genderId) {
+        let resultingGenderId = 0;
+
+        if (genderId !== this.state.word.genderId) {
+            resultingGenderId = genderId;
+        }
+
+        this.setState({
+            word: {
+                ...this.state.word,
+                genderId: resultingGenderId
+            }
+        });
+    }
+
     handleTranslationChange(e) {
         this.setState({
             word: {
@@ -139,6 +159,7 @@ export class Main extends Component {
                 LanguageId: this.state.languageId,
                 Name: this.state.word.name,
                 Transcription: this.state.word.transcription,
+                GenderId: this.state.word.genderId,
                 Translation: this.state.word.translation
             })
         }).then((response) => {
@@ -166,7 +187,6 @@ export class Main extends Component {
         }).then((response) => {
             this.clean();
         });
-
     }
 
     async delete() {
@@ -194,7 +214,7 @@ export class Main extends Component {
             word: {
                 id: null,
                 name: name,
-                genderId: null,
+                genderId: 0,
                 transcription: '',
                 translation: ''
             }
@@ -208,7 +228,7 @@ export class Main extends Component {
 
         let term = this.state.word.name.trim();
 
-        if (term != '') {
+        if (term !== '') {
             url += '&q=' + term;
         }
 

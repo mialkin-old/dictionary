@@ -28,6 +28,20 @@ html {
     margin-left: 20px;
 }
 
+#gender-container {
+    margin-top: 10px;
+}
+
+#gender-container label {
+    margin-right: 3px;
+}
+
+#gender-container input {
+    margin-right: 10px;
+    position: relative;
+    top: 2px;
+}
+
 #save-btn {
     margin-top: 10px;
     width: 100px;
@@ -40,11 +54,9 @@ html {
     margin-top: 20px;
 }
 
-
 .word-list .transcription-container {
     display: inline-block;
 }
-
 
 .word-list .transcription-container .transcription {
     font-style: italic;
