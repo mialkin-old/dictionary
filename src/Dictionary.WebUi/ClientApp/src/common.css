@@ -50,6 +50,12 @@ html {
     font-style: italic;
 }
 
+.word-list .gender {
+    color: green;
+    font-style: italic;
+    margin-right: 5px;
+}
+
 .dict-container {
     width: 60%;
     margin: 0 auto;
