@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { AutoComplete } from 'antd';
+import React, {Component} from 'react';
+import {AutoComplete} from 'antd';
 
 export class Searchbar extends Component {
     render() {
@@ -9,6 +9,6 @@ export class Searchbar extends Component {
                 dataSource={this.props.words}
                 placeholder="Слово"
                 onChange={this.props.onSearchbarChange}
-                style={{ width: '100%', marginTop: 10 }} />);
+                style={{width: '100%', marginTop: 10}}/>);
     }
 }

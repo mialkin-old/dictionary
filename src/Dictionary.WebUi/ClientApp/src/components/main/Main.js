@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Words } from './Words';
+import React, {Component} from 'react';
+import {Words} from './Words';
 
 export class Main extends Component {
 
@@ -13,7 +13,7 @@ export class Main extends Component {
             translation: '',
         },
         words: []
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -37,7 +37,7 @@ export class Main extends Component {
     }
 
     escFunction(event) {
-        if (event.keyCode === 27) { // Escape key pressed.
+        if (event.keyCode === 27) { // Escape key pressed.e
             this.clean();
         }
     }
@@ -59,41 +59,44 @@ export class Main extends Component {
         return (
             <div>
                 <select id="language-select"
-                    onChange={this.handleLanguageChange}>
+                        onChange={this.handleLanguageChange}>
                     <option value={2}>Français</option>
                     <option value={1}>English</option>
                     <option value={4}>Русский</option>
                 </select>
                 <div id="name-translation-container">
                     <input id="name"
-                        value={this.state.word.name}
-                        onChange={this.handleNameChange}
-                        placeholder="Слово"></input>
+                           value={this.state.word.name}
+                           onChange={this.handleNameChange}
+                           placeholder="Слово"></input>
 
                     <input id="transcription"
-                        value={this.state.word.transcription}
-                        onChange={this.handleTranscriptionChange}
-                        placeholder="Транскрипция"></input>
+                           value={this.state.word.transcription}
+                           onChange={this.handleTranscriptionChange}
+                           placeholder="Транскрипция"></input>
 
                     <label id="clean-label"
-                        onClick={() => this.clean('')}>Очистить</label>
+                           onClick={() => this.clean('')}>Очистить</label>
                     <label id="delete-label"
-                        onClick={this.delete}>Удалить</label>
+                           onClick={this.delete}>Удалить</label>
                 </div>
                 <div id="gender-container">
-                    <label>m</label><input type="checkbox" checked={this.state.word.genderId === 1} onChange={() => this.handleGenderChange(1)} />
-                    <label>f</label><input type="checkbox" checked={this.state.word.genderId === 2} onChange={() => this.handleGenderChange(2)} />
+                    <label>m</label><input type="checkbox" checked={this.state.word.genderId === 1}
+                                           onChange={() => this.handleGenderChange(1)}/>
+                    <label>f</label><input type="checkbox" checked={this.state.word.genderId === 2}
+                                           onChange={() => this.handleGenderChange(2)}/>
                 </div>
                 <textarea id="translation"
-                    value={this.state.word.translation}
-                    placeholder="Перевод"
-                    onChange={this.handleTranslationChange}
-                    rows="5"></textarea>
+                          value={this.state.word.translation}
+                          placeholder="Перевод"
+                          onChange={this.handleTranslationChange}
+                          rows="5"/>
                 <button id="save-btn"
-                    disabled={saveDisabled}
-                    onClick={this.handleSave}>Сохранить</button>
+                        disabled={saveDisabled}
+                        onClick={this.handleSave}>Сохранить
+                </button>
                 <Words words={this.state.words}
-                    onWordSelect={this.handleSelectWord} />
+                       onWordSelect={this.handleSelectWord}/>
             </div>);
     }
 
@@ -235,7 +238,7 @@ export class Main extends Component {
         const response = await fetch(url);
         const data = await response.json();
 
-        this.setState({ words: data });
+        this.setState({words: data});
     }
 
     handleSelectWord(word) {
