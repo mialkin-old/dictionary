@@ -36,6 +36,9 @@ namespace Dictionary.WebUi.Controllers
                 return Ok(result);
             }
 
+            if (string.IsNullOrWhiteSpace(model.Transcription))
+                model.Transcription = null;
+
             int id = await _wordService.CreateAsync(_mapper.Map<WordCreateServiceModel>(model));
 
             return Ok(new StandardResult<int> { Data = id });
