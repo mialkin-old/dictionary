@@ -7,7 +7,8 @@ export class Words extends Component {
                 <div className="word-list">
                     {this.props.words.map(word => {
                             let transcription = '';
-                            if (word.transcription !== '') {
+                            
+                            if (word.transcription !== null) {
                                 transcription = <div className="transcription-container">/<span
                                     className="transcription">{word.transcription}</span>/</div>
                             }
