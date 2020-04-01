@@ -383,3 +383,6 @@ MigrationBackup/
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# Temporarilly allow dictionary.db file to be stored in git
+!**/dictionary.db
