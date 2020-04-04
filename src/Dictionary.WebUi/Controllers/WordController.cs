@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Dictionary.Services.Models.Word;
 using Dictionary.Services.Services.Word;
-using Dictionary.Shared.Filters.Word;
+using Dictionary.Shared.Filters;
 using Dictionary.WebUi.Misc;
 using Dictionary.WebUi.ViewModels.Word;
 using Microsoft.AspNetCore.Mvc;
@@ -69,6 +69,17 @@ namespace Dictionary.WebUi.Controllers
             filter.OrderByPropertyName = "Created";
 
             IList<WordListServiceModel> result = await _wordService.ListAsync(filter);
+
+            return Ok(result);
+        }
+
+        [Route("search")]
+        public async Task<IActionResult> Search(WordSearchFilter filter)
+        {
+            filter.OrderByDescending = true;
+            filter.OrderByPropertyName = "Created";
+
+            IList<WordListServiceModel> result = await _wordService.SearchAsync(filter);
 
             return Ok(result);
         }

@@ -37,7 +37,7 @@ export class Main extends Component {
     }
 
     escFunction(event) {
-        if (event.keyCode === 27) { // Escape key pressed.e
+        if (event.keyCode === 27) { // Escape key pressed.
             this.clean();
         }
     }
@@ -232,13 +232,13 @@ export class Main extends Component {
         let term = this.state.word.name.trim();
 
         if (term !== '') {
-            url += '&q=' + term;
+            url = `word/search?l=${this.state.languageId}&q=${term}`;
         }
 
         const response = await fetch(url);
         const data = await response.json();
 
-        this.setState({words: data});
+        this.setState({ words: data });
     }
 
     handleSelectWord(word) {

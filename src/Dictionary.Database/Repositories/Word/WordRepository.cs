@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dictionary.Database.Models;
 using Dictionary.Shared.ExtensionMethods;
-using Dictionary.Shared.Filters.Word;
+using Dictionary.Shared.Filters;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dictionary.Database.Repositories.Word
@@ -63,9 +63,28 @@ namespace Dictionary.Database.Repositories.Word
             return word;
         }
 
-        // Подумать над вынесением в RepositoryBase. Создать return ListAsync(x => x.Words)
-
         public async Task<IList<WordDto>> ListAsync(WordListFilter filter)
+        {
+            var query = Db.Words.AsQueryable();
+
+            if (filter.L != null)
+            {
+                query = query.Where(x => x.LanguageId == filter.L);
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter.OrderByPropertyName))
+            {
+                query = filter.OrderByDescending ?
+                    query.OrderByPropertyNameDescending(filter.OrderByPropertyName) :
+                    query.OrderByPropertyName(filter.OrderByPropertyName);
+            }
+
+            var result = await query.Take(filter.Take).ToListAsync();
+
+            return result;
+        }
+
+        public async Task<IList<WordDto>> SearchAsync(WordSearchFilter filter)
         {
             var query = Db.Words.AsQueryable();
 
@@ -79,12 +98,7 @@ namespace Dictionary.Database.Repositories.Word
                 query = query.Where(x => x.Name.StartsWith(filter.Q));
             }
 
-            if (!string.IsNullOrWhiteSpace(filter.OrderByPropertyName))
-            {
-                query = filter.OrderByDescending ?
-                    query.OrderByPropertyNameDescending(filter.OrderByPropertyName) :
-                    query.OrderByPropertyName(filter.OrderByPropertyName);
-            }
+            query = query.OrderBy(x => x.Name.Length);
 
             var result = await query.Take(filter.Take).ToListAsync();
 

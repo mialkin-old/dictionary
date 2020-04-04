@@ -5,7 +5,7 @@ using AutoMapper;
 using Dictionary.Database.Models;
 using Dictionary.Database.Repositories.Word;
 using Dictionary.Services.Models.Word;
-using Dictionary.Shared.Filters.Word;
+using Dictionary.Shared.Filters;
 
 namespace Dictionary.Services.Services.Word
 {
@@ -51,6 +51,12 @@ namespace Dictionary.Services.Services.Word
         public async Task<IList<WordListServiceModel>> ListAsync(WordListFilter filter)
         {
             IList<WordDto> result = await _wordRepository.ListAsync(filter);
+
+            return _mapper.Map<IList<WordListServiceModel>>(result);
+        }
+        public async Task<IList<WordListServiceModel>> SearchAsync(WordSearchFilter filter)
+        {
+            IList<WordDto> result = await _wordRepository.SearchAsync(filter);
 
             return _mapper.Map<IList<WordListServiceModel>>(result);
         }
