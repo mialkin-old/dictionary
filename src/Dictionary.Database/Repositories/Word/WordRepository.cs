@@ -98,7 +98,9 @@ namespace Dictionary.Database.Repositories.Word
                 query = query.Where(x => x.Name.StartsWith(filter.Q));
             }
 
-            query = query.OrderBy(x => x.Name.Length);
+            query = query
+                .OrderBy(x => x.Name.Length)
+                .ThenBy(x => x.Name);
 
             var result = await query.Take(filter.Take).ToListAsync();
 
