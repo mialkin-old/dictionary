@@ -48,6 +48,9 @@ namespace Dictionary.WebUi.Controllers
         [Route("update")]
         public async Task<IActionResult> Update([FromBody]WordUpdateVm model)
         {
+            if (string.IsNullOrWhiteSpace(model.Transcription))
+                model.Transcription = null;
+            
             await _wordService.UpdateAsync(_mapper.Map<WordUpdateServiceModel>(model));
 
             return Ok();
