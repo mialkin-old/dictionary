@@ -20,6 +20,7 @@ export class LanguagePicker extends Component {
                     <Option value={2}>Français</Option>
                     <Option value={1}>English</Option>
                     <Option value={4}>Русский</Option>
+                    <Option value={5}>Українська</Option>
                 </Select>
             </div>);
     }

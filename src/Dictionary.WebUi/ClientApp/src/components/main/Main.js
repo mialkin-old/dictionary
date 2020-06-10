@@ -31,7 +31,6 @@ export class Main extends Component {
         this.update = this.update.bind(this);
         this.delete = this.delete.bind(this);
 
-
         this.clean = this.clean.bind(this);
         this.escFunction = this.escFunction.bind(this);
     }
@@ -63,17 +62,18 @@ export class Main extends Component {
                     <option value={2}>Français</option>
                     <option value={1}>English</option>
                     <option value={4}>Русский</option>
+                    <option value={5}>Українська</option>
                 </select>
                 <div id="name-translation-container">
                     <input id="name"
                            value={this.state.word.name}
                            onChange={this.handleNameChange}
-                           placeholder="Слово"></input>
+                           placeholder="Слово"/>
 
                     <input id="transcription"
                            value={this.state.word.transcription}
                            onChange={this.handleTranscriptionChange}
-                           placeholder="Транскрипция"></input>
+                           placeholder="Транскрипция"/>
 
                     <label id="clean-label"
                            onClick={() => this.clean('')}>Очистить</label>
@@ -238,7 +238,7 @@ export class Main extends Component {
         const response = await fetch(url);
         const data = await response.json();
 
-        this.setState({ words: data });
+        this.setState({words: data});
     }
 
     handleSelectWord(word) {
