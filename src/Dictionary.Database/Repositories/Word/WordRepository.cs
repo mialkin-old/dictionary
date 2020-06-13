@@ -14,9 +14,9 @@ namespace Dictionary.Database.Repositories.Word
         {
             Db = db;
         }
-        public DictionaryDb Db { get; }
 
-        // Подумать над вынесением в RepositoryBase.
+        private DictionaryDb Db { get; }
+
         public async Task<int> CreateAsync(WordDto word)
         {
             Db.Words.Add(word);
