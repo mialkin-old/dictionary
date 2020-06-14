@@ -354,6 +354,7 @@ MigrationBackup/
 *.db-shm
 *.db-wal
 
+.idea/
 
 # Common IntelliJ Platform excludes
 
