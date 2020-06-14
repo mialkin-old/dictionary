@@ -386,3 +386,5 @@ Desktop.ini
 
 # Temporarilly allow dictionary.db file to be stored in git
 !**/dictionary.db
+/.idea/vcs.xml
+/.idea/misc.xml
