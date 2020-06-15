@@ -39,7 +39,7 @@ namespace Dictionary.WebUi
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/build";
+                configuration.RootPath = "npmbuild";
             });
 
             services.AddDbContext<DictionaryDb>(options => options.UseSqlite("Data Source=dictionary.db"));
