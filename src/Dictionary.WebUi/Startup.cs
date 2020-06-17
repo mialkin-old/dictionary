@@ -1,3 +1,4 @@
+using System.IO;
 using AutoMapper;
 using Dictionary.Database;
 using Dictionary.Database.Repositories.Word;
@@ -18,32 +19,36 @@ namespace Dictionary.WebUi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        /// <summary>
+        /// Absolute path to the database file.
+        /// </summary>
+        private readonly string _dbFileAbsolutePath;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+
+            string dbFileDirectory = Path.Combine(env.ContentRootPath, Configuration["SQLite:folder"]);
+            Directory.CreateDirectory(dbFileDirectory);
+            _dbFileAbsolutePath = Path.Combine(dbFileDirectory, Configuration["SQLite:file"]);
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var config = new MapperConfiguration(cfg => {
-                cfg.AddProfile<MappingProfile>();
-            });
+            var config = new MapperConfiguration(cfg => { cfg.AddProfile<MappingProfile>(); });
 
             services.AddSingleton(config.CreateMapper());
 
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "npm-build";
-            });
+            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "npm-build"; });
 
-            services.AddDbContext<DictionaryDb>(options => options.UseSqlite("Data Source=dictionary.db"));
-            
+            services.AddDbContext<DictionaryDb>(options => options.UseSqlite($"Data Source={_dbFileAbsolutePath}"));
+
             services.AddTransient<IWordRepository, WordRepository>();
             services.AddTransient<IWordService, WordService>();
             services.AddTransient<IExcelParser<WordImportModel>, WordsImportParser>();
@@ -59,13 +64,9 @@ namespace Dictionary.WebUi
             }
 
             app.UseHttpsRedirection();
-            
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-
-
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
