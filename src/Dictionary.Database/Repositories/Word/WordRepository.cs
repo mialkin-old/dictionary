@@ -19,7 +19,7 @@ namespace Dictionary.Database.Repositories.Word
 
         public async Task<int> CreateAsync(WordDto word)
         {
-            Db.Words.Add(word);
+            await Db.Words.AddAsync(word);
             await Db.SaveChangesAsync();
 
             return word.WordId;
@@ -28,13 +28,13 @@ namespace Dictionary.Database.Repositories.Word
         public async Task CreateAsync(IEnumerable<WordDto> words)
         {
             // Грузить порциями по 1000 слов. Report back progress.
-            Db.Words.AddRange(words);
+            await Db.Words.AddRangeAsync(words);
             await Db.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(WordDto word)
         {
-            var entity = Db.Words.Find(word.WordId);
+            var entity = await Db.Words.FindAsync(word.WordId);
 
             if (entity != null)
             {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dictionary.Database
 {
-    public class DictionaryDb : DbContext
+    public sealed class DictionaryDb : DbContext
     {
         public DbSet<WordDto> Words { get; set; }
 
