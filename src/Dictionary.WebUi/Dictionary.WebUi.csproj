@@ -35,6 +35,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\" />
+    <Folder Include="Initialization" />
   </ItemGroup>
 
   <ItemGroup>

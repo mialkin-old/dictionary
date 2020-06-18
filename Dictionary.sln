@@ -21,6 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		deploy.yaml = deploy.yaml
 		Dockerfile = Dockerfile
 		.dockerignore = .dockerignore
+		build.sh = build.sh
+		run.sh = run.sh
+		stop.sh = stop.sh
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dictionary.WebUi", "src\Dictionary.WebUi\Dictionary.WebUi.csproj", "{4BFBB570-E3A0-4527-92B4-6CCD1F451F3C}"
