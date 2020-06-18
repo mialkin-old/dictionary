@@ -4,17 +4,17 @@ import {Layout} from './components/Layout';
 import 'antd/dist/antd.css';
 import './css/common.css'
 import {Main} from './components/Main';
-import {Auth} from './components/Auth';
+import {Login} from './components/Login';
 
 export default class App extends Component {
     
     static displayName = App.name;
 
-    render() {
+    render() {  
         return (
             <Layout>
                 <Route exact path='/' component={Main}/>
-                <Route path='/auth' component={Auth}/>
+                <Route path='/login' component={Login}/>
             </Layout>
         );
     }
