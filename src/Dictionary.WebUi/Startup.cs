@@ -7,6 +7,7 @@ using Dictionary.Excel.Parsers.Word;
 using Dictionary.Services.Services.Import;
 using Dictionary.Services.Services.Word;
 using Dictionary.WebUi.AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -38,13 +39,19 @@ namespace Dictionary.WebUi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, config =>
+                {
+                    config.Cookie.Name = CookieAuthenticationDefaults.AuthenticationScheme;
+                });
+            
             services.AddControllersWithViews();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "npm-build"; });
             services.AddDbContext<DictionaryDb>(options => options.UseSqlite($"Data Source={_dbFileAbsolutePath}"));
             
-            var config = new MapperConfiguration(cfg => { cfg.AddProfile<MappingProfile>(); });
-            services.AddSingleton(config.CreateMapper());
+            var mapperConfiguration = new MapperConfiguration(cfg => { cfg.AddProfile<MappingProfile>(); });
+            services.AddSingleton(mapperConfiguration.CreateMapper());
 
             services.AddTransient<IWordRepository, WordRepository>();
             services.AddTransient<IWordService, WordService>();
@@ -65,6 +72,9 @@ namespace Dictionary.WebUi
             app.UseSpaStaticFiles();
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

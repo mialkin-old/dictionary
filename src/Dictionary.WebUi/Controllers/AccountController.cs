@@ -1,29 +1,44 @@
+using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dictionary.WebUi.Controllers
 {
     public class AccountController : Controller
     {
-        [HttpPost]
-        public IActionResult SignIn(string password)
+        [HttpGet]
+        public IActionResult Info()
         {
-            if (password == "secret")
-            {
-                return Json(new { success = true });
-            }
-
-            return Json(new { success = false, errorMessage = "Wrong password!" });
+            return Json(User.Identity.IsAuthenticated ? new { loggedIn = true } : new { loggedIn = false });
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignOut()
+        public IActionResult LogIn(string password)
         {
-            await HttpContext.SignOutAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme);
-            return null;
+            if (User.Identity.IsAuthenticated)
+                throw new InvalidOperationException("You are already authenticated");
+            
+            if (password != "secret") return Json(new { success = false, errorMessage = "Wrong password!" });
+
+            var claim = new Claim(ClaimTypes.Role, "user");
+            var claimsIdentity = new ClaimsIdentity(new[] { claim }, "user");
+            var claimsPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
+
+            HttpContext.SignInAsync(claimsPrincipal);
+
+            return Json(new { success = true });
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult LogOut()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Ok();
         }
     }
 }

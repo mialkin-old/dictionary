@@ -32,7 +32,7 @@ export class Login extends Component {
     }
 
     async handleSignIn() {
-        const response = await fetch('api/account/signIn', {
+        const response = await fetch('api/account/logIn', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -40,9 +40,10 @@ export class Login extends Component {
             body: `password=${this.state.password}`
         }).then(response => response.json())
             .then(data => {
-                debugger;
                 if (data.success === true) {
-
+                    window.location.replace("/");
+                } else {
+                    alert(data.errorMessage)
                 }
             })
     }
