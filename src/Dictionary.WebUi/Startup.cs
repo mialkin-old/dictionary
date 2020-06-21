@@ -38,16 +38,13 @@ namespace Dictionary.WebUi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var config = new MapperConfiguration(cfg => { cfg.AddProfile<MappingProfile>(); });
-
-            services.AddSingleton(config.CreateMapper());
-
             services.AddControllersWithViews();
-
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "npm-build"; });
-
             services.AddDbContext<DictionaryDb>(options => options.UseSqlite($"Data Source={_dbFileAbsolutePath}"));
+            
+            var config = new MapperConfiguration(cfg => { cfg.AddProfile<MappingProfile>(); });
+            services.AddSingleton(config.CreateMapper());
 
             services.AddTransient<IWordRepository, WordRepository>();
             services.AddTransient<IWordService, WordService>();
@@ -74,6 +71,11 @@ namespace Dictionary.WebUi
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
+
+            // app.UseEndpoints(endpoints =>
+            // {
+            //     endpoints.MapDefaultControllerRoute();
+            // });
 
             app.UseSpa(spa =>
             {
