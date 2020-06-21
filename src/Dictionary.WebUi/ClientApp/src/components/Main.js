@@ -152,7 +152,7 @@ export class Main extends Component {
     }
 
     async create() {
-        const response = await fetch('word/create', {
+        const response = await fetch('api/word/create', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -173,7 +173,7 @@ export class Main extends Component {
     async update() {
         let word = this.state.word;
 
-        const response = await fetch('word/update', {
+        const response = await fetch('api/word/update', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -196,7 +196,7 @@ export class Main extends Component {
         let word = this.state.word;
         if (word.id != null) {
             if (window.confirm(`Удалить слово "${word.name}"?`)) {
-                const response = await fetch('word/delete', {
+                const response = await fetch('api/word/delete', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -227,12 +227,12 @@ export class Main extends Component {
     }
 
     async fetchWords() {
-        let url = `word/list?l=${this.state.languageId}`;
+        let url = `api/word/list?l=${this.state.languageId}`;
 
         let term = this.state.word.name.trim();
 
         if (term !== '') {
-            url = `word/search?l=${this.state.languageId}&q=${term}`;
+            url = `api/word/search?l=${this.state.languageId}&q=${term}`;
         }
 
         const response = await fetch(url);

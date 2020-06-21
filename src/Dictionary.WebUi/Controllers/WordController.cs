@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dictionary.WebUi.Controllers
 {
-    [Route("word")]
+    [Route("api/{controller}")]
     public class WordController : Controller
     {
         private readonly IWordService _wordService;

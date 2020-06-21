@@ -5,17 +5,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dictionary.WebUi.Controllers
 {
-    public class AuthController : Controller
+    public class AccountController : Controller
     {
         [HttpPost]
         public IActionResult SignIn(string password)
         {
             if (password == "secret")
             {
-                return Json(new {success = true});
+                return Json(new { success = true });
             }
 
-            return Json(new {success = false, errorMessage = "Wrong password!"});
+            return Json(new { success = false, errorMessage = "Wrong password!" });
         }
 
         [HttpPost]

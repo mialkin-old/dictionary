@@ -32,7 +32,7 @@ export class Login extends Component {
     }
 
     async handleSignIn() {
-        const response = await fetch('auth/signIn', {
+        const response = await fetch('api/account/signIn', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
