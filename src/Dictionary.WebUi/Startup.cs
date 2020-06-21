@@ -72,11 +72,6 @@ namespace Dictionary.WebUi
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
-            // app.UseEndpoints(endpoints =>
-            // {
-            //     endpoints.MapDefaultControllerRoute();
-            // });
-
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
