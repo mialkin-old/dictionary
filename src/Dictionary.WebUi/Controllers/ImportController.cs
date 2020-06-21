@@ -1,11 +1,13 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using Dictionary.Services.Services.Import;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dictionary.WebUi.Controllers
 {
+    [Authorize]
     [Route("import")]
     public class ImportController : Controller
     {
