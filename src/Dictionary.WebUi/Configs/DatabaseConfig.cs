@@ -1,6 +1,6 @@
-namespace Dictionary.WebUi.Settings
+namespace Dictionary.WebUi.Configs
 {
-    public class DbSettings
+    public class DatabaseConfig
     {
         public string Folder { get; set; }
         

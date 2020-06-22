@@ -7,7 +7,7 @@ using Dictionary.Excel.Parsers.Word;
 using Dictionary.Services.Services.Import;
 using Dictionary.Services.Services.Word;
 using Dictionary.WebUi.AutoMapper;
-using Dictionary.WebUi.Settings;
+using Dictionary.WebUi.Configs;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,11 +30,13 @@ namespace Dictionary.WebUi
         {
             Configuration = configuration;
 
-            var dbConfig = Configuration.GetSection("SQLite").Get<DbSettings>();
-            
+            DatabaseConfig dbConfig = Configuration.GetSection("Database").Get<DatabaseConfig>();
+
             string dbFileDirectory = Path.Combine(env.ContentRootPath, dbConfig.Folder);
             Directory.CreateDirectory(dbFileDirectory);
             _dbFileAbsolutePath = Path.Combine(dbFileDirectory, dbConfig.File);
+
+            var accountConfig = Configuration.GetSection("Account").Get<AccountConfig>();
         }
 
         private IConfiguration Configuration { get; }
@@ -43,16 +45,14 @@ namespace Dictionary.WebUi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, config =>
-                {
-                    config.Cookie.Name = CookieAuthenticationDefaults.AuthenticationScheme;
-                });
-            
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+                    config => { config.Cookie.Name = CookieAuthenticationDefaults.AuthenticationScheme; });
+
             services.AddControllersWithViews();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "npm-build"; });
             services.AddDbContext<DictionaryDb>(options => options.UseSqlite($"Data Source={_dbFileAbsolutePath}"));
-            
+
             var mapperConfiguration = new MapperConfiguration(cfg => { cfg.AddProfile<MappingProfile>(); });
             services.AddSingleton(mapperConfiguration.CreateMapper());
 
@@ -77,7 +77,7 @@ namespace Dictionary.WebUi
 
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
