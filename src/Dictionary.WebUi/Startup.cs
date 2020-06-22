@@ -35,8 +35,6 @@ namespace Dictionary.WebUi
             string dbFileDirectory = Path.Combine(env.ContentRootPath, dbConfig.Folder);
             Directory.CreateDirectory(dbFileDirectory);
             _dbFileAbsolutePath = Path.Combine(dbFileDirectory, dbConfig.File);
-
-            var accountConfig = Configuration.GetSection("Account").Get<AccountConfig>();
         }
 
         private IConfiguration Configuration { get; }
@@ -60,6 +58,10 @@ namespace Dictionary.WebUi
             services.AddTransient<IWordService, WordService>();
             services.AddTransient<IExcelParser<WordImportModel>, WordsImportParser>();
             services.AddTransient<IImportService, ImportService>();
+            
+            var accountConfig = Configuration.GetSection("Account").Get<AccountConfig>();
+            services.AddSingleton(accountConfig);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

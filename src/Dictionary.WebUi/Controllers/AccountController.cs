@@ -1,5 +1,6 @@
 using System;
 using System.Security.Claims;
+using Dictionary.WebUi.Configs;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -9,6 +10,13 @@ namespace Dictionary.WebUi.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly AccountConfig _accountConfig;
+
+        public AccountController(AccountConfig accountConfig)
+        {
+            _accountConfig = accountConfig;
+        }
+        
         [HttpGet]
         public IActionResult Info()
         {
@@ -20,8 +28,8 @@ namespace Dictionary.WebUi.Controllers
         {
             if (User.Identity.IsAuthenticated)
                 throw new InvalidOperationException("You are already authenticated");
-            
-            if (password != "secret") return Json(new { success = false, errorMessage = "Wrong password!" });
+
+            if (password != _accountConfig.AdminPassword) return Json(new { success = false, errorMessage = "Wrong password!" });
 
             var claim = new Claim(ClaimTypes.Role, "user");
             var claimsIdentity = new ClaimsIdentity(new[] { claim }, "user");
