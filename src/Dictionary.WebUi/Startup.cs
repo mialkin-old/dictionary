@@ -7,6 +7,7 @@ using Dictionary.Excel.Parsers.Word;
 using Dictionary.Services.Services.Import;
 using Dictionary.Services.Services.Word;
 using Dictionary.WebUi.AutoMapper;
+using Dictionary.WebUi.Settings;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,9 +30,11 @@ namespace Dictionary.WebUi
         {
             Configuration = configuration;
 
-            string dbFileDirectory = Path.Combine(env.ContentRootPath, Configuration["SQLite:folder"]);
+            var dbConfig = Configuration.GetSection("SQLite").Get<DbSettings>();
+            
+            string dbFileDirectory = Path.Combine(env.ContentRootPath, dbConfig.Folder);
             Directory.CreateDirectory(dbFileDirectory);
-            _dbFileAbsolutePath = Path.Combine(dbFileDirectory, Configuration["SQLite:file"]);
+            _dbFileAbsolutePath = Path.Combine(dbFileDirectory, dbConfig.File);
         }
 
         private IConfiguration Configuration { get; }
