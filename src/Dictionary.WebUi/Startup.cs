@@ -47,7 +47,11 @@ namespace Dictionary.WebUi
         {
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
-                    config => { config.Cookie.Name = CookieAuthenticationDefaults.AuthenticationScheme; });
+                    config =>
+                    {
+                        config.Cookie.Name = CookieAuthenticationDefaults.AuthenticationScheme;
+                        config.ExpireTimeSpan = TimeSpan.FromDays(30);
+                    });
 
             services.AddControllersWithViews();
             // In production, the React files will be served from this directory
