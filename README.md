@@ -1,10 +1,10 @@
 # Dictionary
 
 #### Building image
-To build an image from source code run following command in terminal inside of solution 
-root folder where Dockerfile is stored:
+To build an image from source files run following command in terminal inside of solution 
+root folder containing Dockerfile:
 
 `docker build -t dictionary .`
 
 #### Run image
-Please see https://hub.docker.com/repository/docker/mialkin/dictionary page for instructions on how to run built image.
+Please see reference Dictionary's Docker Hub [page](0 for instructions on how to run built image.
