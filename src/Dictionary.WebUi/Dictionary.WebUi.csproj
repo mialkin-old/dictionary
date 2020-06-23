@@ -33,6 +33,7 @@
   <ItemGroup>
     <Folder Include="ClientApp\" />
     <Folder Include="Initialization" />
+    <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="appsettings.Production.json">
