@@ -16,7 +16,7 @@ namespace Dictionary.WebUi.Controllers
         {
             _accountConfig = accountConfig;
         }
-        
+
         [HttpGet]
         public IActionResult Info()
         {
@@ -29,13 +29,14 @@ namespace Dictionary.WebUi.Controllers
             if (User.Identity.IsAuthenticated)
                 throw new InvalidOperationException("You are already authenticated");
 
-            if (password != _accountConfig.AdminPassword) return Json(new { success = false, errorMessage = "Wrong password!" });
+            if (password != _accountConfig.AdminPassword)
+                return Json(new { success = false, errorMessage = "Wrong password!" });
 
             var claim = new Claim(ClaimTypes.Role, "user");
             var claimsIdentity = new ClaimsIdentity(new[] { claim }, "user");
             var claimsPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
 
-            HttpContext.SignInAsync(claimsPrincipal);
+            HttpContext.SignInAsync(claimsPrincipal, new AuthenticationProperties { IsPersistent = true });
 
             return Json(new { success = true });
         }
