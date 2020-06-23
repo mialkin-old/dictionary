@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Diagnostics;
 using System.IO;
 using AutoMapper;
 using Dictionary.Database;
@@ -58,10 +61,15 @@ namespace Dictionary.WebUi
             services.AddTransient<IWordService, WordService>();
             services.AddTransient<IExcelParser<WordImportModel>, WordsImportParser>();
             services.AddTransient<IImportService, ImportService>();
-            
-            var accountConfig = Configuration.GetSection("Account").Get<AccountConfig>();
-            services.AddSingleton(accountConfig);
 
+            string adminPassword = Environment.GetEnvironmentVariable("ADMIN_PASSWORD");
+            if(string.IsNullOrWhiteSpace(adminPassword))
+                throw new ArgumentNullException(adminPassword,"Environment variable ADMIN_PASSWORD must be specified");
+
+            services.AddSingleton(new AccountConfig(adminPassword));
+            
+            // foreach (DictionaryEntry de in Environment.GetEnvironmentVariables())
+            //     Debug.WriteLine("  {0} = {1}", de.Key, de.Value);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
