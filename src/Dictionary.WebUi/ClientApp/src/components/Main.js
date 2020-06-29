@@ -11,6 +11,7 @@ export class Main extends Component {
             genderId: 0,
             transcription: '',
             translation: '',
+            created: '',
         },
         words: []
     };
@@ -248,7 +249,8 @@ export class Main extends Component {
                 name: word.name,
                 genderId: word.genderId,
                 transcription: word.transcription,
-                translation: word.translation
+                translation: word.translation,
+                created: word.created
             },
             words: []
         });

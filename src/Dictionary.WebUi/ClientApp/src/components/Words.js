@@ -29,7 +29,7 @@ export class Words extends Component {
                                 onClick={() => {
                                     this.props.onWordSelect(word);
                                 }}
-                            >{word.name}</span> {transcription} — {gender}{word.translation}
+                            >{word.name}</span> {transcription} — {gender}{word.translation}<sub className='created' title='Год добавления слова в словарь'>{word.created}</sub>
                             </div>
                         }
                     )}

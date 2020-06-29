@@ -13,5 +13,10 @@
         public int GenderId { get; set; }
 
         public int LanguageId { get; set; }
+
+        /// <summary>
+        /// Date when word was added to dictionary in dd.mm.yyyy format.
+        /// </summary>
+        public string Created { get; set; }
     }
 }

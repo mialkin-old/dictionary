@@ -21,7 +21,8 @@ namespace Dictionary.WebUi.AutoMapper
             CreateMap<WordImportModel, WordDto>();
 
             // Dtos
-            CreateMap<WordDto, WordListServiceModel>();
+            CreateMap<WordDto, WordListServiceModel>()
+                .ForMember(x => x.Created, o => o.MapFrom(y => y.Created.ToString("yy")));
         }
     }
 }

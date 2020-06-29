@@ -82,6 +82,14 @@ html {
     cursor: pointer;
 }
 
+.word-in-list .created {
+    display: inline-block;
+    font-size: 8px;
+    margin-left: 5px;
+    color: lightgray;
+}
+
+
 @media screen and (max-width: 1200px) {
     .dict-container {
         width: 90%;
