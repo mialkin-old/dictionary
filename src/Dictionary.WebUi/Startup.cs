@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Diagnostics;
 using System.IO;
 using AutoMapper;
 using Dictionary.Database;
@@ -71,9 +69,6 @@ namespace Dictionary.WebUi
                 throw new ArgumentNullException(adminPassword,"Environment variable ADMIN_PASSWORD must be specified");
 
             services.AddSingleton(new AccountConfig(adminPassword));
-            
-            // foreach (DictionaryEntry de in Environment.GetEnvironmentVariables())
-            //     Debug.WriteLine("  {0} = {1}", de.Key, de.Value);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

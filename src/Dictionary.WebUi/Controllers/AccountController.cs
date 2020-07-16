@@ -20,14 +20,14 @@ namespace Dictionary.WebUi.Controllers
         [HttpGet]
         public IActionResult Info()
         {
-            return Json(User.Identity.IsAuthenticated ? new { loggedIn = true } : new { loggedIn = false });
+            return Json(User.Identity.IsAuthenticated ? new { isLoggedIn = true } : new { isLoggedIn = false });
         }
 
         [HttpPost]
         public IActionResult LogIn(string password)
         {
             if (User.Identity.IsAuthenticated)
-                throw new InvalidOperationException("You are already authenticated");
+                return Json(new { success = false, errorMessage = "You are already authenticated!" });
 
             if (password != _accountConfig.AdminPassword)
                 return Json(new { success = false, errorMessage = "Wrong password!" });
