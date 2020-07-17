@@ -12,7 +12,7 @@ export default class App extends Component {
 
     state = {
         user: {
-            isLoggedIn: false
+            isLoggedIn: undefined
         }
     }
 

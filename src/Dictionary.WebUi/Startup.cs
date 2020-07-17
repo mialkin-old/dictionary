@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using AutoMapper;
 using Dictionary.Database;
 using Dictionary.Database.Repositories.Word;
@@ -12,6 +13,7 @@ using Dictionary.WebUi.Configs;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -49,6 +51,11 @@ namespace Dictionary.WebUi
                     {
                         config.Cookie.Name = CookieAuthenticationDefaults.AuthenticationScheme;
                         config.ExpireTimeSpan = TimeSpan.FromDays(30);
+                        config.Events.OnRedirectToLogin = context =>
+                        {
+                            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                            return Task.FromResult<object>(null);
+                        }; // https://github.com/dotnet/aspnetcore/issues/9039#issuecomment-629617025
                     });
 
             services.AddControllersWithViews();
