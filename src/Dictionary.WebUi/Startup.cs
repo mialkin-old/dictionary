@@ -10,6 +10,7 @@ using Dictionary.Services.Services.Import;
 using Dictionary.Services.Services.Word;
 using Dictionary.WebUi.AutoMapper;
 using Dictionary.WebUi.Configs;
+using Dictionary.WebUi.CustomMiddleware;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -89,6 +90,8 @@ namespace Dictionary.WebUi
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+
+            app.UseMiddleware<CustomExceptionMiddleware>();
             app.UseRouting();
 
             app.UseAuthentication();
