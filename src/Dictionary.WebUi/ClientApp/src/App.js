@@ -5,6 +5,7 @@ import 'antd/dist/antd.css';
 import './css/common.css'
 import {Main} from './components/Main';
 import {Login} from './components/Login';
+import {Stats} from "./components/Stats";
 
 export default class App extends Component {
 
@@ -17,9 +18,27 @@ export default class App extends Component {
     }
 
     render() {
+
+        if (this.state.user.isLoggedIn === true) {
+            return (
+                <Layout>
+                    <Route
+                        path='/'
+                        render={(props) => (
+                            <Main {...props} isLoggedIn={true}/>
+                        )}/>
+                    <Route path='/stats' component={Stats}/>
+                </Layout>
+            );
+        }
+
         return (
             <Layout>
-                <Route exact path='/' component={Main}/>
+                <Route
+                    path='/'
+                    render={(props) => (
+                        <Main {...props} isLoggedIn={false}/>
+                    )}/>
                 <Route path='/login' component={Login}/>
             </Layout>
         );
