@@ -10,26 +10,22 @@ namespace Dictionary.Database.Repositories.Word
 {
     public class WordRepository : IWordRepository
     {
+        private DictionaryDb Db { get; }
+
         public WordRepository(DictionaryDb db)
         {
             Db = db;
         }
 
-        private DictionaryDb Db { get; }
-
-        public async Task<int> CreateAsync(WordDto word)
+        public async Task CreateAsync(WordDto word)
         {
             await Db.Words.AddAsync(word);
-            await Db.SaveChangesAsync();
-
-            return word.WordId;
         }
 
         public async Task CreateAsync(IEnumerable<WordDto> words)
         {
             // Грузить порциями по 1000 слов. Report back progress.
             await Db.Words.AddRangeAsync(words);
-            await Db.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(WordDto word)
@@ -43,7 +39,6 @@ namespace Dictionary.Database.Repositories.Word
                 entity.Translation = word.Translation;
 
                 Db.Words.Update(entity);
-                await Db.SaveChangesAsync();
             }
         }
 
@@ -51,7 +46,6 @@ namespace Dictionary.Database.Repositories.Word
         {
             WordDto word = await Db.Words.FindAsync(id);
             Db.Words.Remove(word);
-            await Db.SaveChangesAsync();
         }
 
         public async Task<WordDto> GetByNameAsync(string name, int languageId)
@@ -105,6 +99,11 @@ namespace Dictionary.Database.Repositories.Word
             var result = await query.Take(filter.Take).ToListAsync();
 
             return result;
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await Db.SaveChangesAsync();
         }
     }
 }

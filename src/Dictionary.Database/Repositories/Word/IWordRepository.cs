@@ -7,7 +7,7 @@ namespace Dictionary.Database.Repositories.Word
 {
     public interface IWordRepository
     {
-        Task<int> CreateAsync(WordDto word);
+        Task CreateAsync(WordDto word);
 
         Task CreateAsync(IEnumerable<WordDto> word);
 
@@ -20,5 +20,7 @@ namespace Dictionary.Database.Repositories.Word
         Task<IList<WordDto>> ListAsync(WordListFilter filter);
 
         Task<IList<WordDto>> SearchAsync(WordSearchFilter filter);
+
+        Task SaveChangesAsync();
     }
 }

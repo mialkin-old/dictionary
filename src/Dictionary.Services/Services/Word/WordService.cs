@@ -25,9 +25,10 @@ namespace Dictionary.Services.Services.Word
             WordDto word = _mapper.Map<WordDto>(model);
             word.Created = DateTime.Now;
 
-            int id = await _wordRepository.CreateAsync(word);
+            await _wordRepository.CreateAsync(word);
+            await _wordRepository.SaveChangesAsync();
 
-            return id;
+            return word.WordId;
         }
 
         public async Task UpdateAsync(WordUpdateServiceModel model)
@@ -35,11 +36,13 @@ namespace Dictionary.Services.Services.Word
             WordDto word = _mapper.Map<WordDto>(model);
 
             await _wordRepository.UpdateAsync(word);
+            await _wordRepository.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)
         {
             await _wordRepository.DeleteAsync(id);
+            await _wordRepository.SaveChangesAsync();
         }
 
         public async Task<bool> WordExists(string name, int languageId)

@@ -26,6 +26,7 @@ namespace Dictionary.Services.Services.Import
             IEnumerable<WordImportModel> result = _excelParser.Initialize(ms).Parse();
 
             await _wordRepository.CreateAsync(_mapper.Map<IEnumerable<WordDto>>(result));
+            await _wordRepository.SaveChangesAsync();
         }
     }
 }
