@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dictionary.WebUi.Controllers
 {
-    [Route("api/{controller}")]
     [Authorize]
     public class WordController : Controller
     {
@@ -25,7 +24,6 @@ namespace Dictionary.WebUi.Controllers
         }
 
         [HttpPost]
-        [Route("create")]
         public async Task<IActionResult> Create([FromBody] WordCreateVm model)
         {
             if (await _wordService.WordExists(model.Name, model.LanguageId))
@@ -48,7 +46,6 @@ namespace Dictionary.WebUi.Controllers
         }
 
         [HttpPost]
-        [Route("update")]
         public async Task<IActionResult> Update([FromBody] WordUpdateVm model)
         {
             if (string.IsNullOrWhiteSpace(model.Transcription))
@@ -60,7 +57,6 @@ namespace Dictionary.WebUi.Controllers
         }
 
         [HttpPost]
-        [Route("delete")]
         public async Task<IActionResult> Delete([FromBody] WordDeleteVm model)
         {
             await _wordService.DeleteAsync(model.Id);
@@ -68,7 +64,6 @@ namespace Dictionary.WebUi.Controllers
             return Ok();
         }
 
-        [Route("list")]
         [AllowAnonymous]
         public async Task<IActionResult> List(WordListFilter filter)
         {
@@ -80,7 +75,6 @@ namespace Dictionary.WebUi.Controllers
             return Ok(result);
         }
 
-        [Route("search")]
         [AllowAnonymous]
         public async Task<IActionResult> Search(WordSearchFilter filter)
         {

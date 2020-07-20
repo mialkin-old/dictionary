@@ -32,7 +32,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ClientApp\" />
-    <Folder Include="Initialization" />
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
@@ -41,6 +40,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Import\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <TypeScriptTarget>ES5</TypeScriptTarget>
