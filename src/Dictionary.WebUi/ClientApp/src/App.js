@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {Route} from 'react-router';
+import {Route, Switch} from 'react-router-dom';
 import {Layout} from './components/Layout';
 import 'antd/dist/antd.css';
 import './css/common.css'
 import {Main} from './components/Main';
 import {Login} from './components/Login';
 import {Stats} from "./components/Stats";
+import {NotFound} from "./components/NotFound";
 
 export default class App extends Component {
 
@@ -18,28 +19,39 @@ export default class App extends Component {
     }
 
     render() {
-
         if (this.state.user.isLoggedIn === true) {
             return (
                 <Layout>
-                    <Route
-                        path='/'
-                        render={(props) => (
-                            <Main {...props} isLoggedIn={true}/>
-                        )}/>
-                    <Route path='/stats' component={Stats}/>
+                    <Switch>
+                        <Route path='/'
+                               exact={true}
+                               render={(props) => (
+                                   <Main {...props} isLoggedIn={true}/>
+                               )}/>
+                        <Route path='/stats' exact={true}
+                               component={Stats}/>
+                        <Route path="*"
+                               exact={true}
+                               component={NotFound}/>
+                    </Switch>
                 </Layout>
             );
         }
 
         return (
             <Layout>
-                <Route
-                    path='/'
-                    render={(props) => (
-                        <Main {...props} isLoggedIn={false}/>
-                    )}/>
-                <Route path='/login' component={Login}/>
+                <Switch>
+                    <Route
+                        path='/'
+                        exact={true}
+                        render={(props) => (
+                            <Main {...props} isLoggedIn={false}/>
+                        )}/>
+                    <Route path='/login' component={Login}/>
+                    <Route path="*"
+                           exact={true}
+                           component={NotFound}/>
+                </Switch>
             </Layout>
         );
     }

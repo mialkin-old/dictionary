@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Navbar} from "./Navbar";
+import {Navbar} from "./navbar/Navbar";
 
 export class Layout extends Component {
     static displayName = Layout.name;
