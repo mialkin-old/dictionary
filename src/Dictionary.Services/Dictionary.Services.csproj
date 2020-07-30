@@ -17,4 +17,9 @@
     <ProjectReference Include="..\Dictionary.Shared\Dictionary.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Validators\Account" />
+    <Folder Include="Validators\Word" />
+  </ItemGroup>
+
 </Project>

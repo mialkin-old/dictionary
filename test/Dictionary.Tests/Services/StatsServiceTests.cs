@@ -1,8 +1,7 @@
-using System;
 using Dictionary.Database.Repositories.Stats;
-using Dictionary.Services.CustomExceptions;
+using Dictionary.Services.Models.Stats;
 using Dictionary.Services.Services.Stats;
-using Dictionary.Services.Validators;
+using FluentValidation;
 using Moq;
 using NUnit.Framework;
 
@@ -15,16 +14,16 @@ namespace Dictionary.Tests.Services
         public void YearIsOutOfRange([Values(-20, 0, 2019, 2030)] int year)
         {
             var statsRepository = new Mock<IStatsRepository>();
-            var statsService = new StatsService(statsRepository.Object, new StatsValidator());
-            Assert.ThrowsAsync<CustomValidationException>(async () => await statsService.GetContributionByYear(year));
+            var statsService = new StatsService(statsRepository.Object, new ContributionYearModelValidator());
+            Assert.ThrowsAsync<ValidationException>(async () => await statsService.GetContributionByYear(new ContributionYearModel(year)));
         }
 
         [Test]
         public void YearIsInRange([Values(null, 2020, 2029)] int year)
         {
             var statsRepository = new Mock<IStatsRepository>();
-            var statsService = new StatsService(statsRepository.Object, new StatsValidator());
-            statsService.GetContributionByYear(year);
+            var statsService = new StatsService(statsRepository.Object, new ContributionYearModelValidator());
+            statsService.GetContributionByYear(new ContributionYearModel(year));
         }
     }
 }

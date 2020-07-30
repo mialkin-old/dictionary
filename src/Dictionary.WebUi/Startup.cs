@@ -7,10 +7,13 @@ using Dictionary.Database.Repositories.Stats;
 using Dictionary.Database.Repositories.Word;
 using Dictionary.Excel.Parsers;
 using Dictionary.Excel.Parsers.Word;
+using Dictionary.Services.Models.Stats;
+using Dictionary.Services.Models.Word;
+using Dictionary.Services.Services.Account;
 using Dictionary.Services.Services.Import;
 using Dictionary.Services.Services.Stats;
+using Dictionary.Services.Services.User;
 using Dictionary.Services.Services.Word;
-using Dictionary.Services.Validators;
 using Dictionary.WebUi.AutoMapper;
 using Dictionary.WebUi.Configs;
 using Dictionary.WebUi.CustomMiddleware;
@@ -76,8 +79,11 @@ namespace Dictionary.WebUi
             services.AddTransient<IWordService, WordService>();
             services.AddTransient<IStatsService, StatsService>();
             services.AddTransient<IImportService, ImportService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAccountService, AccountService>();
             
-            services.AddTransient<StatsValidator>();
+            services.AddTransient<ContributionYearModelValidator>();
+            services.AddTransient<WordExistsValidator>();
 
             services.AddTransient<IExcelParser<WordImportModel>, WordsImportParser>();
 

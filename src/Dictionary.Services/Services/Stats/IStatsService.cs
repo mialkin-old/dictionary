@@ -5,6 +5,6 @@ namespace Dictionary.Services.Services.Stats
 {
     public interface IStatsService
     {
-        Task<ContributionByYearVm> GetContributionByYear(int? year);
+        Task<ContributionYearModel> GetContributionByYear(ContributionYearModel model);
     }
 }

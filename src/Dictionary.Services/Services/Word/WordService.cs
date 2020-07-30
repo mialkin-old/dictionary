@@ -5,7 +5,6 @@ using AutoMapper;
 using Dictionary.Database.Models;
 using Dictionary.Database.Repositories.Word;
 using Dictionary.Services.Models.Word;
-using Dictionary.Services.Validators.Word;
 using Dictionary.Shared.Filters;
 using FluentValidation;
 
@@ -49,7 +48,7 @@ namespace Dictionary.Services.Services.Word
             await _wordRepository.SaveChangesAsync();
         }
 
-        public async Task<bool> WordExists(WordExistsSm model)
+        public async Task<bool> WordExists(WordExistsServiceModel model)
         {
             await _wordExistsValidator.ValidateAndThrowAsync(model);
             WordDto word = await _wordRepository.GetByNameAsync(model.Name, model.LanguageId);

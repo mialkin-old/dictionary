@@ -16,7 +16,7 @@ namespace Dictionary.WebUi.Controllers
 
         public async Task<IActionResult> GetContributionByYear(int? year)
         {
-            ContributionByYearVm result = await _statsService.GetContributionByYear(year);
+            ContributionYearModel result = await _statsService.GetContributionByYear(new ContributionYearModel(year));
             return Ok(result);
         }
     }

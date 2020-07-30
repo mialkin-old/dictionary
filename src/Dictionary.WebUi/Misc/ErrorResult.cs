@@ -8,9 +8,15 @@ namespace Dictionary.WebUi.Misc
     {
         public IList<ValidationFailure> ValidationFailures { get; }
 
+        public string ErrorMessage { get; }
+
         public ErrorResult(CustomValidationException ex)
         {
             ValidationFailures = ex.ValidationFailures;
+        }
+        public ErrorResult(string errorMessage)
+        {
+            ErrorMessage = errorMessage;
         }
     }
 }
