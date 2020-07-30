@@ -17,11 +17,7 @@ namespace Dictionary.WebUi.Controllers
         {
             _importService = importService;
         }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
+    
         [HttpPost]
         [Route("upload")]
         public async Task<IActionResult> Upload(IFormFile archive)

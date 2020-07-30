@@ -3,11 +3,14 @@ using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
 using Dictionary.Database;
+using Dictionary.Database.Repositories.Stats;
 using Dictionary.Database.Repositories.Word;
 using Dictionary.Excel.Parsers;
 using Dictionary.Excel.Parsers.Word;
 using Dictionary.Services.Services.Import;
+using Dictionary.Services.Services.Stats;
 using Dictionary.Services.Services.Word;
+using Dictionary.Services.Validators;
 using Dictionary.WebUi.AutoMapper;
 using Dictionary.WebUi.Configs;
 using Dictionary.WebUi.CustomMiddleware;
@@ -68,9 +71,15 @@ namespace Dictionary.WebUi
             services.AddSingleton(mapperConfiguration.CreateMapper());
 
             services.AddTransient<IWordRepository, WordRepository>();
+            services.AddTransient<IStatsRepository, StatsRepository>();
+            
             services.AddTransient<IWordService, WordService>();
-            services.AddTransient<IExcelParser<WordImportModel>, WordsImportParser>();
+            services.AddTransient<IStatsService, StatsService>();
             services.AddTransient<IImportService, ImportService>();
+            
+            services.AddTransient<StatsValidator>();
+
+            services.AddTransient<IExcelParser<WordImportModel>, WordsImportParser>();
 
             string adminPassword = Environment.GetEnvironmentVariable("ADMIN_PASSWORD");
             if(string.IsNullOrWhiteSpace(adminPassword))

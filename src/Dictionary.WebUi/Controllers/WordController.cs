@@ -26,7 +26,7 @@ namespace Dictionary.WebUi.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] WordCreateVm model)
         {
-            if (await _wordService.WordExists(model.Name, model.LanguageId))
+            if (await _wordService.WordExists(new WordExistsSm(model.Name, model.LanguageId)))
             {
                 var result = new StandardResult<Empty>
                 {

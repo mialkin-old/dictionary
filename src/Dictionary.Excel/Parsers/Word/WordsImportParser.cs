@@ -12,15 +12,8 @@ namespace Dictionary.Excel.Parsers.Word
 
             for (int index = 2; index <= LastRow; index++)
             {
-                try
-                {
-                    WordImportModel model = ParseRow(index);
-                    models.Add(model);
-                }
-                catch (Exception e)
-                {
-                    throw;
-                }
+                WordImportModel model = ParseRow(index);
+                models.Add(model);
             }
 
             return models;

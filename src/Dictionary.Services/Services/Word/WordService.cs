@@ -5,7 +5,9 @@ using AutoMapper;
 using Dictionary.Database.Models;
 using Dictionary.Database.Repositories.Word;
 using Dictionary.Services.Models.Word;
+using Dictionary.Services.Validators.Word;
 using Dictionary.Shared.Filters;
+using FluentValidation;
 
 namespace Dictionary.Services.Services.Word
 {
@@ -13,11 +15,13 @@ namespace Dictionary.Services.Services.Word
     {
         private readonly IWordRepository _wordRepository;
         private readonly IMapper _mapper;
+        private readonly WordExistsValidator _wordExistsValidator;
 
-        public WordService(IWordRepository wordRepository, IMapper mapper)
+        public WordService(IWordRepository wordRepository, IMapper mapper, WordExistsValidator wordExistsValidator)
         {
             _wordRepository = wordRepository;
             _mapper = mapper;
+            _wordExistsValidator = wordExistsValidator;
         }
 
         public async Task<int> CreateAsync(WordCreateServiceModel model)
@@ -45,9 +49,10 @@ namespace Dictionary.Services.Services.Word
             await _wordRepository.SaveChangesAsync();
         }
 
-        public async Task<bool> WordExists(string name, int languageId)
+        public async Task<bool> WordExists(WordExistsSm model)
         {
-            WordDto word = await _wordRepository.GetByNameAsync(name, languageId);
+            await _wordExistsValidator.ValidateAndThrowAsync(model);
+            WordDto word = await _wordRepository.GetByNameAsync(model.Name, model.LanguageId);
 
             return word != null;
         }

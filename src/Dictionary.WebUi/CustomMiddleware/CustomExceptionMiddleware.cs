@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using Dictionary.Services.CustomExceptions;
 using Dictionary.WebUi.Misc;
 using Microsoft.AspNetCore.Http;
 
@@ -22,12 +23,27 @@ namespace Dictionary.WebUi.CustomMiddleware
             {
                 await _next(httpContext);
             }
+            catch (CustomValidationException ex)
+            {
+                await HandleCustomExceptionAsync(httpContext, ex);
+            }
             catch (Exception ex)
             {
                 await HandleExceptionAsync(httpContext, ex);
             }
         }
-        
+
+        private Task HandleCustomExceptionAsync(HttpContext httpContext, CustomValidationException ex)
+        {
+            httpContext.Response.ContentType = "application/json";
+            httpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            
+            IResultSerializer resultSerializer = new ResultSerializer();
+            string errorResult = resultSerializer.Serialize(new ErrorResult(ex));
+
+            return httpContext.Response.WriteAsync(errorResult);
+        }
+
         private Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             context.Response.ContentType = "application/json";

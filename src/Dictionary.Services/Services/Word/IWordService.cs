@@ -17,6 +17,6 @@ namespace Dictionary.Services.Services.Word
 
         Task DeleteAsync(int id);
 
-        Task<bool> WordExists(string name, int languageId);
+        Task<bool> WordExists(WordExistsSm model);
     }
 }

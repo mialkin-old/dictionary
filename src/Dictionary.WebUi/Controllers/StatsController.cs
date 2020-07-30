@@ -14,10 +14,9 @@ namespace Dictionary.WebUi.Controllers
             _statsService = statsService;
         }
 
-        public async Task<IActionResult> GetContributionByYear()
+        public async Task<IActionResult> GetContributionByYear(int? year)
         {
-            ContributionByYearVm result = await _statsService.GetContributionByYear(2020);
-
+            ContributionByYearVm result = await _statsService.GetContributionByYear(year);
             return Ok(result);
         }
     }
