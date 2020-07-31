@@ -33,8 +33,8 @@ namespace Dictionary.WebUi.Controllers
             bool valid = await _accountService.UserWithCredentialsExists(new UserCredentialsModel(username, password));
             if (!valid)
                 return Json(new { success = false, errorMessage = "Invalid credentials!" });
-            
-            
+
+
             var claim = new Claim(ClaimTypes.Role, "user");
             var claimsIdentity = new ClaimsIdentity(new[] { claim }, "user");
             var claimsPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });

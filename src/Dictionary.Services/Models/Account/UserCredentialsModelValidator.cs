@@ -6,6 +6,7 @@ namespace Dictionary.Services.Models.Account
     {
         public UserCredentialsModelValidator()
         {
+            RuleFor(x => x.Username).NotEmpty();
             RuleFor(x => x.Password).NotEmpty();
         }   
     }

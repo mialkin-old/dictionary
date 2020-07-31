@@ -11,7 +11,7 @@ namespace Dictionary.Services.Services.Account
         private readonly UserCredentialsModelValidator _userCredentialsModelValidator;
         private readonly AccountConfig _accountConfig;
 
-        public AccountService(AccountConfig accountConfig, UserCredentialsModelValidator userCredentialsModelValidator)
+        public AccountService(UserCredentialsModelValidator userCredentialsModelValidator, AccountConfig accountConfig)
         {
             _accountConfig = accountConfig;
             _userCredentialsModelValidator = userCredentialsModelValidator;

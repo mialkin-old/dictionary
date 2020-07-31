@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,6 +9,8 @@ using Dictionary.Database.Repositories.Stats;
 using Dictionary.Database.Repositories.Word;
 using Dictionary.Excel.Parsers;
 using Dictionary.Excel.Parsers.Word;
+using Dictionary.Services.Configs;
+using Dictionary.Services.Models.Account;
 using Dictionary.Services.Models.Stats;
 using Dictionary.Services.Models.Word;
 using Dictionary.Services.Services.Account;
@@ -21,6 +25,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -65,6 +70,7 @@ namespace Dictionary.WebUi
                         }; // https://github.com/dotnet/aspnetcore/issues/9039#issuecomment-629617025
                     });
 
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddControllersWithViews();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "npm-build"; });
@@ -72,26 +78,26 @@ namespace Dictionary.WebUi
 
             var mapperConfiguration = new MapperConfiguration(cfg => { cfg.AddProfile<MappingProfile>(); });
             services.AddSingleton(mapperConfiguration.CreateMapper());
+            
+            string adminPassword = Environment.GetEnvironmentVariable("ADMIN_PASSWORD");
+            if (string.IsNullOrWhiteSpace(adminPassword))
+                throw new ArgumentNullException(adminPassword, "Environment variable ADMIN_PASSWORD must be specified");
+            services.AddSingleton(new AccountConfig(adminPassword));
 
             services.AddTransient<IWordRepository, WordRepository>();
             services.AddTransient<IStatsRepository, StatsRepository>();
-            
+
             services.AddTransient<IWordService, WordService>();
             services.AddTransient<IStatsService, StatsService>();
             services.AddTransient<IImportService, ImportService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAccountService, AccountService>();
-            
+
             services.AddTransient<ContributionYearModelValidator>();
             services.AddTransient<WordExistsValidator>();
+            services.AddTransient<UserCredentialsModelValidator>();
 
             services.AddTransient<IExcelParser<WordImportModel>, WordsImportParser>();
-
-            string adminPassword = Environment.GetEnvironmentVariable("ADMIN_PASSWORD");
-            if(string.IsNullOrWhiteSpace(adminPassword))
-                throw new ArgumentNullException(adminPassword,"Environment variable ADMIN_PASSWORD must be specified");
-
-            services.AddSingleton(new AccountConfig(adminPassword));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -102,6 +108,17 @@ namespace Dictionary.WebUi
                 app.UseDeveloperExceptionPage();
                 app.UseHttpsRedirection();
             }
+
+            var supportedCultures = new List<CultureInfo> { new CultureInfo("ru-RU") };
+            var requestLocalizationOptions = new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("en-US"),
+                // Formatting numbers, dates, etc.
+                SupportedCultures = supportedCultures,
+                // UI strings that we have localized.
+                SupportedUICultures = supportedCultures
+            };
+            app.UseRequestLocalization(requestLocalizationOptions);
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();

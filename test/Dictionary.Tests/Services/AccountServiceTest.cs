@@ -15,7 +15,7 @@ namespace Dictionary.Tests.Services
             [Values(null, "", " ", "   ")] string password)
         {
             var accountService =
-                new AccountService(new AccountConfig("adminPass"), new UserCredentialsModelValidator());
+                new AccountService(new UserCredentialsModelValidator(), new AccountConfig("adminPass"));
             var model = new UserCredentialsModel(username, password);
 
             Assert.ThrowsAsync<ValidationException>(async () => await accountService.UserWithCredentialsExists(model));
@@ -26,7 +26,7 @@ namespace Dictionary.Tests.Services
             [Values("p", "password")] string password)
         {
             var accountService =
-                new AccountService(new AccountConfig("adminPass"), new UserCredentialsModelValidator());
+                new AccountService(new UserCredentialsModelValidator(), new AccountConfig("adminPass"));
             var model = new UserCredentialsModel(username, password);
 
             accountService.UserWithCredentialsExists(model);
