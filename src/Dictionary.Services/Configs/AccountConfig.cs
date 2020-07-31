@@ -4,10 +4,6 @@ namespace Dictionary.Services.Configs
     {
         public string AdminPassword { get; set; }
 
-        public AccountConfig()
-        {
-            
-        }
         public AccountConfig(string adminPassword)
         {
             AdminPassword = adminPassword;

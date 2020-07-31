@@ -1,18 +1,18 @@
 using System.Collections.Generic;
-using Dictionary.Services.CustomExceptions;
+using FluentValidation;
 using FluentValidation.Results;
 
 namespace Dictionary.WebUi.Misc
 {
     public class ErrorResult
     {
-        public IList<ValidationFailure> ValidationFailures { get; }
+        public IEnumerable<ValidationFailure> ValidationFailures { get; }
 
         public string ErrorMessage { get; }
 
-        public ErrorResult(CustomValidationException ex)
+        public ErrorResult(ValidationException ex)
         {
-            ValidationFailures = ex.ValidationFailures;
+            ValidationFailures = ex.Errors;
         }
         public ErrorResult(string errorMessage)
         {

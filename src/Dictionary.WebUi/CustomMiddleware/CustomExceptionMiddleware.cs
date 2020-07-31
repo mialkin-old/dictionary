@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Dictionary.Services.CustomExceptions;
 using Dictionary.WebUi.Misc;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 
 namespace Dictionary.WebUi.CustomMiddleware
@@ -23,9 +24,9 @@ namespace Dictionary.WebUi.CustomMiddleware
             {
                 await _next(httpContext);
             }
-            catch (CustomValidationException ex)
+            catch (ValidationException ex)
             {
-                await HandleCustomExceptionAsync(httpContext, ex);
+                await HandleValidationExceptionAsync(httpContext, ex);
             }
             catch (Exception ex)
             {
@@ -33,7 +34,7 @@ namespace Dictionary.WebUi.CustomMiddleware
             }
         }
 
-        private Task HandleCustomExceptionAsync(HttpContext httpContext, CustomValidationException ex)
+        private Task HandleValidationExceptionAsync(HttpContext httpContext, ValidationException ex)
         {
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
