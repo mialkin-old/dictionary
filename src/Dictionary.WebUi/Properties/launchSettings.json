@@ -22,7 +22,8 @@
       "applicationUrl": "https://localhost:8081;http://localhost:8080",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ADMIN_PASSWORD": "your-secret"
+        "ADMIN_USERNAME": "admin",
+        "ADMIN_PASSWORD": "password"
       }
     },
     "production": {

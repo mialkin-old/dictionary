@@ -23,7 +23,7 @@ namespace Dictionary.Services.Services.Account
             if(string.IsNullOrEmpty(_accountConfig.AdminPassword))
                 throw new ArgumentNullException(_accountConfig.AdminPassword);
             
-            bool exists = _accountConfig.AdminPassword == model.Password;
+            bool exists = _accountConfig.AdminPassword == model.Password && _accountConfig.AdminUsername == model.Username;
 
             return exists;
         }

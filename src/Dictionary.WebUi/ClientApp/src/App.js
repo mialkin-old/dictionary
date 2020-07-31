@@ -4,7 +4,7 @@ import {Layout} from './components/Layout';
 import 'antd/dist/antd.css';
 import './css/common.css'
 import {Main} from './components/Main';
-import {Login} from './components/Login';
+import {Login} from './components/login/Login';
 import {Stats} from "./components/Stats";
 import {NotFound} from "./components/NotFound";
 

@@ -79,10 +79,13 @@ namespace Dictionary.WebUi
             var mapperConfiguration = new MapperConfiguration(cfg => { cfg.AddProfile<MappingProfile>(); });
             services.AddSingleton(mapperConfiguration.CreateMapper());
             
+            string adminUsername = Environment.GetEnvironmentVariable("ADMIN_USERNAME");
+            if (string.IsNullOrWhiteSpace(adminUsername))
+                throw new ArgumentNullException(adminUsername, "Environment variable ADMIN_USERNAME must be specified");
             string adminPassword = Environment.GetEnvironmentVariable("ADMIN_PASSWORD");
             if (string.IsNullOrWhiteSpace(adminPassword))
                 throw new ArgumentNullException(adminPassword, "Environment variable ADMIN_PASSWORD must be specified");
-            services.AddSingleton(new AccountConfig(adminPassword));
+            services.AddSingleton(new AccountConfig(adminUsername, adminPassword));
 
             services.AddTransient<IWordRepository, WordRepository>();
             services.AddTransient<IStatsRepository, StatsRepository>();
@@ -109,10 +112,10 @@ namespace Dictionary.WebUi
                 app.UseHttpsRedirection();
             }
 
-            var supportedCultures = new List<CultureInfo> { new CultureInfo("ru-RU") };
+            var supportedCultures = new List<CultureInfo> { new CultureInfo("ru") };
             var requestLocalizationOptions = new RequestLocalizationOptions
             {
-                DefaultRequestCulture = new RequestCulture("en-US"),
+                DefaultRequestCulture = new RequestCulture("en"),
                 // Formatting numbers, dates, etc.
                 SupportedCultures = supportedCultures,
                 // UI strings that we have localized.
