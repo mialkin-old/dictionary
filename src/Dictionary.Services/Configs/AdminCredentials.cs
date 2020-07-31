@@ -1,11 +1,11 @@
 namespace Dictionary.Services.Configs
 {
-    public class AccountConfig
+    public class AdminCredentials
     {
         public string AdminUsername { get; set; }
         public string AdminPassword { get; set; }
 
-        public AccountConfig(string adminUsername, string adminPassword)
+        public AdminCredentials(string adminUsername, string adminPassword)
         {
             AdminUsername = adminUsername;
             AdminPassword = adminPassword;

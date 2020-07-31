@@ -9,21 +9,21 @@ namespace Dictionary.Services.Services.Account
     public class AccountService : IAccountService
     {
         private readonly UserCredentialsModelValidator _userCredentialsModelValidator;
-        private readonly AccountConfig _accountConfig;
+        private readonly AdminCredentials _adminCredentials;
 
-        public AccountService(UserCredentialsModelValidator userCredentialsModelValidator, AccountConfig accountConfig)
+        public AccountService(UserCredentialsModelValidator userCredentialsModelValidator, AdminCredentials adminCredentials)
         {
-            _accountConfig = accountConfig;
+            _adminCredentials = adminCredentials;
             _userCredentialsModelValidator = userCredentialsModelValidator;
         }
         public async Task<bool> UserWithCredentialsExists(UserCredentialsModel model)
         {
             await _userCredentialsModelValidator.ValidateAndThrowAsync(model);
             
-            if(string.IsNullOrEmpty(_accountConfig.AdminPassword))
-                throw new ArgumentNullException(_accountConfig.AdminPassword);
+            if(string.IsNullOrEmpty(_adminCredentials.AdminPassword))
+                throw new ArgumentNullException(_adminCredentials.AdminPassword);
             
-            bool exists = _accountConfig.AdminPassword == model.Password && _accountConfig.AdminUsername == model.Username;
+            bool exists = _adminCredentials.AdminPassword == model.Password && _adminCredentials.AdminUsername == model.Username;
 
             return exists;
         }

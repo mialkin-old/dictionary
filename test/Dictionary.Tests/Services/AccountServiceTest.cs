@@ -15,7 +15,7 @@ namespace Dictionary.Tests.Services
         {
             var accountService =
                 new AccountService(new UserCredentialsModelValidator(),
-                    new AccountConfig("admin", "password"));
+                    new AdminCredentials("admin", "password"));
             var model = new UserCredentialsModel(username, "password");
 
             Assert.ThrowsAsync<ValidationException>(async () => await accountService.UserWithCredentialsExists(model));
@@ -26,7 +26,7 @@ namespace Dictionary.Tests.Services
         {
             var accountService =
                 new AccountService(new UserCredentialsModelValidator(),
-                    new AccountConfig("admin", "password"));
+                    new AdminCredentials("admin", "password"));
             var model = new UserCredentialsModel("admin", password);
 
             Assert.ThrowsAsync<ValidationException>(async () => await accountService.UserWithCredentialsExists(model));
@@ -39,7 +39,7 @@ namespace Dictionary.Tests.Services
         {
             var accountService =
                 new AccountService(new UserCredentialsModelValidator(),
-                    new AccountConfig("admin", "password"));
+                    new AdminCredentials("admin", "password"));
             var model = new UserCredentialsModel(username, password);
 
             Assert.ThrowsAsync<ValidationException>(async () => await accountService.UserWithCredentialsExists(model));
@@ -52,7 +52,7 @@ namespace Dictionary.Tests.Services
         {
             var accountService =
                 new AccountService(new UserCredentialsModelValidator(),
-                    new AccountConfig("admin", "password"));
+                    new AdminCredentials("admin", "password"));
             var model = new UserCredentialsModel(username, password);
 
             accountService.UserWithCredentialsExists(model);
@@ -65,7 +65,7 @@ namespace Dictionary.Tests.Services
         {
             var accountService =
                 new AccountService(new UserCredentialsModelValidator(),
-                    new AccountConfig(adminUsername, adminPassword));
+                    new AdminCredentials(adminUsername, adminPassword));
             var model = new UserCredentialsModel(username, password);
 
             bool exists = await accountService.UserWithCredentialsExists(model);
@@ -81,7 +81,7 @@ namespace Dictionary.Tests.Services
         {
             var accountService =
                 new AccountService(new UserCredentialsModelValidator(),
-                    new AccountConfig(adminUsername, adminPassword));
+                    new AdminCredentials(adminUsername, adminPassword));
             var model = new UserCredentialsModel(username, password);
 
             bool exists = await accountService.UserWithCredentialsExists(model);
