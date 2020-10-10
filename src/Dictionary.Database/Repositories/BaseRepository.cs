@@ -12,7 +12,7 @@ namespace Dictionary.Database.Repositories
 
         private readonly DbContext _dbContext;
 
-        public BaseRepository(DbContext dbContext)
+        protected BaseRepository(DbContext dbContext)
         {
             _dbContext = dbContext;
             Entities = _dbContext.Set<TEntity>();
@@ -64,6 +64,11 @@ namespace Dictionary.Database.Repositories
         public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
             return Entities.Where(predicate).SingleOrDefault();
+        }
+
+        public TEntity First(Expression<Func<TEntity, bool>> predicate)
+        {
+            return Entities.First(predicate);
         }
 
         public TEntity FirstOrDefault()

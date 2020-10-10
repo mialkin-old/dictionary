@@ -5,15 +5,11 @@ using Dictionary.Shared.Filters;
 
 namespace Dictionary.Database.Repositories.Word
 {
-    public interface IWordRepository
+    public interface IWordRepository : IRepository<WordDto>
     {
-        Task CreateAsync(WordDto word);
-
         Task CreateAsync(IEnumerable<WordDto> word);
 
         Task UpdateAsync(WordDto word);
-
-        Task DeleteAsync(int id);
 
         Task<WordDto> GetByNameAsync(string name, int languageId);
 

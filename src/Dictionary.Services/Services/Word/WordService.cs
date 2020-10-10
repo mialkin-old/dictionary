@@ -28,7 +28,7 @@ namespace Dictionary.Services.Services.Word
             WordDto word = _mapper.Map<WordDto>(model);
             word.Created = DateTime.Now;
 
-            await _wordRepository.CreateAsync(word);
+            _wordRepository.Add(word);
             await _wordRepository.SaveChangesAsync();
 
             return word.WordId;
@@ -44,23 +44,29 @@ namespace Dictionary.Services.Services.Word
 
         public async Task DeleteAsync(int id)
         {
-            await _wordRepository.DeleteAsync(id);
+            WordDto wordDto = _wordRepository.First(x => x.WordId == id);
+            _wordRepository.Remove(wordDto);
+
             await _wordRepository.SaveChangesAsync();
         }
 
         public async Task<bool> WordExists(WordExistsServiceModel model)
         {
             await _wordExistsValidator.ValidateAndThrowAsync(model);
+            
+            
             WordDto word = await _wordRepository.GetByNameAsync(model.Name, model.LanguageId);
 
             return word != null;
         }
+
         public async Task<IList<WordListServiceModel>> ListAsync(WordListFilter filter)
         {
             IList<WordDto> result = await _wordRepository.ListAsync(filter);
 
             return _mapper.Map<IList<WordListServiceModel>>(result);
         }
+
         public async Task<IList<WordListServiceModel>> SearchAsync(WordSearchFilter filter)
         {
             IList<WordDto> result = await _wordRepository.SearchAsync(filter);

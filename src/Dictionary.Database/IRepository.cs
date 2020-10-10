@@ -22,6 +22,7 @@ namespace Dictionary.Database
 
         TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
 
+        TEntity First(Expression<Func<TEntity, bool>> predicate);
         TEntity FirstOrDefault();
 
         void Add(TEntity entity);

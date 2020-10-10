@@ -8,18 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dictionary.Database.Repositories.Word
 {
-    public class WordRepository : IWordRepository
+    public class WordRepository : BaseRepository<WordDto>, IWordRepository
     {
         private DictionaryDb Db { get; }
 
-        public WordRepository(DictionaryDb db)
+        public WordRepository(DictionaryDb db) : base(db)
         {
             Db = db;
-        }
-
-        public async Task CreateAsync(WordDto word)
-        {
-            await Db.Words.AddAsync(word);
         }
 
         public async Task CreateAsync(IEnumerable<WordDto> words)
@@ -40,12 +35,6 @@ namespace Dictionary.Database.Repositories.Word
 
                 Db.Words.Update(entity);
             }
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            WordDto word = await Db.Words.FindAsync(id);
-            Db.Words.Remove(word);
         }
 
         public async Task<WordDto> GetByNameAsync(string name, int languageId)
