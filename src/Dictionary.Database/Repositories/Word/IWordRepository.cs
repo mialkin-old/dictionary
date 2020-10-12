@@ -16,7 +16,5 @@ namespace Dictionary.Database.Repositories.Word
         Task<IList<WordDto>> ListAsync(WordListFilter filter);
 
         Task<IList<WordDto>> SearchAsync(WordSearchFilter filter);
-
-        Task SaveChangesAsync();
     }
 }
