@@ -109,7 +109,6 @@ namespace Dictionary.WebUi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseHttpsRedirection();
             }
 
             var supportedCultures = new List<CultureInfo> { new CultureInfo("ru") };
@@ -123,6 +122,7 @@ namespace Dictionary.WebUi
             };
             app.UseRequestLocalization(requestLocalizationOptions);
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
