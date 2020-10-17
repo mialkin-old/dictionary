@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  dictionary:
+    build: .
+    ports:
+      - "5000:80"
+    volumes:
+      - /var/www/dict.mialkin.ru:/app/SQLite-files
+    restart: unless-stopped
+    environment:
+      - ADMIN_USERNAME
+      - ADMIN_PASSWORD
+    container_name: dictionary
