@@ -6,7 +6,7 @@ services:
 before_script:
   - docker info
 
-build:
+.build:
   only:
     - master
   before_script:
@@ -19,3 +19,6 @@ build:
   stage: build
   tags:
     - docker
+deploy:
+  script: 
+    - echo "hello world"
