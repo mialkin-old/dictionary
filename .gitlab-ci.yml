@@ -6,9 +6,14 @@ services:
 before_script:
   - docker info
 
+test:
+  script: 
+    - uptime
+  stage: test
 build:
   only:
     - master
+  when: manual
   before_script:
     - docker login registry.gitlab.com -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}
   script:
