@@ -6,6 +6,10 @@ services:
 before_script:
   - docker info
 
+stages:
+  - test
+  - build
+  - deploy
 test:
   image: alpine:latest
   script: 
