@@ -7,6 +7,7 @@ before_script:
   - docker info
 
 test:
+  image: alpine:latest
   script: 
     - uptime
   stage: test
