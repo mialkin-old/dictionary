@@ -43,3 +43,4 @@ deploy:
     - '[[ -f /.dockerinit ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
     - ssh aleksei@mialkin.ru "cd /var/www/dict.mialkin.ru && sudo docker-compose up -d"
+  stage: deploy
