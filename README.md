@@ -36,7 +36,7 @@ cd dictionary
 docker compose up -d
 ```
 
-5. Make sure that your container is up by running:
+5. Make sure that your container started successfully by running:
 
 ```bash
 docker ps -a
