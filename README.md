@@ -1,7 +1,13 @@
 # Dictionary
 
 1. Install [Docker Desktop](https://docs.docker.com/get-docker/) on your computer.
-2. Create a new folder for storing dictionary files.
+2. Create a new `dictionary` folder for storing application files.
+
+```bash
+cd
+mkdir dictionary
+```
+
 3. Inside the folder create a docker-compose.yml file with the following text inside:
 
 ```yaml
