@@ -8,7 +8,7 @@ cd
 mkdir dictionary
 ```
 
-3. In text editor create `docker-compose.yml` file with the following text:
+3. Inside `dictionary` folder create `docker-compose.yml` file with the following text:
 
 ```yaml
 version: "3.8"
@@ -25,8 +25,6 @@ services:
       - ADMIN_PASSWORD=password123
     container_name: dictionary
 ```
-
-Save that file to `dictionary` folder.
 
 4\. Go to `dictionary` folder and run `docker-compose up -d` command:
 
