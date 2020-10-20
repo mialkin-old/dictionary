@@ -29,7 +29,6 @@ services:
 4\. Go to `dictionary` folder and run `docker-compose up -d` command:
 
 ```bash
-cd
 cd dictionary
 docker compose up -d
 ```
