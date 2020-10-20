@@ -35,4 +35,11 @@ cd
 cd dictionary
 docker compose up -d
 ```
-5\. In your browser navigate to http://localhost:5000/login and enter username and password from docker-compose.yml file in order to log in to be able to add new words.
+
+5. Make sure that your container is up by running:
+
+```bash
+docker ps -a
+```
+
+6\. In your browser navigate to http://localhost:5000/login and enter username and password from docker-compose.yml file in order to log in to be able to add new words.
