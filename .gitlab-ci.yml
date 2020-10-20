@@ -17,7 +17,7 @@ test:
 build:
   only:
     - master
-  when: manual
+  #when: manual
   before_script:
     - docker login registry.gitlab.com -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}
   script:
