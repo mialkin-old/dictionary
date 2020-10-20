@@ -4,6 +4,7 @@ using Dictionary.Services.Models.Account;
 using Dictionary.Services.Services.Account;
 using FluentValidation;
 using NUnit.Framework;
+using UserCredentials = Dictionary.Services.Models.Account.UserCredentials;
 
 namespace Dictionary.Tests.Services
 {
@@ -14,35 +15,33 @@ namespace Dictionary.Tests.Services
         public void InvalidUsername([Values(null, "", " ", "   ")] string username)
         {
             var accountService =
-                new AccountService(new UserCredentialsModelValidator(),
-                    new AdminCredentials("admin", "password"));
-            var model = new UserCredentialsModel(username, "password");
+                new AccountService(new UserCredentialsValidator(),
+                    new Dictionary.Services.Configs.UserCredentialsConfig("admin", "password"));
+            var model = new UserCredentials(username, "password");
 
-            Assert.ThrowsAsync<ValidationException>(async () => await accountService.UserWithCredentialsExists(model));
+            Assert.ThrowsAsync<ValidationException>(async () => await accountService.UserExists(model));
         }
-        
+
         [Test]
         public void InvalidPassword([Values(null, "", " ", "   ")] string password)
         {
             var accountService =
-                new AccountService(new UserCredentialsModelValidator(),
-                    new AdminCredentials("admin", "password"));
-            var model = new UserCredentialsModel("admin", password);
+                new AccountService(new UserCredentialsValidator(),
+                    new Dictionary.Services.Configs.UserCredentialsConfig("admin", "password"));
+            var model = new UserCredentials("admin", password);
 
-            Assert.ThrowsAsync<ValidationException>(async () => await accountService.UserWithCredentialsExists(model));
+            Assert.ThrowsAsync<ValidationException>(async () => await accountService.UserExists(model));
         }
-        
+
         [Test]
         public void InvalidCredentials(
             [Values(null, "", " ", "   ")] string username,
             [Values(null, "", " ", "   ")] string password)
         {
-            var accountService =
-                new AccountService(new UserCredentialsModelValidator(),
-                    new AdminCredentials("admin", "password"));
-            var model = new UserCredentialsModel(username, password);
+            var accountService = new AccountService(new UserCredentialsValidator(), new Dictionary.Services.Configs.UserCredentialsConfig("admin", "password"));
+            var model = new UserCredentials(username, password);
 
-            Assert.ThrowsAsync<ValidationException>(async () => await accountService.UserWithCredentialsExists(model));
+            Assert.ThrowsAsync<ValidationException>(async () => await accountService.UserExists(model));
         }
 
         [Test]
@@ -50,42 +49,38 @@ namespace Dictionary.Tests.Services
             [Values("a", "admin")] string username,
             [Values("p", "password")] string password)
         {
-            var accountService =
-                new AccountService(new UserCredentialsModelValidator(),
-                    new AdminCredentials("admin", "password"));
-            var model = new UserCredentialsModel(username, password);
+            var accountService = new AccountService(new UserCredentialsValidator(), new Dictionary.Services.Configs.UserCredentialsConfig("admin", "password"));
+            var model = new UserCredentials(username, password);
 
-            accountService.UserWithCredentialsExists(model);
+            accountService.UserExists(model);
         }
 
         [TestCase("admin", "password", "admin", "password")]
         [TestCase("ADMIN", "password", "ADMIN", "password")]
         [TestCase("admin", "PASSWORD", "admin", "PASSWORD")]
-        public async Task UserWithCredentialsExists(string username, string password, string adminUsername, string adminPassword)
+        public async Task UserWithCredentialsExists(string username, string password, string adminUsername,
+            string adminPassword)
         {
-            var accountService =
-                new AccountService(new UserCredentialsModelValidator(),
-                    new AdminCredentials(adminUsername, adminPassword));
-            var model = new UserCredentialsModel(username, password);
+            var accountService = new AccountService(new UserCredentialsValidator(), new Dictionary.Services.Configs.UserCredentialsConfig(adminUsername, adminPassword));
+            var model = new UserCredentials(username, password);
 
-            bool exists = await accountService.UserWithCredentialsExists(model);
-            
+            bool exists = await accountService.UserExists(model);
+
             Assert.IsTrue(exists);
         }
-        
+
         [TestCase("admin", "password", "wrong-username", "password")]
         [TestCase("admin", "password", "admin", "wrong-password")]
         [TestCase("admin", "password", "admin", "PASSWORD")]
         [TestCase("admin", "password", "ADMIN", "password")]
-        public async Task UserWithCredentialsDoesntExist(string username, string password, string adminUsername, string adminPassword)
+        public async Task UserWithCredentialsDoesntExist(string username, string password, string adminUsername,
+            string adminPassword)
         {
-            var accountService =
-                new AccountService(new UserCredentialsModelValidator(),
-                    new AdminCredentials(adminUsername, adminPassword));
-            var model = new UserCredentialsModel(username, password);
+            var accountService = new AccountService(new UserCredentialsValidator(), new Dictionary.Services.Configs.UserCredentialsConfig(adminUsername, adminPassword));
+            var model = new UserCredentials(username, password);
 
-            bool exists = await accountService.UserWithCredentialsExists(model);
-            
+            bool exists = await accountService.UserExists(model);
+
             Assert.IsFalse(exists);
         }
     }

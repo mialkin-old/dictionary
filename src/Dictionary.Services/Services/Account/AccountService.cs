@@ -8,22 +8,23 @@ namespace Dictionary.Services.Services.Account
 {
     public class AccountService : IAccountService
     {
-        private readonly UserCredentialsModelValidator _userCredentialsModelValidator;
-        private readonly AdminCredentials _adminCredentials;
+        private readonly UserCredentialsValidator _userCredentialsValidator;
+        private readonly UserCredentialsConfig _userCredentialsConfig;
 
-        public AccountService(UserCredentialsModelValidator userCredentialsModelValidator, AdminCredentials adminCredentials)
+        public AccountService(UserCredentialsValidator userCredentialsValidator, UserCredentialsConfig userCredentialsConfig)
         {
-            _adminCredentials = adminCredentials;
-            _userCredentialsModelValidator = userCredentialsModelValidator;
+            _userCredentialsConfig = userCredentialsConfig;
+            _userCredentialsValidator = userCredentialsValidator;
         }
-        public async Task<bool> UserWithCredentialsExists(UserCredentialsModel model)
+
+        public async Task<bool> UserExists(UserCredentials userCredentials)
         {
-            await _userCredentialsModelValidator.ValidateAndThrowAsync(model);
-            
-            if(string.IsNullOrEmpty(_adminCredentials.AdminPassword))
-                throw new ArgumentNullException(_adminCredentials.AdminPassword);
-            
-            bool exists = _adminCredentials.AdminPassword == model.Password && _adminCredentials.AdminUsername == model.Username;
+            await _userCredentialsValidator.ValidateAndThrowAsync(userCredentials);
+
+            if (string.IsNullOrEmpty(_userCredentialsConfig.Password))
+                throw new ArgumentNullException(_userCredentialsConfig.Password);
+
+            bool exists = _userCredentialsConfig.Password == userCredentials.Password && _userCredentialsConfig.Username == userCredentials.Username;
 
             return exists;
         }

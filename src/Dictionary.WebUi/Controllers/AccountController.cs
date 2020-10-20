@@ -30,7 +30,7 @@ namespace Dictionary.WebUi.Controllers
             if (User.Identity.IsAuthenticated)
                 return Json(new { success = false, errorMessage = "You are already authenticated!" });
 
-            bool valid = await _accountService.UserWithCredentialsExists(new UserCredentialsModel(username, password));
+            bool valid = await _accountService.UserExists(new UserCredentials(username, password));
             if (!valid)
                 return Json(new { success = false, errorMessage = "Invalid credentials!" });
 

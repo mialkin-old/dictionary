@@ -5,6 +5,6 @@ namespace Dictionary.Services.Services.Account
 {
     public interface IAccountService
     {
-        Task<bool> UserWithCredentialsExists(UserCredentialsModel model);
+        Task<bool> UserExists(UserCredentials userCredentials);
     }
 }

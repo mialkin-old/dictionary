@@ -85,7 +85,7 @@ namespace Dictionary.WebUi
             string adminPassword = Environment.GetEnvironmentVariable("ADMIN_PASSWORD");
             if (string.IsNullOrWhiteSpace(adminPassword))
                 throw new ArgumentNullException(adminPassword, "Environment variable ADMIN_PASSWORD must be specified");
-            services.AddSingleton(new AdminCredentials(adminUsername, adminPassword));
+            services.AddSingleton(new UserCredentialsConfig(adminUsername, adminPassword));
 
             services.AddTransient<IWordRepository, WordRepository>();
             services.AddTransient<IStatsRepository, StatsRepository>();
@@ -98,7 +98,7 @@ namespace Dictionary.WebUi
 
             services.AddTransient<ContributionYearModelValidator>();
             services.AddTransient<WordExistsValidator>();
-            services.AddTransient<UserCredentialsModelValidator>();
+            services.AddTransient<UserCredentialsValidator>();
 
             services.AddTransient<IExcelParser<WordImportModel>, WordsImportParser>();
         }
