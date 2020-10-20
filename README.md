@@ -26,6 +26,8 @@ services:
     container_name: dictionary
 ```
 
+You can change port 5000 as well as admin username and password to your own.
+
 4\. Go to `dictionary` folder and run `docker-compose up -d` command:
 
 ```bash
