@@ -28,10 +28,11 @@ services:
 
 Save that file to `dictionary` folder.
 
-4\. Inside `dictionary` folder run `docker-compose up -d` command:
+4\. Go to `dictionary` folder and run `docker-compose up -d` command:
 
 ```bash
-cd /path/to/dictionary
+cd
+cd dictionary
 docker compose up -d
 ```
 5\. Navigate to http://localhost:5000/login and enter username and password from docker-compose.yml file in order to log in to be able to add new words.
