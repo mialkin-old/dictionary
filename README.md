@@ -8,7 +8,7 @@ cd
 mkdir dictionary
 ```
 
-3. Inside `dictionary` folder create `docker-compose.yml` file with the following content:
+3. Create `docker-compose.yml` file inside `dictionary` folder with the following content:
 
 ```yaml
 version: "3.8"
