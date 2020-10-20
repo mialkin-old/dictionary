@@ -42,4 +42,4 @@ docker compose up -d
 docker ps -a
 ```
 
-6\. In your browser navigate to http://localhost:5000/login and enter username and password from docker-compose.yml file in order to log in to be able to add new words.
+6\. In your browser navigate to http://localhost:5000/login and enter username and password from `docker-compose.yml` file in order to log in to be able to add new words.
