@@ -32,7 +32,7 @@ If you want, you can change port 5000 as well as admin username and password to 
 
 ```bash
 cd dictionary
-docker compose up -d
+docker-compose up -d
 ```
 
 5. Make sure that your container started successfully by running:
