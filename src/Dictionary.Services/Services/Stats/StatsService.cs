@@ -8,18 +8,17 @@ namespace Dictionary.Services.Services.Stats
     public class StatsService : IStatsService
     {
         private readonly IStatsRepository _statsRepository;
-        private readonly ContributionYearModelValidator _contributionYearModelValidator;
+        private readonly ContributionYearValidator _contributionYearValidator;
 
-        public StatsService(IStatsRepository statsRepository,
-            ContributionYearModelValidator contributionYearModelValidator)
+        public StatsService(IStatsRepository statsRepository, ContributionYearValidator contributionYearValidator)
         {
             _statsRepository = statsRepository;
-            _contributionYearModelValidator = contributionYearModelValidator;
+            _contributionYearValidator = contributionYearValidator;
         }
 
-        public async Task<ContributionYearModel> GetContributionByYear(ContributionYearModel model)
+        public async Task<ContributionYear> GetContributionByYear(ContributionYear model)
         {
-            await _contributionYearModelValidator.ValidateAndThrowAsync(model);
+            await _contributionYearValidator.ValidateAndThrowAsync(model);
 
             return model;
         }

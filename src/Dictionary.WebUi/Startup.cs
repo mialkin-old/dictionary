@@ -96,7 +96,7 @@ namespace Dictionary.WebUi
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAccountService, AccountService>();
 
-            services.AddTransient<ContributionYearModelValidator>();
+            services.AddTransient<ContributionYearValidator>();
             services.AddTransient<WordExistsValidator>();
             services.AddTransient<UserCredentialsValidator>();
 

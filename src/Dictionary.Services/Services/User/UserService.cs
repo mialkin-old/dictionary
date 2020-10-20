@@ -4,9 +4,9 @@ namespace Dictionary.Services.Services.User
 {
     public class UserService : IUserService
     {
-        public UserInfoModel GetUserInfo(string username)
+        public UserInfo GetUserInfo(string username)
         {
-            return new UserInfoModel(username);
+            return new UserInfo(username);
         }
     }
 }

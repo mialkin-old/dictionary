@@ -4,6 +4,6 @@ namespace Dictionary.Services.Services.User
 {
     public interface IUserService
     {
-        UserInfoModel GetUserInfo(string username);
+        UserInfo GetUserInfo(string username);
     }
 }

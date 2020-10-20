@@ -1,10 +1,10 @@
 namespace Dictionary.Services.Models.User
 {
-    public class UserInfoModel
+    public class UserInfo
     {
         public string Username { get; private set; }
 
-        public UserInfoModel(string username)
+        public UserInfo(string username)
         {
             Username = username;
         }

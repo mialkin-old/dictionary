@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace Dictionary.Shared.ExtensionMethods
 {
-    public  static class IQueryableExtensions
+    public static class QueryableExtensions
     {
         public static IOrderedQueryable<T> OrderByPropertyName<T>(this IQueryable<T> source, string propertyName)
         {

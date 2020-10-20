@@ -1,10 +1,10 @@
 namespace Dictionary.Services.Models.Stats
 {
-    public class ContributionYearModel
+    public class ContributionYear
     {
         public int? Year { get; }
 
-        public ContributionYearModel(int? year)
+        public ContributionYear(int? year)
         {
             Year = year;
         }
