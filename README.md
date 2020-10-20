@@ -1,8 +1,14 @@
 # Dictionary
 
-1. Install Docker desktop on your computer.
-2. Create a new folder for storing dictionary files.
-3. Inside the folder create a docker-compose.yml file with the following text inside:
+1. Install [Docker Desktop](https://docs.docker.com/get-docker/) on your computer.
+2. Create a new `dictionary` folder for storing application files:
+
+```bash
+cd
+mkdir dictionary
+```
+
+3. In text editor create `docker-compose.yml` file with the following text:
 
 ```yaml
 version: "3.8"
@@ -20,10 +26,20 @@ services:
     container_name: dictionary
 ```
 
-4\. Using command line tool navigate to the folder and run `docker-compose up -d` command:
+Save that file to `dictionary` folder.
+
+4\. Go to `dictionary` folder and run `docker-compose up -d` command:
 
 ```bash
-cd /path/to/dictionary
+cd
+cd dictionary
 docker compose up -d
 ```
-5\. Navigate to http://localhost:5000/login in your browser. Enter username and password from docker-compose.yml file to begin adding new words.
+
+5. Make sure that your container started successfully by running:
+
+```bash
+docker ps -a
+```
+
+6\. In your browser navigate to http://localhost:5000/login and enter username and password from docker-compose.yml file in order to log in to be able to add new words.
