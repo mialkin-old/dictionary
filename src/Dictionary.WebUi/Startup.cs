@@ -36,20 +36,17 @@ namespace Dictionary.WebUi
 {
     public class Startup
     {
-        /// <summary>
-        /// Absolute path to the database file.
-        /// </summary>
-        private readonly string _dbFileAbsolutePath;
+        private readonly string _databaseFileAbsolutePath;
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
 
-            DatabaseConfig dbConfig = Configuration.GetSection("Database").Get<DatabaseConfig>();
+            DatabaseConfig databaseConfig = Configuration.GetSection("Database").Get<DatabaseConfig>();
 
-            string dbFileDirectory = Path.Combine(env.ContentRootPath, dbConfig.Folder);
+            string dbFileDirectory = Path.Combine(env.ContentRootPath, databaseConfig.Folder);
             Directory.CreateDirectory(dbFileDirectory);
-            _dbFileAbsolutePath = Path.Combine(dbFileDirectory, dbConfig.File);
+            _databaseFileAbsolutePath = Path.Combine(dbFileDirectory, databaseConfig.File);
         }
 
         private IConfiguration Configuration { get; }
@@ -74,7 +71,7 @@ namespace Dictionary.WebUi
             services.AddControllersWithViews();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "npm-build"; });
-            services.AddDbContext<DictionaryDb>(options => options.UseSqlite($"Data Source={_dbFileAbsolutePath}"));
+            services.AddDbContext<DictionaryDb>(options => options.UseSqlite($"Data Source={_databaseFileAbsolutePath}"));
 
             var mapperConfiguration = new MapperConfiguration(cfg => { cfg.AddProfile<MappingProfile>(); });
             services.AddSingleton(mapperConfiguration.CreateMapper());
