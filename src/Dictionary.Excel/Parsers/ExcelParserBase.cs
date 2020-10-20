@@ -38,34 +38,38 @@ namespace Dictionary.Excel.Parsers
 
         private int GetLastUsedRow()
         {
-            var col = Worksheet.Dimension.End.Column;
-            var row = Worksheet.Dimension.End.Row;
+            int col = Worksheet.Dimension.End.Column;
+            int row = Worksheet.Dimension.End.Row;
+            
             while (row >= 1)
             {
-                var range = Worksheet.Cells[row, 1, row, col];
+                ExcelRange range = Worksheet.Cells[row, 1, row, col];
                 if (range.Any(c => !string.IsNullOrWhiteSpace(c.Text)))
                 {
                     break;
                 }
                 row--;
             }
+            
             return row;
         }
 
         private int GetLastUsedColumn()
         {
-            var col = Worksheet.Dimension.End.Column;
-            var row = Worksheet.Dimension.End.Row;
-            while (col >= 1)
+            int column = Worksheet.Dimension.End.Column;
+            int row = Worksheet.Dimension.End.Row;
+            
+            while (column >= 1)
             {
-                var range = Worksheet.Cells[1, col, row, col];
+                ExcelRange range = Worksheet.Cells[1, column, row, column];
                 if (range.Any(c => !string.IsNullOrWhiteSpace(c.Text)))
                 {
                     break;
                 }
-                col--;
+                column--;
             }
-            return col;
+            
+            return column;
         }
 
         protected void ParseString(Action<string> action, int row, int col) => action(Convert.ToString(Worksheet.Cells[row, col].Value));
