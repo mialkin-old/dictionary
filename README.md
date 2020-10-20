@@ -26,4 +26,4 @@ services:
 cd /path/to/dictionary
 docker compose up -d
 ```
-5\. Navigate to http://localhost:5000/login and enter username and password from docker-compose.yml file in order to to log in to be able to add new words.
+5\. Navigate to http://localhost:5000/login and enter username and password from docker-compose.yml file in order to log in to be able to add new words.
