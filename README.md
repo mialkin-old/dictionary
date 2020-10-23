@@ -8,7 +8,7 @@ cd
 mkdir dictionary
 ```
 
-3\. In text editor create `docker-compose.yml` file with the following text:
+3\. Create `docker-compose.yml` file inside `dictionary` folder with the following content:
 
 ```yaml
 version: "3.8"
@@ -26,14 +26,13 @@ services:
     container_name: dictionary
 ```
 
-Save that file to `dictionary` folder.
+If you want, you can change port 5000 as well as admin username and password to your own.
 
 4\. Go to `dictionary` folder and run `docker-compose up -d` command:
 
 ```bash
-cd
 cd dictionary
-docker compose up -d
+docker-compose up -d
 ```
 
 5\. Make sure that your container started successfully by running:
@@ -42,4 +41,4 @@ docker compose up -d
 docker ps -a
 ```
 
-6\. In your browser navigate to http://localhost:5000/login and enter username and password from docker-compose.yml file in order to log in to be able to add new words.
+6\. In your browser navigate to http://localhost:5000/login and enter username and password from `docker-compose.yml` file in order to log in to be able to add new words.
