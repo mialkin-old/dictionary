@@ -1,14 +1,14 @@
 # Dictionary
 
-1. Install [Docker Desktop](https://docs.docker.com/get-docker/) on your computer.
-2. Create a new `dictionary` folder for storing application files:
+1\. Install [Docker Desktop](https://docs.docker.com/get-docker/) on your computer.
+2\. Create a new `dictionary` folder for storing application files:
 
 ```bash
 cd
 mkdir dictionary
 ```
 
-3. In text editor create `docker-compose.yml` file with the following text:
+3\. In text editor create `docker-compose.yml` file with the following text:
 
 ```yaml
 version: "3.8"
@@ -36,7 +36,7 @@ cd dictionary
 docker compose up -d
 ```
 
-5. Make sure that your container started successfully by running:
+5\. Make sure that your container started successfully by running:
 
 ```bash
 docker ps -a
