@@ -1,6 +1,7 @@
 # Dictionary
 
 1\. Install [Docker Desktop](https://docs.docker.com/get-docker/) on your computer.
+
 2\. Create a new `dictionary` folder for storing application files:
 
 ```bash
