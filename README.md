@@ -48,7 +48,7 @@ docker ps -a
 
 ## Backing up dictionary with Backuper
 
-You can set up automatic backup of SQLite database, which dictionary uses internally for storing its data, by using [Backuper](https://github.com/mialkin/backuper). You have to have an account on [Yandex.Disk](https://disk.yandex.com) to be able to use Backuper.
+You can set up automatic backup of SQLite database that dictionary uses internally for storing its data by using [Backuper](https://github.com/mialkin/backuper). You have to have an account on [Yandex.Disk](https://disk.yandex.com) to be able to use Backuper.
 
 After [running](https://github.com/mialkin/backuper) Backuper as a Docker container set up a cron job that does backup once a day. Open up the cron settings file by running:
 
