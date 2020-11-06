@@ -62,7 +62,7 @@ Insert the following line at the end of the file:
 0 0 * * * sudo docker exec backuper dotnet /app/Backuper.dll
 ```
 
-Command above is going to run Backuper's console application inside of the container once a day at Midnight UTC. Here we assume that Backuper's container  name is "backuper".
+Command above is going to run Backuper's console application inside of the container once a day at midnight UTC. Here we assume that Backuper's container  name is "backuper".
 
 Save the file. On Ubuntu you should see right after that the following message:
 
