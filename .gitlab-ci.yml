@@ -6,18 +6,9 @@ services:
 before_script:
   - docker info
 
-stages:
-  - test
-  - build
-  - deploy
-test:
-  script: 
-    - uptime
-  stage: test
-build:
+push-to-registry:
   only:
-    - master
-  #when: manual
+    - main
   before_script:
     - docker login registry.gitlab.com -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}
   script:
@@ -25,33 +16,3 @@ build:
     - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
   after_script:
     - docker logout ${CI_REGISTRY}
-  stage: build
-  tags:
-    - docker
-deploy:
-  only:
-    - master
-  before_script:
-    # Install ssh-agent if not already installed, it is required by Docker.
-    # (change apt-get to yum if you use a CentOS-based image)
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-
-    # Run ssh-agent (inside the build environment)
-    - eval $(ssh-agent -s)
-
-    # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
-    - printenv SSH_PRIVATE_KEY | ssh-add -
-
-    # For Docker builds disable host key checking. Be aware that by adding that
-    # you are suspectible to man-in-the-middle attacks.
-    # WARNING: Use this only with the Docker executor, if you use it with shell
-    # you will overwrite your user's SSH config.
-    - mkdir -p ~/.ssh
-
-    - ssh-keyscan -H 'mialkin.ru' >> ~/.ssh/known_hosts
-    - ssh-keyscan mialkin.ru | sort -u - ~/.ssh/known_hosts -o ~/.ssh/known_hosts
-
-    - '[[ -f /.dockerinit ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-  script:
-    - ssh aleksei@mialkin.ru "cd /var/www/dict.mialkin.ru && sudo docker-compose up -d"
-  stage: deploy
