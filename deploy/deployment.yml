@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dict
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dict
+  namespace: dict
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJyZWdpc3RyeS5naXRsYWIuY29tIjp7InVzZXJuYW1lIjoibWlhbGtpbi1ydSIsInBhc3N3b3JkIjoiUU5BSEZxUmFkUThxaFNmc05HbzQiLCJhdXRoIjoiYldsaGJHdHBiaTF5ZFRwUlRrRklSbkZTWVdSUk9IRm9VMlp6VGtkdk5BPT0ifX19
+type: kubernetes.io/dockerconfigjson
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dict
+  namespace: dict
+spec:
+  selector:
+    app: dict
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dict
+  namespace: dict
+  labels:
+    app: dict
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dict
+  template:
+    metadata:
+      namespace: dict
+      labels:
+        app: dict
+    spec:
+      containers:
+        - name: dict
+          image: registry.gitlab.com/mialkin/dict.mialkin.ru
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: dict
