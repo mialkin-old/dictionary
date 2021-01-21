@@ -9,16 +9,16 @@ metadata:
 spec:
   tls:
     - hosts:
-        - mialkin.com
-      secretName: letsencrypt-mialkin-tls-secret
+        - dict.mialkin.com
+      secretName: letsencrypt-dict-tls-secret
   rules:
-    - host: mialkin.com
+    - host: dict.mialkin.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: mialkin
+                name: dict
                 port:
                   number: 80
