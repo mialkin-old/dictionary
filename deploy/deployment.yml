@@ -25,6 +25,15 @@ spec:
       port: 80
       targetPort: 80
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dict
+  namespace: mialkin
+data:
+  admin-username: aleksei
+  admin-password: jPmPmWBClspIUY3f
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -50,8 +59,14 @@ spec:
             - containerPort: 80
           env:
           - name: ADMIN_USERNAME
-            value: "aleksei"
+            valueFrom:
+              configMapKeyRef:
+                name: dict
+                key: admin-username
           - name: ADMIN_PASSWORD
-            value: "jPmPmWBClspIUY3f"
+            valueFrom:
+              configMapKeyRef:
+                name: dict
+                key: admin-password
       imagePullSecrets:
         - name: dict
