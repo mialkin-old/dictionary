@@ -1,4 +1,9 @@
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: mialkin
+---
+apiVersion: v1
 kind: Secret
 metadata:
   name: dict
@@ -43,5 +48,10 @@ spec:
           image: registry.gitlab.com/mialkin/dict.mialkin.ru
           ports:
             - containerPort: 80
+          env:
+          - name: ADMIN_USERNAME
+            value: "aleksei"
+          - name: ADMIN_PASSWORD
+            value: "jPmPmWBClspIUY3f"
       imagePullSecrets:
         - name: dict
