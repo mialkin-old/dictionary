@@ -58,15 +58,22 @@ spec:
           ports:
             - containerPort: 80
           env:
-          - name: ADMIN_USERNAME
-            valueFrom:
-              configMapKeyRef:
-                name: dict
-                key: admin-username
-          - name: ADMIN_PASSWORD
-            valueFrom:
-              configMapKeyRef:
-                name: dict
-                key: admin-password
+            - name: ADMIN_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: dict
+                  key: admin-username
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: dict
+                  key: admin-password
+          volumeMounts:
+            - mountPath: /app/SQLite-files
+              name: dict
+      volumes:
+        - name: dict
+          persistentVolumeClaim:
+            claimName: dict
       imagePullSecrets:
         - name: dict
