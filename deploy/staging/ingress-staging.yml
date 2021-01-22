@@ -9,10 +9,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - dict.mialkin.com
+        - dict.mialkin.ru
       secretName: letsencrypt-dict-staging-tls-secret
   rules:
-    - host: dict.mialkin.com
+    - host: dict.mialkin.ru
       http:
         paths:
           - path: /
