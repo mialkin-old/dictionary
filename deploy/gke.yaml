@@ -1,0 +1,21 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: dict
+  namespace: mialkin
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-ssd
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dict
+  namespace: mialkin
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: dict
+  resources:
+    requests:
+      storage: 1Gi
