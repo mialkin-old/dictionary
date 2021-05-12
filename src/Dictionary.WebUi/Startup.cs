@@ -5,18 +5,14 @@ using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
 using Dictionary.Database;
-using Dictionary.Database.Repositories.Stats;
 using Dictionary.Database.Repositories.Word;
 using Dictionary.Excel.Parsers;
 using Dictionary.Excel.Parsers.Word;
 using Dictionary.Services.Configs;
 using Dictionary.Services.Models.Account;
-using Dictionary.Services.Models.Stats;
 using Dictionary.Services.Models.Word;
 using Dictionary.Services.Services.Account;
 using Dictionary.Services.Services.Import;
-using Dictionary.Services.Services.Stats;
-using Dictionary.Services.Services.User;
 using Dictionary.Services.Services.Word;
 using Dictionary.WebUi.AutoMapper;
 using Dictionary.WebUi.Configs;
@@ -85,15 +81,11 @@ namespace Dictionary.WebUi
             services.AddSingleton(new UserCredentialsConfig(adminUsername, adminPassword));
 
             services.AddTransient<IWordRepository, WordRepository>();
-            services.AddTransient<IStatsRepository, StatsRepository>();
 
             services.AddTransient<IWordService, WordService>();
-            services.AddTransient<IStatsService, StatsService>();
             services.AddTransient<IImportService, ImportService>();
-            services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAccountService, AccountService>();
-
-            services.AddTransient<ContributionYearValidator>();
+            
             services.AddTransient<WordExistsValidator>();
             services.AddTransient<UserCredentialsValidator>();
 

@@ -63,7 +63,6 @@ export class Main extends Component {
                     <option value={2}>Français</option>
                     <option value={1}>English</option>
                     <option value={4}>Русский</option>
-                    <option value={5}>Українська</option>
                 </select>
                 <div id="name-translation-container">
                     <input id="name"

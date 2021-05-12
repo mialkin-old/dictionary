@@ -16,7 +16,7 @@ namespace Dictionary.Database.Repositories.Word
 
         public async Task CreateAsync(IEnumerable<WordDto> words)
         {
-            // Грузить порциями по 1000 слов. Report back progress.
+            // Грузить порциями по 1000 слов.
             await Entities.AddRangeAsync(words);
         }
 

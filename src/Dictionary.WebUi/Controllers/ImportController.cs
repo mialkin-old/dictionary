@@ -29,25 +29,5 @@ namespace Dictionary.WebUi.Controllers
 
             return Ok();
         }
-
-
-        //[HttpPost]
-        //[Route("upload")]
-        //public async Task<IActionResult> Upload(IFormFile archive)
-        //{
-        //    var ms = new MemoryStream();
-        //    await archive.CopyToAsync(ms);
-
-        //    string str = Encoding.UTF8.GetString(ms.ToArray());
-
-        //    var words = JsonSerializer.Deserialize<List<WordDto>>(str);
-
-        //    //foreach (var word in words)
-        //    //{
-        //    //    await _wordRepository.CreateAsync(word);
-        //    //}
-
-        //    return Ok();
-        //}
     }
 }
