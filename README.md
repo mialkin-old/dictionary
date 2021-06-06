@@ -75,3 +75,9 @@ Make sure that cron settings were modified by running:
 ```bash
 crontab -l
 ```
+
+## Copying db file from Kubernetes' pod
+
+```bash
+kubectl cp dict-9649696b4-l4pb5:app/SQLite-files/dictionary.db dictionary.db -n mialkin
+```
