@@ -1,16 +1,16 @@
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: dict
   namespace: mialkin
 spec:
   hosts:
-  - "dict.mialkin.ru"
+    - "dict.mialkin.ru"
   gateways:
-  - mialkin-ru-gateway
+    - mialkin-ru-gateway
   http:
-  - route:
-    - destination:
-        host: dict
-        port:
-          number: 80
+    - route:
+        - destination:
+            host: dict
+            port:
+              number: 80

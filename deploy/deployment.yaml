@@ -19,6 +19,7 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
+      name: http-dict
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -26,8 +27,8 @@ metadata:
   name: dict
   namespace: mialkin
 data:
-  admin-username: aleksei
-  admin-password: jPmPmWBClspIUY3f
+  admin-username: YOUR_USERNAME
+  admin-password: YOUR_PASSWORS
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -46,6 +47,7 @@ spec:
       namespace: mialkin
       labels:
         app: dict
+        version: "1.0"
     spec:
       containers:
         - name: dict
