@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dictionary.Database\Dictionary.Database.csproj" />
-    <ProjectReference Include="..\Dictionary.Excel\Dictionary.Excel.csproj" />
     <ProjectReference Include="..\Dictionary.Shared\Dictionary.Shared.csproj" />
   </ItemGroup>
 

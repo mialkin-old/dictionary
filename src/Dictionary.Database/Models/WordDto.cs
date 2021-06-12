@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dictionary.Database.Models
 {
+    [Index(nameof(Name), nameof(LanguageId), IsUnique = true)]
     public class WordDto
     {
         [Key]

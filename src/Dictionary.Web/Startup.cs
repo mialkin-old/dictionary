@@ -58,7 +58,7 @@ namespace Dictionary.Web
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
 
-            services.AddDbContext<DictionaryDb>(options => options.UseSqlite($"Data Source={_dbFilePath}"));
+            services.AddDbContext<DictionaryDb>(options => options.UseSqlite($"Data Source={_dbFilePath}", x => x.MigrationsAssembly("Dictionary.Web")));
 
             var mapperConfiguration = new MapperConfiguration(cfg => { cfg.AddProfile<MappingProfile>(); });
             services.AddSingleton(mapperConfiguration.CreateMapper());
