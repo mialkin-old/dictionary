@@ -4,10 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Dictionary.Database;
 using Dictionary.Database.Repositories.Word;
-using Dictionary.Services.Configs;
-using Dictionary.Services.Models.Account;
 using Dictionary.Services.Models.Word;
-using Dictionary.Services.Services.Account;
 using Dictionary.Services.Services.Word;
 using Dictionary.Web.AutoMapper;
 using Dictionary.Web.Configs;
@@ -72,7 +69,6 @@ namespace Dictionary.Web
             services.AddTransient<IWordRepository, WordRepository>();
             services.AddTransient<IWordService, WordService>();
             services.AddTransient<WordExistsValidator>();
-            services.AddTransient<UserCredentialsValidator>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
