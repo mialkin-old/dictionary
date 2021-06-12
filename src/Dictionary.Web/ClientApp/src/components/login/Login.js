@@ -60,13 +60,14 @@ export class Login extends Component {
                 username: this.state.username,
                 password: this.state.password
             })
-        }).then(response => response.json())
-            .then(data => {
-                if (data.success === true) {
-                    window.location.replace("/");
-                } else {
-                    alert(data.errorMessage)
-                }
-            })
+        });
+
+        const data = await response.json();
+
+        if (data.success === true) {
+            window.location.replace("/");
+        } else {
+            alert(data.errorMessage)
+        }
     }
 }

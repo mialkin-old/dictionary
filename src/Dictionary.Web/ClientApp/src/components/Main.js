@@ -32,20 +32,20 @@ export class Main extends Component {
         this.update = this.update.bind(this);
         this.delete = this.delete.bind(this);
 
-        this.clean = this.clean.bind(this);
+        this.cleanAndFetch = this.cleanAndFetch.bind(this);
         this.escFunction = this.escFunction.bind(this);
     }
 
     escFunction(event) {
         if (event.keyCode === 27) { // Escape key pressed.
-            this.clean();
+            this.cleanAndFetch();
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         document.addEventListener("keydown", this.escFunction, false);
 
-        this.fetchWords();
+        await this.fetchWords();
     }
 
     componentWillUnmount() {
@@ -76,7 +76,7 @@ export class Main extends Component {
                            placeholder="Транскрипция"/>
 
                     <label id="clean-label"
-                           onClick={() => this.clean('')}>Очистить</label>
+                           onClick={() => this.cleanAndFetch()}>Очистить</label>
                     <label id="delete-label"
                            onClick={this.delete}>Удалить</label>
                 </div>
@@ -104,12 +104,22 @@ export class Main extends Component {
         this.setState({
             languageId: parseInt(e.target.value, 10)
         }, () => {
-            this.clean();
+            this.cleanAndFetch();
         });
     }
 
     handleNameChange(e) {
-        this.clean(e.target.value);
+        this.setState({
+            word: {
+                id: null,
+                name: e.target.value,
+                genderId: 0,
+                transcription: '',
+                translation: ''
+            }
+        }, async () => {
+            await this.fetchWords();
+        });
     }
 
     handleTranscriptionChange(e) {
@@ -146,13 +156,11 @@ export class Main extends Component {
     }
 
     handleSave() {
-        this.state.word.id == null ?
-            this.create() :
-            this.update();
+        this.state.word.id == null ? this.create() : this.update();
     }
 
     async create() {
-        const response = await fetch('api/v1/word/create', {
+        await fetch('api/v1/word/create', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -165,15 +173,15 @@ export class Main extends Component {
                 GenderId: this.state.word.genderId,
                 Translation: this.state.word.translation
             })
-        }).then((response) => {
-            this.clean();
         });
+
+        this.cleanAndFetch();
     }
 
     async update() {
         let word = this.state.word;
 
-        const response = await fetch('api/v1/word/update', {
+        await fetch('api/v1/word/update', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -187,16 +195,16 @@ export class Main extends Component {
                 Transcription: word.transcription,
                 Translation: word.translation
             })
-        }).then((response) => {
-            this.clean();
         });
+
+        this.cleanAndFetch();
     }
 
     async delete() {
         let word = this.state.word;
         if (word.id != null) {
             if (window.confirm(`Удалить слово "${word.name}"?`)) {
-                const response = await fetch('api/v1/word/delete', {
+                await fetch('api/v1/word/delete', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -205,31 +213,31 @@ export class Main extends Component {
                     body: JSON.stringify({
                         Id: word.id,
                     })
-                }).then((response) => {
-                    this.clean();
                 });
+
+                this.cleanAndFetch();
             }
         }
     }
 
-    clean(name = '') {
+    cleanAndFetch() {
         this.setState({
             word: {
                 id: null,
-                name: name,
+                name: '',
                 genderId: 0,
                 transcription: '',
                 translation: ''
             }
-        }, () => {
-            this.fetchWords();
+        }, async () => {
+            await this.fetchWords();
         });
     }
 
     async fetchWords() {
         let url = `api/v1/word/list?l=${this.state.languageId}`;
 
-        let term = this.state.word.name.trim();
+        const term = this.state.word.name.trim();
 
         if (term !== '') {
             url = `api/v1/word/search?l=${this.state.languageId}&q=${term}`;
@@ -247,7 +255,7 @@ export class Main extends Component {
                 id: word.wordId,
                 name: word.name,
                 genderId: word.genderId,
-                transcription: word.transcription,
+                transcription: word.transcription ?? '',
                 translation: word.translation,
                 created: word.created
             },

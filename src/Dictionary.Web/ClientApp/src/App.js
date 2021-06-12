@@ -49,22 +49,20 @@ export default class App extends Component {
         );
     }
 
-    componentDidMount() {
-        this.fetchUserInfo().then(() => {
-        });
+    async componentDidMount() {
+        await this.fetchUserInfo();
     }
 
     async fetchUserInfo() {
-        let url = `api/v1/account/info`;
-        const response = await fetch(url);
-        response.json().then(data => {
-            if (data.isLoggedIn === true) {
-                this.setState({
-                    user: {
-                        isLoggedIn: true
-                    }
-                })
-            }
-        });
+        const response = await fetch('api/v1/account/info');
+        const data = await response.json();
+
+        if (data.isLoggedIn === true) {
+            this.setState({
+                user: {
+                    isLoggedIn: true
+                }
+            })
+        }
     }
 }
