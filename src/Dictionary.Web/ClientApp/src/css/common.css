@@ -1,0 +1,97 @@
+html {
+    overflow-y: scroll;
+}
+
+#language-select, #translation {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#name-translation-container {
+    margin-top: 10px;
+}
+
+#name-translation-container #name {
+    width: 150px;
+}
+
+#name-translation-container #transcription {
+    width: 150px;
+    margin-left: 20px;
+}
+
+#name-translation-container #clean-label {
+    margin-left: 20px;
+}
+
+#name-translation-container #delete-label {
+    margin-left: 20px;
+}
+
+#gender-container {
+    margin-top: 10px;
+}
+
+#gender-container label {
+    margin-right: 3px;
+}
+
+#gender-container input {
+    margin-right: 10px;
+    position: relative;
+    top: 2px;
+}
+
+#save-btn {
+    margin-top: 10px;
+    width: 100px;
+}
+
+.word-list {
+    font-size: 16px;
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    color: black;
+    margin-top: 20px;
+}
+
+.word-list .transcription-container {
+    display: inline-block;
+}
+
+.word-list .transcription-container .transcription {
+    font-style: italic;
+}
+
+.word-list .gender {
+    color: green;
+    font-style: italic;
+    margin-right: 5px;
+}
+
+.dict-container {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.word-in-list {
+    margin: 0 0 15px 0;
+}
+
+.word-in-list .word {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.word-in-list .created {
+    display: inline-block;
+    font-size: 8px;
+    margin-left: 5px;
+    color: lightgray;
+}
+
+
+@media screen and (max-width: 1200px) {
+    .dict-container {
+        width: 90%;
+    }
+}

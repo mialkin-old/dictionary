@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Dictionary.Web.Controllers
 {
     [Authorize]
+    [ApiController]
+    [Route("api/v1/[controller]")]
     public class WordController : Controller
     {
         private readonly IWordService _wordService;
@@ -25,6 +27,7 @@ namespace Dictionary.Web.Controllers
             _mapper = mapper;
         }
 
+        [Route("create")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] WordCreateVm model)
         {
@@ -44,9 +47,10 @@ namespace Dictionary.Web.Controllers
 
             int id = await _wordService.CreateAsync(_mapper.Map<WordCreateServiceModel>(model));
 
-            return Ok(new StandardResult<int> { Data = id });
+            return Ok(new StandardResult<int> {Data = id});
         }
 
+        [Route("update")]
         [HttpPost]
         public async Task<IActionResult> Update([FromBody] WordUpdateVm model)
         {
@@ -58,6 +62,7 @@ namespace Dictionary.Web.Controllers
             return Ok();
         }
 
+        [Route("delete")]
         [HttpPost]
         public async Task<IActionResult> Delete([FromBody] WordDeleteVm model)
         {
@@ -67,7 +72,9 @@ namespace Dictionary.Web.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> List(WordListFilter filter)
+        [Route("list")]
+        [HttpGet]
+        public async Task<IActionResult> List([FromQuery] WordListFilter filter)
         {
             filter.OrderByDescending = true;
             filter.OrderByPropertyName = "Created";
@@ -78,7 +85,9 @@ namespace Dictionary.Web.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Search(WordSearchFilter filter)
+        [Route("search")]
+        [HttpGet]
+        public async Task<IActionResult> Search([FromQuery] WordSearchFilter filter)
         {
             filter.OrderByDescending = true;
             filter.OrderByPropertyName = "Created";

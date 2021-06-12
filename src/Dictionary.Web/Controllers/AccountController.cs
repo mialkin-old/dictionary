@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Dictionary.Web.Options;
+using Dictionary.Web.ViewModels.Login;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -9,6 +10,8 @@ using Microsoft.Extensions.Options;
 
 namespace Dictionary.Web.Controllers
 {
+    [ApiController]
+    [Route("api/v1/[controller]")]
     public class AccountController : Controller
     {
         private readonly LoginOptions _loginOptions;
@@ -18,19 +21,21 @@ namespace Dictionary.Web.Controllers
             _loginOptions = loginOptions.Value;
         }
 
+        [Route("info")]
         [HttpGet]
         public IActionResult Info()
         {
             return Json(User.Identity.IsAuthenticated ? new { isLoggedIn = true } : new { isLoggedIn = false });
         }
 
+        [Route("login")]
         [HttpPost]
-        public async Task<IActionResult> LogIn(string username, string password)
+        public async Task<IActionResult> Login([FromBody] LoginVm model)
         {
             if (User.Identity.IsAuthenticated)
                 return Json(new { success = false, errorMessage = "You are already authenticated!" });
 
-            bool valid = username == _loginOptions.Username && password == _loginOptions.Password;
+            bool valid = model.Username == _loginOptions.Username && model.Password == _loginOptions.Password;
             if (!valid)
                 return Json(new { success = false, errorMessage = "Invalid credentials!" });
 
@@ -43,6 +48,7 @@ namespace Dictionary.Web.Controllers
             return Json(new { success = true });
         }
 
+        [Route("logout")]
         [HttpGet]
         [Authorize]
         public IActionResult LogOut()

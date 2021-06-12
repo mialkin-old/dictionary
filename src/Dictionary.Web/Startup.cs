@@ -87,6 +87,9 @@ namespace Dictionary.Web
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+            
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
