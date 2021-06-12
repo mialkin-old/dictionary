@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dictionary.Excel", "src\Dic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dictionary.Tests", "test\Dictionary.Tests\Dictionary.Tests.csproj", "{54702D34-F07F-4241-B40A-AB82EA27C419}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dictionary.Web", "src\Dictionary.Web\Dictionary.Web.csproj", "{0964978A-3C7D-40CB-A91A-5A5F986E64E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{54702D34-F07F-4241-B40A-AB82EA27C419}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54702D34-F07F-4241-B40A-AB82EA27C419}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54702D34-F07F-4241-B40A-AB82EA27C419}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0964978A-3C7D-40CB-A91A-5A5F986E64E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0964978A-3C7D-40CB-A91A-5A5F986E64E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0964978A-3C7D-40CB-A91A-5A5F986E64E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0964978A-3C7D-40CB-A91A-5A5F986E64E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +76,7 @@ Global
 		{4BFBB570-E3A0-4527-92B4-6CCD1F451F3C} = {505A84EB-F7FB-43A5-A53D-87B89B24EDA1}
 		{16D2BF53-543F-41C2-942D-8A1DE7DDDEB8} = {505A84EB-F7FB-43A5-A53D-87B89B24EDA1}
 		{54702D34-F07F-4241-B40A-AB82EA27C419} = {5DF25C96-AF04-410D-B18E-350EAE7524D8}
+		{0964978A-3C7D-40CB-A91A-5A5F986E64E5} = {505A84EB-F7FB-43A5-A53D-87B89B24EDA1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1B6C7B6D-E669-4C4C-9947-48E0417D3E82}
