@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0.401-focal-arm64v8 AS build
 
 COPY src /app
 
@@ -7,13 +7,13 @@ WORKDIR /app/Dictionary.Web
 RUN dotnet restore
 RUN dotnet publish -c Release -o out
 
-FROM node:16-alpine3.11 AS npm-build
+FROM arm64v8/node:16 AS npm-build
 COPY --from=build /app/Dictionary.Web/ClientApp /usr/src/app
 WORKDIR /usr/src/app
 RUN npm install
 RUN npm run build
 
-FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:5.0.10-focal-arm64v8 AS runtime
 
 COPY --from=build /app/Dictionary.Web/out /app
 COPY --from=npm-build /usr/src/app/build /app/npm-build

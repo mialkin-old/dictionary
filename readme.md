@@ -1,5 +1,12 @@
 # Dictionary
 
+## Build Docker image
+
+```bash
+docker build -f Dockerfile.ARM -t registry.gitlab.com/mialkin/dict.mialkin.ru:arm64v8 .
+docker push registry.gitlab.com/mialkin/dict.mialkin.ru:arm64v8
+```
+
 ## Installing dictionary
 
 1\. Install [Docker Desktop](https://docs.docker.com/get-docker/) on your computer.

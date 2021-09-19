@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dict
+  namespace: mialkin
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJyZWdpc3RyeS5naXRsYWIuY29tIjp7InVzZXJuYW1lIjoiZGljdCIsInBhc3N3b3JkIjoiSzRvS2RKZEwtOTZERmdrOXNaaTEiLCJhdXRoIjoiWkdsamREcExORzlMWkVwa1RDMDVOa1JHWjJzNWMxcHBNUT09In19fQ==
+type: kubernetes.io/dockerconfigjson
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dict
+  namespace: mialkin
+spec:
+  selector:
+    app: dict
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      name: http-dict
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dict
+  namespace: mialkin
+data:
+  admin-username: YOUR_USERNAME
+  admin-password: YOUR_PASSWORS
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dict
+  namespace: mialkin
+  labels:
+    app: dict
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dict
+  template:
+    metadata:
+      namespace: mialkin
+      labels:
+        app: dict
+        version: "1.0"
+    spec:
+      containers:
+        - name: dict
+          image: registry.gitlab.com/mialkin/dict.mialkin.ru:arm64v8
+          ports:
+            - containerPort: 80
+          env:
+            - name: ADMIN_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: dict
+                  key: admin-username
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: dict
+                  key: admin-password
+          volumeMounts:
+            - mountPath: /app/SQLite-files
+              name: dict
+      volumes:
+        - name: dict
+          persistentVolumeClaim:
+            claimName: dict
+      imagePullSecrets:
+        - name: dict

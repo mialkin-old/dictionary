@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		Dockerfile = Dockerfile
 		.dockerignore = .dockerignore
-		README.md = README.md
+		readme.md = readme.md
 		.gitlab-ci.yml = .gitlab-ci.yml
 		docker-compose.yml = docker-compose.yml
 		sonar-project.properties = sonar-project.properties
@@ -39,6 +39,7 @@ ProjectSection(SolutionItems) = preProject
 	deploy\gke.yaml = deploy\gke.yaml
 	deploy\deployment.yaml = deploy\deployment.yaml
 	deploy\aks.yaml = deploy\aks.yaml
+	deploy\deployment.ARM.yaml = deploy\deployment.ARM.yaml
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "istio", "istio", "{1C5E8A2E-55D7-4884-85EC-BAA07985B8C8}"
