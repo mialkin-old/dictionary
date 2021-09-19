@@ -19,6 +19,6 @@ RUN npm run build
 FROM mcr.microsoft.com/dotnet/aspnet:5.0.10-focal-arm64v8 AS runtime
 
 COPY --from=build /app/Dictionary.Web/out /app
-COPY --from=npm-build /usr/src/app/build /app/ClientApp
+COPY --from=npm-build /usr/src/app/build /app/ClientApp/build
 WORKDIR /app
 ENTRYPOINT ["dotnet", "Dictionary.Web.dll"]
