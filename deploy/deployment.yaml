@@ -28,7 +28,7 @@ metadata:
   namespace: mialkin
 data:
   admin-username: YOUR_USERNAME
-  admin-password: YOUR_PASSWORS
+  admin-password: YOUR_PASSWORD
 ---
 apiVersion: apps/v1
 kind: Deployment
