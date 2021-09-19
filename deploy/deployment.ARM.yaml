@@ -30,6 +30,19 @@ data:
   admin-username: YOUR_USERNAME
   admin-password: YOUR_PASSWORS
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dict
+  namespace: mialkin
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 50Mi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -47,11 +60,12 @@ spec:
       namespace: mialkin
       labels:
         app: dict
-        version: 1.0
+        version: "1.0"
     spec:
       containers:
         - name: dict
           image: registry.gitlab.com/mialkin/dict.mialkin.ru:arm64v8
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
           env:
