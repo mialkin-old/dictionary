@@ -7,9 +7,9 @@ namespace Dictionary.Web.Options
         public const string Login = "Login";
 
         [Required(AllowEmptyStrings = false)]
-        public string Username { get; set; } = null!;
+        public string? Username { get; set; }
 
         [Required(AllowEmptyStrings = false)]
-        public string Password { get; set; } = null!;
+        public string? Password { get; set; }
     }
 }
