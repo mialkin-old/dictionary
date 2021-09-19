@@ -47,7 +47,7 @@ spec:
       namespace: mialkin
       labels:
         app: dict
-        version: "1.0"
+        version: 1.0
     spec:
       containers:
         - name: dict

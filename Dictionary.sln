@@ -47,6 +47,11 @@ ProjectSection(SolutionItems) = preProject
 	deploy\istio\virtual-service.yaml = deploy\istio\virtual-service.yaml
 EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "traefik", "traefik", "{E4DB6152-A2D6-491A-8AC0-9EA6AD538056}"
+ProjectSection(SolutionItems) = preProject
+	deploy\traefik\ingress.yaml = deploy\traefik\ingress.yaml
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +87,7 @@ Global
 		{3380F5A7-8DE9-42B3-A200-92E5C8EBB5BE} = {F66A3184-B416-4C52-AC21-519F5154C8DA}
 		{FE217454-4892-41BC-BF41-0D31B6BA2280} = {600E4491-D65E-4C3C-81E4-5E675B544579}
 		{1C5E8A2E-55D7-4884-85EC-BAA07985B8C8} = {FE217454-4892-41BC-BF41-0D31B6BA2280}
+		{E4DB6152-A2D6-491A-8AC0-9EA6AD538056} = {FE217454-4892-41BC-BF41-0D31B6BA2280}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1B6C7B6D-E669-4C4C-9947-48E0417D3E82}
