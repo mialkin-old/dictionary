@@ -60,7 +60,6 @@ namespace Dictionary.Database.Repositories.Word
             }
 
             var result = await query.Take(filter.Take).ToListAsync();
-
             return result;
         }
 

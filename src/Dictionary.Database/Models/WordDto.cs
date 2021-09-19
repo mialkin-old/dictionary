@@ -17,7 +17,7 @@ namespace Dictionary.Database.Models
         public string Translation { get; set; }
 
         [MaxLength(50)]
-        public string Transcription { get; set; }
+        public string? Transcription { get; set; }
 
         public int LanguageId { get; set; }
         

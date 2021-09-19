@@ -23,7 +23,7 @@
         /// <summary>
         /// Name of the property to sort by.
         /// </summary>
-        public string OrderByPropertyName { get; set; }
+        public string? OrderByPropertyName { get; set; }
         
         /// <summary>
         /// Sorting direction.
