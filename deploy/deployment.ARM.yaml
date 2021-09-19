@@ -69,12 +69,12 @@ spec:
           ports:
             - containerPort: 80
           env:
-            - name: ADMIN_USERNAME
+            - name: DICT_ADMIN_USERNAME
               valueFrom:
                 configMapKeyRef:
                   name: dict
                   key: admin-username
-            - name: ADMIN_PASSWORD
+            - name: DICT_ADMIN_PASSWORD
               valueFrom:
                 configMapKeyRef:
                   name: dict
